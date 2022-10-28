@@ -36,6 +36,7 @@
 		B6F67B71290C5C5700CB8263 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B70290C5C5700CB8263 /* Button.swift */; };
 		B6F67B73290C5C9B00CB8263 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B72290C5C9B00CB8263 /* UIView.swift */; };
 		B6F67B75290C5D1A00CB8263 /* CircleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B74290C5D1A00CB8263 /* CircleLabel.swift */; };
+		B6F67B77290C6D6700CB8263 /* MainViewTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B76290C6D6700CB8263 /* MainViewTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +71,7 @@
 		B6F67B70290C5C5700CB8263 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		B6F67B72290C5C9B00CB8263 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		B6F67B74290C5D1A00CB8263 /* CircleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleLabel.swift; sourceTree = "<group>"; };
+		B6F67B76290C6D6700CB8263 /* MainViewTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				B6F67B6A290C554200CB8263 /* MainBaseView.swift */,
+				B6F67B76290C6D6700CB8263 /* MainViewTextField.swift */,
 			);
 			path = Subview;
 			sourceTree = "<group>";
@@ -265,6 +268,7 @@
 				B6F67B73290C5C9B00CB8263 /* UIView.swift in Sources */,
 				B6F67B50290C25C600CB8263 /* ViewModel.swift in Sources */,
 				B6F67B5A290C2AFD00CB8263 /* MainViewAssembly.swift in Sources */,
+				B6F67B77290C6D6700CB8263 /* MainViewTextField.swift in Sources */,
 				B6F67B6D290C5BDC00CB8263 /* Color.swift in Sources */,
 				B6F67B6F290C5C3700CB8263 /* TextField.swift in Sources */,
 				B6F67B66290C54C900CB8263 /* String.swift in Sources */,

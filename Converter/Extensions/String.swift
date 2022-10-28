@@ -10,4 +10,5 @@ extension String {
     static let convert = "Kонвертировать"
     static let enterValue = "Введите значение"
     static let rubleSign = "₽"
+    static let chooseCurrency = "Выбрать"
 }

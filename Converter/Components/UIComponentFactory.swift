@@ -9,9 +9,10 @@ import UIKit
 
 struct UIFactory {
     
-    static func createButton(with title: String) -> Button {
+    static func createButton(with title: String, radius: CGFloat = 12, font: Button.Font = .regular) -> Button {
         let button = Button()
-        button.configure(title)
+        button.cornerRadius = radius
+        button.configure(title, font: font)
         return button
     }
     
