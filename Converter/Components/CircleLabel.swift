@@ -9,9 +9,9 @@ import UIKit
 
 final class CircleLabel: Viеw {
     
-    let backView = UIView()
-    let view = UIView()
-    let label = UILabel().configure {
+    private let backView = UIView()
+    private let view = UIView()
+    private let label = UILabel().configure {
         $0.textColor = Color.white
         $0.font = .systemFont(ofSize: 24, weight: .bold)
     }

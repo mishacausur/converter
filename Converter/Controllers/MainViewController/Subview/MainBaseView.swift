@@ -9,11 +9,11 @@ import UIKit.NSLayoutConstraint
 
 final class MainBaseView: Viеw {
     
-    let upperTextField = UIFactory.createTextField(with: .enterValue)
-    let upperCircle = CircleLabel().configure { $0.translatesAutoresizingMaskIntoConstraints = false }
-    let lowerTextField = UIFactory.createTextField(with: .enterValue)
-    let lowerCircle = CircleLabel().configure { $0.translatesAutoresizingMaskIntoConstraints = false }
-    let button = UIFactory.createButton(with: .convert)
+    private let upperTextField = UIFactory.createTextField(with: .enterValue)
+    private let upperCircle = CircleLabel().configure { $0.translatesAutoresizingMaskIntoConstraints = false }
+    private let lowerTextField = UIFactory.createTextField(with: .enterValue)
+    private let lowerCircle = CircleLabel().configure { $0.translatesAutoresizingMaskIntoConstraints = false }
+    private let button = UIFactory.createButton(with: .convert)
     
     
     override func addViews() {

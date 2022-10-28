@@ -10,7 +10,7 @@ import UIKit.UIViewController
 class ViewController<View: Viеw, ViewModеl: ViewModel>: UIViewController,
                                   ViewInput {
     
-    let viewModel: ViewModеl
+    private let viewModel: ViewModеl
     
     init(viewModel: ViewModеl) {
         self.viewModel = viewModel

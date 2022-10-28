@@ -9,7 +9,7 @@ import UIKit
 
 final class MainView: Viеw {
     
-    let view = MainBaseView().configure { $0.translatesAutoresizingMaskIntoConstraints = false }
+    private let view = MainBaseView().configure { $0.translatesAutoresizingMaskIntoConstraints = false }
     
     override func configure() {
         super.configure()
