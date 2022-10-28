@@ -6,16 +6,16 @@
 //
 
 import Foundation
+import UIKit
 
 protocol Configurable {
 }
 
-extension Configurable where Self: AnyObject {
+extension Configurable where Self: UIView {
+    
+    @discardableResult
     func configure(_ block: (Self) throws -> Void) rethrows -> Self {
         try block(self)
         return self
     }
-}
-
-extension NSObject: Configurable {
 }

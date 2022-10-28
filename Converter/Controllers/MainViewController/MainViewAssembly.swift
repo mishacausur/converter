@@ -7,6 +7,7 @@
 import UIKit
 
 extension ModuleFactory {
+    
     static func createMainModule(_ coordinator: Coordinatable) -> Module<MainViewController> {
         let viewModel = MainViewModel()
         viewModel.coordinator = coordinator

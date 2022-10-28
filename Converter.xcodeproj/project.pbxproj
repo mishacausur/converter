@@ -26,6 +26,16 @@
 		B6F67B5A290C2AFD00CB8263 /* MainViewAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B59290C2AFD00CB8263 /* MainViewAssembly.swift */; };
 		B6F67B5D290C2E6C00CB8263 /* Module.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B5C290C2E6C00CB8263 /* Module.swift */; };
 		B6F67B5F290C2E8800CB8263 /* Presentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B5E290C2E8800CB8263 /* Presentable.swift */; };
+		B6F67B61290C491000CB8263 /* UIComponentFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B60290C491000CB8263 /* UIComponentFactory.swift */; };
+		B6F67B64290C4C9300CB8263 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B63290C4C9300CB8263 /* UIColor.swift */; };
+		B6F67B66290C54C900CB8263 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B65290C54C900CB8263 /* String.swift */; };
+		B6F67B68290C54E300CB8263 /* CGFloat.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B67290C54E300CB8263 /* CGFloat.swift */; };
+		B6F67B6B290C554200CB8263 /* MainBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B6A290C554200CB8263 /* MainBaseView.swift */; };
+		B6F67B6D290C5BDC00CB8263 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B6C290C5BDC00CB8263 /* Color.swift */; };
+		B6F67B6F290C5C3700CB8263 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B6E290C5C3700CB8263 /* TextField.swift */; };
+		B6F67B71290C5C5700CB8263 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B70290C5C5700CB8263 /* Button.swift */; };
+		B6F67B73290C5C9B00CB8263 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B72290C5C9B00CB8263 /* UIView.swift */; };
+		B6F67B75290C5D1A00CB8263 /* CircleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B74290C5D1A00CB8263 /* CircleLabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +60,16 @@
 		B6F67B59290C2AFD00CB8263 /* MainViewAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewAssembly.swift; sourceTree = "<group>"; };
 		B6F67B5C290C2E6C00CB8263 /* Module.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Module.swift; sourceTree = "<group>"; };
 		B6F67B5E290C2E8800CB8263 /* Presentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Presentable.swift; sourceTree = "<group>"; };
+		B6F67B60290C491000CB8263 /* UIComponentFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIComponentFactory.swift; sourceTree = "<group>"; };
+		B6F67B63290C4C9300CB8263 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		B6F67B65290C54C900CB8263 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		B6F67B67290C54E300CB8263 /* CGFloat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGFloat.swift; sourceTree = "<group>"; };
+		B6F67B6A290C554200CB8263 /* MainBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainBaseView.swift; sourceTree = "<group>"; };
+		B6F67B6C290C5BDC00CB8263 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		B6F67B6E290C5C3700CB8263 /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
+		B6F67B70290C5C5700CB8263 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
+		B6F67B72290C5C9B00CB8263 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		B6F67B74290C5D1A00CB8263 /* CircleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +102,7 @@
 		B6F67B2A290C1A0300CB8263 /* Converter */ = {
 			isa = PBXGroup;
 			children = (
+				B6F67B62290C4C7B00CB8263 /* Extensions */,
 				B6F67B5B290C2E5900CB8263 /* ModuleFactory */,
 				B6F67B4D290C256B00CB8263 /* Controllers */,
 				B6F67B4A290C24E200CB8263 /* Components */,
@@ -114,6 +135,11 @@
 				B6F67B2F290C1A0300CB8263 /* ViewController.swift */,
 				B6F67B4F290C25C600CB8263 /* ViewModel.swift */,
 				B6F67B4B290C250200CB8263 /* View.swift */,
+				B6F67B6E290C5C3700CB8263 /* TextField.swift */,
+				B6F67B70290C5C5700CB8263 /* Button.swift */,
+				B6F67B74290C5D1A00CB8263 /* CircleLabel.swift */,
+				B6F67B60290C491000CB8263 /* UIComponentFactory.swift */,
+				B6F67B6C290C5BDC00CB8263 /* Color.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -129,6 +155,7 @@
 		B6F67B4E290C257A00CB8263 /* MainViewController */ = {
 			isa = PBXGroup;
 			children = (
+				B6F67B69290C553300CB8263 /* Subview */,
 				B6F67B51290C278C00CB8263 /* MainViewController.swift */,
 				B6F67B53290C27A100CB8263 /* MainView.swift */,
 				B6F67B55290C280200CB8263 /* MainViewModel.swift */,
@@ -144,6 +171,25 @@
 				B6F67B5E290C2E8800CB8263 /* Presentable.swift */,
 			);
 			path = ModuleFactory;
+			sourceTree = "<group>";
+		};
+		B6F67B62290C4C7B00CB8263 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				B6F67B63290C4C9300CB8263 /* UIColor.swift */,
+				B6F67B65290C54C900CB8263 /* String.swift */,
+				B6F67B67290C54E300CB8263 /* CGFloat.swift */,
+				B6F67B72290C5C9B00CB8263 /* UIView.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		B6F67B69290C553300CB8263 /* Subview */ = {
+			isa = PBXGroup;
+			children = (
+				B6F67B6A290C554200CB8263 /* MainBaseView.swift */,
+			);
+			path = Subview;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -216,22 +262,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B6F67B73290C5C9B00CB8263 /* UIView.swift in Sources */,
 				B6F67B50290C25C600CB8263 /* ViewModel.swift in Sources */,
 				B6F67B5A290C2AFD00CB8263 /* MainViewAssembly.swift in Sources */,
+				B6F67B6D290C5BDC00CB8263 /* Color.swift in Sources */,
+				B6F67B6F290C5C3700CB8263 /* TextField.swift in Sources */,
+				B6F67B66290C54C900CB8263 /* String.swift in Sources */,
 				B6F67B54290C27A100CB8263 /* MainView.swift in Sources */,
 				B6F67B52290C278C00CB8263 /* MainViewController.swift in Sources */,
 				B6F67B47290C248A00CB8263 /* Coordinated.swift in Sources */,
 				B6F67B30290C1A0300CB8263 /* ViewController.swift in Sources */,
 				B6F67B56290C280200CB8263 /* MainViewModel.swift in Sources */,
 				B6F67B58290C2AD000CB8263 /* ModuleFactory.swift in Sources */,
+				B6F67B68290C54E300CB8263 /* CGFloat.swift in Sources */,
+				B6F67B64290C4C9300CB8263 /* UIColor.swift in Sources */,
 				B6F67B2C290C1A0300CB8263 /* AppDelegate.swift in Sources */,
 				B6F67B43290C1D4100CB8263 /* Coordinator.swift in Sources */,
+				B6F67B71290C5C5700CB8263 /* Button.swift in Sources */,
 				B6F67B40290C1BAF00CB8263 /* Configurable.swift in Sources */,
+				B6F67B6B290C554200CB8263 /* MainBaseView.swift in Sources */,
 				B6F67B4C290C250200CB8263 /* View.swift in Sources */,
 				B6F67B5F290C2E8800CB8263 /* Presentable.swift in Sources */,
 				B6F67B49290C24B200CB8263 /* Route.swift in Sources */,
 				B6F67B5D290C2E6C00CB8263 /* Module.swift in Sources */,
 				B6F67B2E290C1A0300CB8263 /* SceneDelegate.swift in Sources */,
+				B6F67B61290C491000CB8263 /* UIComponentFactory.swift in Sources */,
+				B6F67B75290C5D1A00CB8263 /* CircleLabel.swift in Sources */,
 				B6F67B45290C246800CB8263 /* Coordinatable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
