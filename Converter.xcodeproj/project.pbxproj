@@ -22,6 +22,10 @@
 		B6F67B52290C278C00CB8263 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B51290C278C00CB8263 /* MainViewController.swift */; };
 		B6F67B54290C27A100CB8263 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B53290C27A100CB8263 /* MainView.swift */; };
 		B6F67B56290C280200CB8263 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B55290C280200CB8263 /* MainViewModel.swift */; };
+		B6F67B58290C2AD000CB8263 /* ModuleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B57290C2AD000CB8263 /* ModuleFactory.swift */; };
+		B6F67B5A290C2AFD00CB8263 /* MainViewAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B59290C2AFD00CB8263 /* MainViewAssembly.swift */; };
+		B6F67B5D290C2E6C00CB8263 /* Module.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B5C290C2E6C00CB8263 /* Module.swift */; };
+		B6F67B5F290C2E8800CB8263 /* Presentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B5E290C2E8800CB8263 /* Presentable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +46,10 @@
 		B6F67B51290C278C00CB8263 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		B6F67B53290C27A100CB8263 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		B6F67B55290C280200CB8263 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		B6F67B57290C2AD000CB8263 /* ModuleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleFactory.swift; sourceTree = "<group>"; };
+		B6F67B59290C2AFD00CB8263 /* MainViewAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewAssembly.swift; sourceTree = "<group>"; };
+		B6F67B5C290C2E6C00CB8263 /* Module.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Module.swift; sourceTree = "<group>"; };
+		B6F67B5E290C2E8800CB8263 /* Presentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Presentable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +82,7 @@
 		B6F67B2A290C1A0300CB8263 /* Converter */ = {
 			isa = PBXGroup;
 			children = (
+				B6F67B5B290C2E5900CB8263 /* ModuleFactory */,
 				B6F67B4D290C256B00CB8263 /* Controllers */,
 				B6F67B4A290C24E200CB8263 /* Components */,
 				B6F67B41290C1D2B00CB8263 /* Coordinator */,
@@ -91,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				B6F67B42290C1D4100CB8263 /* Coordinator.swift */,
+				B6F67B57290C2AD000CB8263 /* ModuleFactory.swift */,
 				B6F67B48290C24B200CB8263 /* Route.swift */,
 				B6F67B46290C248A00CB8263 /* Coordinated.swift */,
 				B6F67B44290C246700CB8263 /* Coordinatable.swift */,
@@ -122,8 +132,18 @@
 				B6F67B51290C278C00CB8263 /* MainViewController.swift */,
 				B6F67B53290C27A100CB8263 /* MainView.swift */,
 				B6F67B55290C280200CB8263 /* MainViewModel.swift */,
+				B6F67B59290C2AFD00CB8263 /* MainViewAssembly.swift */,
 			);
 			path = MainViewController;
+			sourceTree = "<group>";
+		};
+		B6F67B5B290C2E5900CB8263 /* ModuleFactory */ = {
+			isa = PBXGroup;
+			children = (
+				B6F67B5C290C2E6C00CB8263 /* Module.swift */,
+				B6F67B5E290C2E8800CB8263 /* Presentable.swift */,
+			);
+			path = ModuleFactory;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -197,16 +217,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				B6F67B50290C25C600CB8263 /* ViewModel.swift in Sources */,
+				B6F67B5A290C2AFD00CB8263 /* MainViewAssembly.swift in Sources */,
 				B6F67B54290C27A100CB8263 /* MainView.swift in Sources */,
 				B6F67B52290C278C00CB8263 /* MainViewController.swift in Sources */,
 				B6F67B47290C248A00CB8263 /* Coordinated.swift in Sources */,
 				B6F67B30290C1A0300CB8263 /* ViewController.swift in Sources */,
 				B6F67B56290C280200CB8263 /* MainViewModel.swift in Sources */,
+				B6F67B58290C2AD000CB8263 /* ModuleFactory.swift in Sources */,
 				B6F67B2C290C1A0300CB8263 /* AppDelegate.swift in Sources */,
 				B6F67B43290C1D4100CB8263 /* Coordinator.swift in Sources */,
 				B6F67B40290C1BAF00CB8263 /* Configurable.swift in Sources */,
 				B6F67B4C290C250200CB8263 /* View.swift in Sources */,
+				B6F67B5F290C2E8800CB8263 /* Presentable.swift in Sources */,
 				B6F67B49290C24B200CB8263 /* Route.swift in Sources */,
+				B6F67B5D290C2E6C00CB8263 /* Module.swift in Sources */,
 				B6F67B2E290C1A0300CB8263 /* SceneDelegate.swift in Sources */,
 				B6F67B45290C246800CB8263 /* Coordinatable.swift in Sources */,
 			);

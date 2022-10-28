@@ -20,10 +20,7 @@ final class Coordinator: Coordinatable {
     }
     
     func start() {
-        let viewModel = MainViewModel()
-        viewModel.coordinator = self
-        let controller = MainViewController(viewModel: viewModel)
-        navigationController.pushViewController(controller, animated: false)
+        startMainFlow()
     }
     
     func route(_ destination: Route) {
@@ -33,5 +30,10 @@ final class Coordinator: Coordinatable {
         case .dismiss:
             navigationController.dismiss(animated: true)
         }
+    }
+    
+    private func startMainFlow() {
+        let mainModule = ModuleFactory.createMainModule(self)
+        navigationController.pushViewController(mainModule.presentable, animated: false)
     }
 }

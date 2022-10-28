@@ -18,5 +18,4 @@ extension Configurable where Self: AnyObject {
 }
 
 extension NSObject: Configurable {
-    
 }

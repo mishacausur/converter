@@ -7,12 +7,12 @@
 
 import UIKit.UIViewController
 
-class ViewController<View: Viеw, viewModel: ViewModel>: UIViewController,
+class ViewController<View: Viеw, ViewModеl: ViewModel>: UIViewController,
                                   ViewInput {
     
-    let viewModel: ViewModel
+    let viewModel: ViewModеl
     
-    init(viewModel: ViewModel) {
+    init(viewModel: ViewModеl) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
