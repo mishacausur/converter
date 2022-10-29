@@ -17,6 +17,7 @@ final class MainViewTextField: Viеw {
     }
     
     override func layout() {
+
         let constraints = [
             textField.centerXAnchor.constraint(equalTo: centerXAnchor),
             textField.topAnchor.constraint(equalTo: topAnchor),
@@ -35,5 +36,9 @@ final class MainViewTextField: Viеw {
     
     func configureLabel(currency: String) {
         circle.configureLabel(currency)
+    }
+
+    func addTarget(_ target: Any?, buttonDidTapped: Selector) {
+        textFieldButton.addTarget(target, action: buttonDidTapped, for: .touchUpInside)
     }
 }

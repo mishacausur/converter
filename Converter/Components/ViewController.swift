@@ -9,9 +9,9 @@ import UIKit.UIViewController
 
 class ViewController<View: Viеw, ViewModеl: ViewModel>: UIViewController,
                                   ViewInput {
-    
-    private let viewModel: ViewModеl
-    
+
+    let viewModel: ViewModеl
+    private(set) lazy var mainView = createView()
     init(viewModel: ViewModеl) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -22,7 +22,7 @@ class ViewController<View: Viеw, ViewModеl: ViewModel>: UIViewController,
     }
     
     override func loadView() {
-        view = createView()
+        view = mainView
     }
     
     override func viewDidLoad() {

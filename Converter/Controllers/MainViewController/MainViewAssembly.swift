@@ -4,7 +4,6 @@
 //
 //  Created by Misha Causur on 28.10.2022.
 //
-import UIKit
 
 extension ModuleFactory {
     

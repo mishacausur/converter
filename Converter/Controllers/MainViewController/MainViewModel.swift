@@ -9,4 +9,8 @@ import Foundation
 
 final class MainViewModel: ViewModel {
     
+    func openCurrencyListDidTapped() {
+        coordinator?.route(.currencyList)
+    }
+    
 }

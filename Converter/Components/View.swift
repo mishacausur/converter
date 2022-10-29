@@ -21,6 +21,10 @@ class Viеw: UIView {
     func configure() {
         addViews()
         layout()
+        bindViews()
+    }
+    
+    func bindViews() {
     }
     
     func addViews() {

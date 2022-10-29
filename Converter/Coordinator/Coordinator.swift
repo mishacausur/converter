@@ -25,8 +25,8 @@ final class Coordinator: Coordinatable {
     
     func route(_ destination: Route) {
         switch destination {
-        case .smth:
-            print("some occured")
+        case .currencyList:
+            startCurrencyListFLow()
         case .dismiss:
             navigationController.dismiss(animated: true)
         }
@@ -35,5 +35,10 @@ final class Coordinator: Coordinatable {
     private func startMainFlow() {
         let mainModule = ModuleFactory.createMainModule(self)
         navigationController.pushViewController(mainModule.presentable, animated: false)
+    }
+    
+    private func startCurrencyListFLow() {
+        let module = ModuleFactory.createCurrencyListModule(self)
+        navigationController.present(module.presentable, animated: true)
     }
 }

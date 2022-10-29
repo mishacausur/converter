@@ -24,4 +24,12 @@ final class MainView: Viеw {
         [view.centerXAnchor.constraint(equalTo: centerXAnchor),
          view.centerYAnchor.constraint(equalTo: centerYAnchor)].forEach { $0.isActive = true }
     }
+
+    func addTargetUpperTextField(_ target: Any?, buttonDidTapped: Selector) {
+        view.addTargetUpperTextField(target, buttonDidTapped: buttonDidTapped)
+    }
+    
+    func addTargetLowerTextField(_ target: Any?, buttonDidTapped: Selector) {
+        view.addTargetLowerTextField(target, buttonDidTapped: buttonDidTapped)
+    }
 }

@@ -37,6 +37,10 @@
 		B6F67B73290C5C9B00CB8263 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B72290C5C9B00CB8263 /* UIView.swift */; };
 		B6F67B75290C5D1A00CB8263 /* CircleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B74290C5D1A00CB8263 /* CircleLabel.swift */; };
 		B6F67B77290C6D6700CB8263 /* MainViewTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B76290C6D6700CB8263 /* MainViewTextField.swift */; };
+		B6F67B7A290C70A000CB8263 /* CurrencyListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B79290C70A000CB8263 /* CurrencyListViewController.swift */; };
+		B6F67B7C290C70BC00CB8263 /* CurrencyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B7B290C70BC00CB8263 /* CurrencyViewModel.swift */; };
+		B6F67B7E290C70DC00CB8263 /* CurrencyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B7D290C70DC00CB8263 /* CurrencyListView.swift */; };
+		B6F67B80290C710F00CB8263 /* CurrencyListAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B7F290C710F00CB8263 /* CurrencyListAssembly.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +76,10 @@
 		B6F67B72290C5C9B00CB8263 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		B6F67B74290C5D1A00CB8263 /* CircleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleLabel.swift; sourceTree = "<group>"; };
 		B6F67B76290C6D6700CB8263 /* MainViewTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewTextField.swift; sourceTree = "<group>"; };
+		B6F67B79290C70A000CB8263 /* CurrencyListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyListViewController.swift; sourceTree = "<group>"; };
+		B6F67B7B290C70BC00CB8263 /* CurrencyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyViewModel.swift; sourceTree = "<group>"; };
+		B6F67B7D290C70DC00CB8263 /* CurrencyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyListView.swift; sourceTree = "<group>"; };
+		B6F67B7F290C710F00CB8263 /* CurrencyListAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyListAssembly.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				B6F67B4E290C257A00CB8263 /* MainViewController */,
+				B6F67B78290C707C00CB8263 /* CurrencyListViewController */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -193,6 +202,17 @@
 				B6F67B76290C6D6700CB8263 /* MainViewTextField.swift */,
 			);
 			path = Subview;
+			sourceTree = "<group>";
+		};
+		B6F67B78290C707C00CB8263 /* CurrencyListViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B6F67B79290C70A000CB8263 /* CurrencyListViewController.swift */,
+				B6F67B7D290C70DC00CB8263 /* CurrencyListView.swift */,
+				B6F67B7B290C70BC00CB8263 /* CurrencyViewModel.swift */,
+				B6F67B7F290C710F00CB8263 /* CurrencyListAssembly.swift */,
+			);
+			path = CurrencyListViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -266,11 +286,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				B6F67B73290C5C9B00CB8263 /* UIView.swift in Sources */,
+				B6F67B7C290C70BC00CB8263 /* CurrencyViewModel.swift in Sources */,
 				B6F67B50290C25C600CB8263 /* ViewModel.swift in Sources */,
 				B6F67B5A290C2AFD00CB8263 /* MainViewAssembly.swift in Sources */,
 				B6F67B77290C6D6700CB8263 /* MainViewTextField.swift in Sources */,
 				B6F67B6D290C5BDC00CB8263 /* Color.swift in Sources */,
 				B6F67B6F290C5C3700CB8263 /* TextField.swift in Sources */,
+				B6F67B7E290C70DC00CB8263 /* CurrencyListView.swift in Sources */,
 				B6F67B66290C54C900CB8263 /* String.swift in Sources */,
 				B6F67B54290C27A100CB8263 /* MainView.swift in Sources */,
 				B6F67B52290C278C00CB8263 /* MainViewController.swift in Sources */,
@@ -291,7 +313,9 @@
 				B6F67B5D290C2E6C00CB8263 /* Module.swift in Sources */,
 				B6F67B2E290C1A0300CB8263 /* SceneDelegate.swift in Sources */,
 				B6F67B61290C491000CB8263 /* UIComponentFactory.swift in Sources */,
+				B6F67B80290C710F00CB8263 /* CurrencyListAssembly.swift in Sources */,
 				B6F67B75290C5D1A00CB8263 /* CircleLabel.swift in Sources */,
+				B6F67B7A290C70A000CB8263 /* CurrencyListViewController.swift in Sources */,
 				B6F67B45290C246800CB8263 /* Coordinatable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

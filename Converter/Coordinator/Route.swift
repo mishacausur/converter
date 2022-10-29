@@ -6,6 +6,6 @@
 //
 
 enum Route {
-    case smth
+    case currencyList
     case dismiss
 }

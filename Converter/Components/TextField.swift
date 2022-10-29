@@ -25,6 +25,12 @@ final class TextField: UITextField {
         return rect
     }
     
+    override func caretRect(for position: UITextPosition) -> CGRect {
+        var rect = super.caretRect(for: position)
+        rect.origin.x += 26
+        return rect
+    }
+    
     func configure(_ placeHolder: String) {
         translatesAutoresizingMaskIntoConstraints = false
         layer.masksToBounds = true
