@@ -56,6 +56,7 @@
 		B6F67BA4290ECF9400CB8263 /* CurrencyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67BA3290ECF9400CB8263 /* CurrencyButton.swift */; };
 		B6F67BA8290ED73000CB8263 /* Locator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67BA7290ED73000CB8263 /* Locator.swift */; };
 		B6F67BAB290EDD7000CB8263 /* Print.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67BAA290EDD7000CB8263 /* Print.swift */; };
+		B6F67BAE290EE46D00CB8263 /* CacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67BAD290EE46D00CB8263 /* CacheService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -110,6 +111,7 @@
 		B6F67BA3290ECF9400CB8263 /* CurrencyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyButton.swift; sourceTree = "<group>"; };
 		B6F67BA7290ED73000CB8263 /* Locator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Locator.swift; sourceTree = "<group>"; };
 		B6F67BAA290EDD7000CB8263 /* Print.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Print.swift; sourceTree = "<group>"; };
+		B6F67BAD290EE46D00CB8263 /* CacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -254,6 +256,7 @@
 		B6F67B81290D864A00CB8263 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				B6F67BAC290EE45D00CB8263 /* CacheService */,
 				B6F67BA6290ED72100CB8263 /* Locator */,
 				B6F67B9A290ECE9D00CB8263 /* DataManager */,
 				B6F67B82290D865700CB8263 /* NetworkService */,
@@ -314,6 +317,14 @@
 				B6F67BAA290EDD7000CB8263 /* Print.swift */,
 			);
 			path = Entities;
+			sourceTree = "<group>";
+		};
+		B6F67BAC290EE45D00CB8263 /* CacheService */ = {
+			isa = PBXGroup;
+			children = (
+				B6F67BAD290EE46D00CB8263 /* CacheService.swift */,
+			);
+			path = CacheService;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -420,6 +431,7 @@
 				B6F67B6B290C554200CB8263 /* MainBaseView.swift in Sources */,
 				B6F67B99290ECE8600CB8263 /* Convert.swift in Sources */,
 				B6F67B8F290E96A600CB8263 /* DataManager.swift in Sources */,
+				B6F67BAE290EE46D00CB8263 /* CacheService.swift in Sources */,
 				B6F67B4C290C250200CB8263 /* View.swift in Sources */,
 				B6F67B5F290C2E8800CB8263 /* Presentable.swift in Sources */,
 				B6F67B49290C24B200CB8263 /* Route.swift in Sources */,
