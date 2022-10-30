@@ -9,10 +9,21 @@ import UIKit.NSLayoutConstraint
 
 final class MainBaseView: Viеw {
     
+    var currencyButtonDidTapped: ((CurrencyButton) -> Void)?
+    
     private let upperTextField = MainViewTextField()
     private let lowerTextField = MainViewTextField()
     private let button = UIFactory.createButton(with: .convert)
     
+    override func configure() {
+        super.configure()
+        upperTextField.buttonDidTapped = { [weak self] in
+            self?.currencyButtonDidTapped?(.upper)
+        }
+        lowerTextField.buttonDidTapped = { [weak self] in
+            self?.currencyButtonDidTapped?(.lower)
+        }
+    }
     
     override func addViews() {
         addViews(upperTextField, lowerTextField, button)
@@ -39,11 +50,11 @@ final class MainBaseView: Viеw {
         NSLayoutConstraint.activate(constraints)
     }
     
-    func addTargetUpperTextField(_ target: Any?, buttonDidTapped: Selector) {
-        upperTextField.addTarget(target, buttonDidTapped: buttonDidTapped)
-    }
-    
-    func addTargetLowerTextField(_ target: Any?, buttonDidTapped: Selector) {
-        lowerTextField.addTarget(target, buttonDidTapped: buttonDidTapped)
-    }
+//    func addTargetUpperTextField(_ target: Any?, buttonDidTapped: Selector) {
+//        upperTextField.addTarget(target, buttonDidTapped: buttonDidTapped)
+//    }
+//    
+//    func addTargetLowerTextField(_ target: Any?, buttonDidTapped: Selector) {
+//        lowerTextField.addTarget(target, buttonDidTapped: buttonDidTapped)
+//    }
 }

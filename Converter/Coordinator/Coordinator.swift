@@ -39,6 +39,6 @@ final class Coordinator: Coordinatable {
     
     private func startCurrencyListFLow() {
         let module = ModuleFactory.createCurrencyListModule(self)
-        navigationController.present(module.presentable, animated: true)
+        navigationController.pushViewController(module.presentable, animated: true)
     }
 }

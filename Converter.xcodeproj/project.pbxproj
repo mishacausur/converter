@@ -41,6 +41,10 @@
 		B6F67B7C290C70BC00CB8263 /* CurrencyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B7B290C70BC00CB8263 /* CurrencyViewModel.swift */; };
 		B6F67B7E290C70DC00CB8263 /* CurrencyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B7D290C70DC00CB8263 /* CurrencyListView.swift */; };
 		B6F67B80290C710F00CB8263 /* CurrencyListAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B7F290C710F00CB8263 /* CurrencyListAssembly.swift */; };
+		B6F67B85290D868A00CB8263 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B84290D868A00CB8263 /* Currency.swift */; };
+		B6F67B87290D87A100CB8263 /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B86290D87A100CB8263 /* Query.swift */; };
+		B6F67B89290D87E300CB8263 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B88290D87E300CB8263 /* NetworkService.swift */; };
+		B6F67B8B290E7FC800CB8263 /* Symbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B8A290E7FC800CB8263 /* Symbol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,6 +84,10 @@
 		B6F67B7B290C70BC00CB8263 /* CurrencyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyViewModel.swift; sourceTree = "<group>"; };
 		B6F67B7D290C70DC00CB8263 /* CurrencyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyListView.swift; sourceTree = "<group>"; };
 		B6F67B7F290C710F00CB8263 /* CurrencyListAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyListAssembly.swift; sourceTree = "<group>"; };
+		B6F67B84290D868A00CB8263 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
+		B6F67B86290D87A100CB8263 /* Query.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Query.swift; sourceTree = "<group>"; };
+		B6F67B88290D87E300CB8263 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		B6F67B8A290E7FC800CB8263 /* Symbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Symbol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +120,8 @@
 		B6F67B2A290C1A0300CB8263 /* Converter */ = {
 			isa = PBXGroup;
 			children = (
+				B6F67B83290D866700CB8263 /* DataModels */,
+				B6F67B81290D864A00CB8263 /* Services */,
 				B6F67B62290C4C7B00CB8263 /* Extensions */,
 				B6F67B5B290C2E5900CB8263 /* ModuleFactory */,
 				B6F67B4D290C256B00CB8263 /* Controllers */,
@@ -215,6 +225,32 @@
 			path = CurrencyListViewController;
 			sourceTree = "<group>";
 		};
+		B6F67B81290D864A00CB8263 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				B6F67B82290D865700CB8263 /* NetworkService */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		B6F67B82290D865700CB8263 /* NetworkService */ = {
+			isa = PBXGroup;
+			children = (
+				B6F67B88290D87E300CB8263 /* NetworkService.swift */,
+			);
+			path = NetworkService;
+			sourceTree = "<group>";
+		};
+		B6F67B83290D866700CB8263 /* DataModels */ = {
+			isa = PBXGroup;
+			children = (
+				B6F67B84290D868A00CB8263 /* Currency.swift */,
+				B6F67B86290D87A100CB8263 /* Query.swift */,
+				B6F67B8A290E7FC800CB8263 /* Symbol.swift */,
+			);
+			path = DataModels;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -290,7 +326,9 @@
 				B6F67B50290C25C600CB8263 /* ViewModel.swift in Sources */,
 				B6F67B5A290C2AFD00CB8263 /* MainViewAssembly.swift in Sources */,
 				B6F67B77290C6D6700CB8263 /* MainViewTextField.swift in Sources */,
+				B6F67B8B290E7FC800CB8263 /* Symbol.swift in Sources */,
 				B6F67B6D290C5BDC00CB8263 /* Color.swift in Sources */,
+				B6F67B85290D868A00CB8263 /* Currency.swift in Sources */,
 				B6F67B6F290C5C3700CB8263 /* TextField.swift in Sources */,
 				B6F67B7E290C70DC00CB8263 /* CurrencyListView.swift in Sources */,
 				B6F67B66290C54C900CB8263 /* String.swift in Sources */,
@@ -304,6 +342,7 @@
 				B6F67B64290C4C9300CB8263 /* UIColor.swift in Sources */,
 				B6F67B2C290C1A0300CB8263 /* AppDelegate.swift in Sources */,
 				B6F67B43290C1D4100CB8263 /* Coordinator.swift in Sources */,
+				B6F67B89290D87E300CB8263 /* NetworkService.swift in Sources */,
 				B6F67B71290C5C5700CB8263 /* Button.swift in Sources */,
 				B6F67B40290C1BAF00CB8263 /* Configurable.swift in Sources */,
 				B6F67B6B290C554200CB8263 /* MainBaseView.swift in Sources */,
@@ -316,6 +355,7 @@
 				B6F67B80290C710F00CB8263 /* CurrencyListAssembly.swift in Sources */,
 				B6F67B75290C5D1A00CB8263 /* CircleLabel.swift in Sources */,
 				B6F67B7A290C70A000CB8263 /* CurrencyListViewController.swift in Sources */,
+				B6F67B87290D87A100CB8263 /* Query.swift in Sources */,
 				B6F67B45290C246800CB8263 /* Coordinatable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

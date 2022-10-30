@@ -11,6 +11,7 @@ extension ModuleFactory {
         let viewModel = CurrencyViewModel()
         viewModel.coordinator = coordinator
         let viewController = CurrencyListViewController(viewModel: viewModel)
+        viewModel.currencyView = viewController
         return Module(presentable: viewController)
     }
 }

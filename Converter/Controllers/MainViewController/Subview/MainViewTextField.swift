@@ -8,6 +8,9 @@
 import UIKit.NSLayoutConstraint
 
 final class MainViewTextField: Viеw {
+    
+    var buttonDidTapped: (() -> Void)?
+    
     private let textField = UIFactory.createTextField(with: .enterValue)
     private let circle = CircleLabel().configure { $0.translatesAutoresizingMaskIntoConstraints = false }
     private let textFieldButton = UIFactory.createButton(with: .chooseCurrency, radius: 8, font: .small)
@@ -16,19 +19,24 @@ final class MainViewTextField: Viеw {
         addViews(textField, circle, textFieldButton)
     }
     
+    override func bindViews() {
+        textFieldButton.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+    }
+    
     override func layout() {
 
         let constraints = [
-            textField.centerXAnchor.constraint(equalTo: centerXAnchor),
             textField.topAnchor.constraint(equalTo: topAnchor),
-            textField.widthAnchor.constraint(equalToConstant: .defaultWidth),
+            textField.widthAnchor.constraint(equalToConstant: .defaultWidth - .defaultWidth/3 - 4),
             textField.heightAnchor.constraint(equalToConstant: .defaultHeight),
             textField.bottomAnchor.constraint(equalTo: bottomAnchor),
+            textField.leadingAnchor.constraint(equalTo: leadingAnchor),
+            textField.trailingAnchor.constraint(equalTo: textFieldButton.leadingAnchor, constant: -4),
             circle.leadingAnchor.constraint(equalTo: textField.leadingAnchor),
             circle.centerYAnchor.constraint(equalTo: textField.centerYAnchor),
-            textFieldButton.trailingAnchor.constraint(equalTo: textField.trailingAnchor, constant: -4),
+            textFieldButton.trailingAnchor.constraint(equalTo: trailingAnchor),
             textFieldButton.widthAnchor.constraint(equalToConstant: .defaultWidth/3),
-            textFieldButton.heightAnchor.constraint(equalToConstant: .defaultHeight - 8),
+            textFieldButton.heightAnchor.constraint(equalToConstant: .defaultHeight),
             textFieldButton.centerYAnchor.constraint(equalTo: textField.centerYAnchor)]
         
         NSLayoutConstraint.activate(constraints)
@@ -38,7 +46,7 @@ final class MainViewTextField: Viеw {
         circle.configureLabel(currency)
     }
 
-    func addTarget(_ target: Any?, buttonDidTapped: Selector) {
-        textFieldButton.addTarget(target, action: buttonDidTapped, for: .touchUpInside)
+    @objc private func buttonTapped() {
+        buttonDidTapped?()
     }
 }

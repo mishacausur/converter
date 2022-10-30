@@ -6,5 +6,13 @@
 //
 
 final class CurrencyListViewController: ViewController<CurrencyListView, CurrencyViewModel> {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        navigationItem.searchController = mainView.searchController
+        viewModel.getCurrencies()
+    }
     
+    func reloadView(_ value: [Currency]) {
+        mainView.items = value
+    }
 }
