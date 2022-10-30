@@ -13,16 +13,10 @@ final class MainViewTextField: Viеw {
     var valueDidEntered: ((String) -> Void)?
     var value: Double {
         get {
-            Double(textField.text!) ?? .zero
+            .zero
         }
         set {
-            DispatchQueue.main.async { [weak self] in
-                guard !newValue.isZero else {
-                    self?.textField.text = .empty
-                    return
-                }
-                self?.textField.text = "\(newValue)"
-            }
+            setupValueTextField(newValue)
         }
     }
     private let textField = UIFactory.createTextField(with: .enterValue)
@@ -67,7 +61,17 @@ final class MainViewTextField: Viеw {
     func configureLabel(currency: String) {
         circle.configureLabel(currency)
     }
-
+    
+    func setupValueTextField(_ value: Double) {
+        DispatchQueue.main.async { [weak self] in
+            guard !value.isZero else {
+                self?.textField.text = .empty
+                return
+            }
+            self?.textField.text = "\(value)"
+        }
+    }
+    
     @objc private func buttonTapped() {
         buttonDidTapped?()
     }
