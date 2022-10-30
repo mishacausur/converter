@@ -12,7 +12,7 @@ final class Coordinator: Coordinatable {
     unowned let window: UIWindow
     var navigationController: UINavigationController
     
-    let dataManager = DataManager()
+    let locator = Locator()
     
     init(_ window: UIWindow) {
         self.window = window
@@ -35,12 +35,12 @@ final class Coordinator: Coordinatable {
     }
     
     private func startMainFlow() {
-        let mainModule = ModuleFactory.createMainModule(self, dataManager: dataManager)
+        let mainModule = ModuleFactory.createMainModule(self, locator: locator)
         navigationController.pushViewController(mainModule.presentable, animated: false)
     }
     
     private func startCurrencyListFLow() {
-        let module = ModuleFactory.createCurrencyListModule(self, dataManager: dataManager)
+        let module = ModuleFactory.createCurrencyListModule(self, locator: locator)
         navigationController.pushViewController(module.presentable, animated: true)
     }
 }

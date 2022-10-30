@@ -55,6 +55,7 @@
 		B6F67BA0290ECEE600CB8263 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B9F290ECEE600CB8263 /* Error.swift */; };
 		B6F67BA2290ECF0400CB8263 /* Security.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67BA1290ECF0400CB8263 /* Security.swift */; };
 		B6F67BA4290ECF9400CB8263 /* CurrencyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67BA3290ECF9400CB8263 /* CurrencyButton.swift */; };
+		B6F67BA8290ED73000CB8263 /* Locator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67BA7290ED73000CB8263 /* Locator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -108,6 +109,7 @@
 		B6F67B9F290ECEE600CB8263 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		B6F67BA1290ECF0400CB8263 /* Security.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Security.swift; sourceTree = "<group>"; };
 		B6F67BA3290ECF9400CB8263 /* CurrencyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyButton.swift; sourceTree = "<group>"; };
+		B6F67BA7290ED73000CB8263 /* Locator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Locator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,6 +188,7 @@
 		B6F67B4D290C256B00CB8263 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				B6F67BA5290ED6D400CB8263 /* ActivityViewController */,
 				B6F67B4E290C257A00CB8263 /* MainViewController */,
 				B6F67B78290C707C00CB8263 /* CurrencyListViewController */,
 			);
@@ -243,7 +246,6 @@
 				B6F67B7D290C70DC00CB8263 /* CurrencyListView.swift */,
 				B6F67B7B290C70BC00CB8263 /* CurrencyViewModel.swift */,
 				B6F67B7F290C710F00CB8263 /* CurrencyListAssembly.swift */,
-				B6F67B90290EB63D00CB8263 /* ActivityViewController.swift */,
 			);
 			path = CurrencyListViewController;
 			sourceTree = "<group>";
@@ -251,6 +253,7 @@
 		B6F67B81290D864A00CB8263 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				B6F67BA6290ED72100CB8263 /* Locator */,
 				B6F67B9A290ECE9D00CB8263 /* DataManager */,
 				B6F67B82290D865700CB8263 /* NetworkService */,
 			);
@@ -287,6 +290,22 @@
 				B6F67B8E290E96A600CB8263 /* DataManager.swift */,
 			);
 			path = DataManager;
+			sourceTree = "<group>";
+		};
+		B6F67BA5290ED6D400CB8263 /* ActivityViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B6F67B90290EB63D00CB8263 /* ActivityViewController.swift */,
+			);
+			path = ActivityViewController;
+			sourceTree = "<group>";
+		};
+		B6F67BA6290ED72100CB8263 /* Locator */ = {
+			isa = PBXGroup;
+			children = (
+				B6F67BA7290ED73000CB8263 /* Locator.swift */,
+			);
+			path = Locator;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -370,6 +389,7 @@
 				B6F67B85290D868A00CB8263 /* Currency.swift in Sources */,
 				B6F67B95290EC83D00CB8263 /* SceneDelegate.swift in Sources */,
 				B6F67B6F290C5C3700CB8263 /* TextField.swift in Sources */,
+				B6F67BA8290ED73000CB8263 /* Locator.swift in Sources */,
 				B6F67B7E290C70DC00CB8263 /* CurrencyListView.swift in Sources */,
 				B6F67B66290C54C900CB8263 /* String.swift in Sources */,
 				B6F67B54290C27A100CB8263 /* MainView.swift in Sources */,

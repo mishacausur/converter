@@ -17,7 +17,7 @@ enum NetworkError: Error {
 
 enum AppError: Error {
     case emptyCurrencies
-    case sameItems
+    case emptyValues
     case sameValues
     case undefined
     
@@ -25,9 +25,9 @@ enum AppError: Error {
         switch error {
        
         case .emptyCurrencies:
-            return (.sameValuesTitle, .sameValuesDescription)
-        case .sameItems:
             return (.emptyCurrencyTitle, .emptyCurrencyDescription)
+        case .emptyValues:
+            return (.emptyValuesTitle, .emptyValuesDescription)
         case .sameValues:
             return (.sameValuesTitle, .sameValuesDescription)
         case .undefined:

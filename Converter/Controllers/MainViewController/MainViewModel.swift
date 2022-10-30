@@ -10,12 +10,14 @@ import Combine
 
 final class MainViewModel: ViewModel {
     
+    private let networkService: NetworkService
     private let dataManager: DataManager
     private var cancellables = Set<AnyCancellable>()
     weak var mainView: MainViewController?
     
-    init(dataManager: DataManager) {
-        self.dataManager = dataManager
+    init(locator: Locator) {
+        self.dataManager = locator.dataManager
+        self.networkService = locator.networkService
     }
     
     func setupSubscription() {
@@ -43,20 +45,20 @@ final class MainViewModel: ViewModel {
     }
     
     func convertDidTapped() {
-        let ntwrkr = NetworkService()
+        
         guard let first = dataManager.firstCurrency, let second = dataManager.secondCurrency else {
             mainView?.showError(.emptyCurrencies)
             return
         }
         guard first != second else {
-            mainView?.showError(.sameItems)
-            return
-        }
-        guard dataManager.lastChangedField == .upper ? dataManager.firstCurrencyValue > 0 : dataManager.secondCurrencyValue > 0 else {
             mainView?.showError(.sameValues)
             return
         }
-        ntwrkr.convertCurrencies(to: dataManager.lastChangedField == .upper ? second.sign : first.sign,
+        guard dataManager.lastChangedField == .upper ? dataManager.firstCurrencyValue > 0 : dataManager.secondCurrencyValue > 0 else {
+            mainView?.showError(.emptyValues)
+            return
+        }
+        networkService.convertCurrencies(to: dataManager.lastChangedField == .upper ? second.sign : first.sign,
                                  from: dataManager.lastChangedField == .upper ? first.sign : second.sign,
                                  amount: dataManager.lastChangedField == .upper ? dataManager.firstCurrencyValue : dataManager.secondCurrencyValue) { [weak self] result in
             switch result {

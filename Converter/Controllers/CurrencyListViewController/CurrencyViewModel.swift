@@ -8,11 +8,12 @@
 final class CurrencyViewModel: ViewModel {
     var isUpper: Bool = true
     let dataManager: DataManager
-    let networkService = NetworkService()
+    let networkService: NetworkService
     weak var currencyView: CurrencyListViewController?
     
-    init(dataManager: DataManager) {
-        self.dataManager = dataManager
+    init(locator: Locator) {
+        self.dataManager = locator.dataManager
+        self.networkService = locator.networkService
     }
     
     func getCurrencies() {
