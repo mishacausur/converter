@@ -14,15 +14,15 @@ final class Button: UIButton {
         case small
     }
     
-    var cornerRadius: CGFloat = 12
+    var cornerRadius: CGFloat = .regularCornerRadius
     var color: UIColor = Color.mainOrage
     var font: Font {
         didSet {
             switch font {
             case .regular:
-                titleLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
+                titleLabel?.font = .systemFont(ofSize: .mediumFontSize, weight: .semibold)
             case .small:
-                titleLabel?.font = .systemFont(ofSize: 14, weight: .regular)
+                titleLabel?.font = .systemFont(ofSize: .smallFontSize, weight: .regular)
             }
         }
     }

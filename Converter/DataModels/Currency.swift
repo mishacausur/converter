@@ -7,8 +7,11 @@
 
 import Foundation
 
-struct Convert: Codable {
-    let query: Query
-    let result: Double
-    let success: Bool
+struct Currency {
+    let sign: String
+    let name: String
+}
+
+extension Currency: Equatable {
+
 }

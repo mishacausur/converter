@@ -49,6 +49,12 @@
 		B6F67B93290EBE0E00CB8263 /* ViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B92290EBE0E00CB8263 /* ViewControllers.swift */; };
 		B6F67B95290EC83D00CB8263 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B94290EC83D00CB8263 /* SceneDelegate.swift */; };
 		B6F67B97290ECD2600CB8263 /* Double.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B96290ECD2600CB8263 /* Double.swift */; };
+		B6F67B99290ECE8600CB8263 /* Convert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B98290ECE8600CB8263 /* Convert.swift */; };
+		B6F67B9C290ECEB600CB8263 /* Link.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B9B290ECEB600CB8263 /* Link.swift */; };
+		B6F67B9E290ECEC900CB8263 /* HTTPHeaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B9D290ECEC900CB8263 /* HTTPHeaders.swift */; };
+		B6F67BA0290ECEE600CB8263 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B9F290ECEE600CB8263 /* Error.swift */; };
+		B6F67BA2290ECF0400CB8263 /* Security.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67BA1290ECF0400CB8263 /* Security.swift */; };
+		B6F67BA4290ECF9400CB8263 /* CurrencyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67BA3290ECF9400CB8263 /* CurrencyButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -96,6 +102,12 @@
 		B6F67B92290EBE0E00CB8263 /* ViewControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllers.swift; sourceTree = "<group>"; };
 		B6F67B94290EC83D00CB8263 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		B6F67B96290ECD2600CB8263 /* Double.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Double.swift; sourceTree = "<group>"; };
+		B6F67B98290ECE8600CB8263 /* Convert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Convert.swift; sourceTree = "<group>"; };
+		B6F67B9B290ECEB600CB8263 /* Link.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Link.swift; sourceTree = "<group>"; };
+		B6F67B9D290ECEC900CB8263 /* HTTPHeaders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPHeaders.swift; sourceTree = "<group>"; };
+		B6F67B9F290ECEE600CB8263 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
+		B6F67BA1290ECF0400CB8263 /* Security.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Security.swift; sourceTree = "<group>"; };
+		B6F67BA3290ECF9400CB8263 /* CurrencyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,8 +147,8 @@
 				B6F67B4D290C256B00CB8263 /* Controllers */,
 				B6F67B4A290C24E200CB8263 /* Components */,
 				B6F67B41290C1D2B00CB8263 /* Coordinator */,
+				B6F67B94290EC83D00CB8263 /* SceneDelegate.swift */,
 				B6F67B2B290C1A0300CB8263 /* AppDelegate.swift */,
-				B6F67B3F290C1BAF00CB8263 /* Configurable.swift */,
 				B6F67B34290C1A0600CB8263 /* Assets.xcassets */,
 				B6F67B36290C1A0600CB8263 /* LaunchScreen.storyboard */,
 				B6F67B39290C1A0600CB8263 /* Info.plist */,
@@ -148,7 +160,6 @@
 			isa = PBXGroup;
 			children = (
 				B6F67B42290C1D4100CB8263 /* Coordinator.swift */,
-				B6F67B94290EC83D00CB8263 /* SceneDelegate.swift */,
 				B6F67B57290C2AD000CB8263 /* ModuleFactory.swift */,
 				B6F67B48290C24B200CB8263 /* Route.swift */,
 				B6F67B46290C248A00CB8263 /* Coordinated.swift */,
@@ -205,6 +216,7 @@
 		B6F67B62290C4C7B00CB8263 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				B6F67B3F290C1BAF00CB8263 /* Configurable.swift */,
 				B6F67B63290C4C9300CB8263 /* UIColor.swift */,
 				B6F67B65290C54C900CB8263 /* String.swift */,
 				B6F67B67290C54E300CB8263 /* CGFloat.swift */,
@@ -239,6 +251,7 @@
 		B6F67B81290D864A00CB8263 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				B6F67B9A290ECE9D00CB8263 /* DataManager */,
 				B6F67B82290D865700CB8263 /* NetworkService */,
 			);
 			path = Services;
@@ -248,7 +261,9 @@
 			isa = PBXGroup;
 			children = (
 				B6F67B88290D87E300CB8263 /* NetworkService.swift */,
-				B6F67B8E290E96A600CB8263 /* DataManager.swift */,
+				B6F67B9D290ECEC900CB8263 /* HTTPHeaders.swift */,
+				B6F67BA1290ECF0400CB8263 /* Security.swift */,
+				B6F67B9B290ECEB600CB8263 /* Link.swift */,
 			);
 			path = NetworkService;
 			sourceTree = "<group>";
@@ -257,10 +272,21 @@
 			isa = PBXGroup;
 			children = (
 				B6F67B84290D868A00CB8263 /* Currency.swift */,
+				B6F67B98290ECE8600CB8263 /* Convert.swift */,
 				B6F67B86290D87A100CB8263 /* Query.swift */,
 				B6F67B8A290E7FC800CB8263 /* Symbol.swift */,
+				B6F67BA3290ECF9400CB8263 /* CurrencyButton.swift */,
+				B6F67B9F290ECEE600CB8263 /* Error.swift */,
 			);
 			path = DataModels;
+			sourceTree = "<group>";
+		};
+		B6F67B9A290ECE9D00CB8263 /* DataManager */ = {
+			isa = PBXGroup;
+			children = (
+				B6F67B8E290E96A600CB8263 /* DataManager.swift */,
+			);
+			path = DataManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -337,6 +363,7 @@
 				B6F67B7C290C70BC00CB8263 /* CurrencyViewModel.swift in Sources */,
 				B6F67B50290C25C600CB8263 /* ViewModel.swift in Sources */,
 				B6F67B5A290C2AFD00CB8263 /* MainViewAssembly.swift in Sources */,
+				B6F67BA4290ECF9400CB8263 /* CurrencyButton.swift in Sources */,
 				B6F67B77290C6D6700CB8263 /* MainViewTextField.swift in Sources */,
 				B6F67B8B290E7FC800CB8263 /* Symbol.swift in Sources */,
 				B6F67B6D290C5BDC00CB8263 /* Color.swift in Sources */,
@@ -348,6 +375,7 @@
 				B6F67B54290C27A100CB8263 /* MainView.swift in Sources */,
 				B6F67B52290C278C00CB8263 /* MainViewController.swift in Sources */,
 				B6F67B47290C248A00CB8263 /* Coordinated.swift in Sources */,
+				B6F67B9C290ECEB600CB8263 /* Link.swift in Sources */,
 				B6F67B30290C1A0300CB8263 /* ViewController.swift in Sources */,
 				B6F67B56290C280200CB8263 /* MainViewModel.swift in Sources */,
 				B6F67B58290C2AD000CB8263 /* ModuleFactory.swift in Sources */,
@@ -355,17 +383,21 @@
 				B6F67B93290EBE0E00CB8263 /* ViewControllers.swift in Sources */,
 				B6F67B68290C54E300CB8263 /* CGFloat.swift in Sources */,
 				B6F67B64290C4C9300CB8263 /* UIColor.swift in Sources */,
+				B6F67BA2290ECF0400CB8263 /* Security.swift in Sources */,
 				B6F67B2C290C1A0300CB8263 /* AppDelegate.swift in Sources */,
 				B6F67B43290C1D4100CB8263 /* Coordinator.swift in Sources */,
 				B6F67B89290D87E300CB8263 /* NetworkService.swift in Sources */,
 				B6F67B71290C5C5700CB8263 /* Button.swift in Sources */,
 				B6F67B40290C1BAF00CB8263 /* Configurable.swift in Sources */,
 				B6F67B6B290C554200CB8263 /* MainBaseView.swift in Sources */,
+				B6F67B99290ECE8600CB8263 /* Convert.swift in Sources */,
 				B6F67B8F290E96A600CB8263 /* DataManager.swift in Sources */,
 				B6F67B4C290C250200CB8263 /* View.swift in Sources */,
 				B6F67B5F290C2E8800CB8263 /* Presentable.swift in Sources */,
 				B6F67B49290C24B200CB8263 /* Route.swift in Sources */,
+				B6F67B9E290ECEC900CB8263 /* HTTPHeaders.swift in Sources */,
 				B6F67B5D290C2E6C00CB8263 /* Module.swift in Sources */,
+				B6F67BA0290ECEE600CB8263 /* Error.swift in Sources */,
 				B6F67B61290C491000CB8263 /* UIComponentFactory.swift in Sources */,
 				B6F67B80290C710F00CB8263 /* CurrencyListAssembly.swift in Sources */,
 				B6F67B75290C5D1A00CB8263 /* CircleLabel.swift in Sources */,

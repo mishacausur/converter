@@ -15,7 +15,7 @@ final class MainBaseView: Viеw {
     private let title = UILabel().configure {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.text = .mainViewTitle
-        $0.font = .systemFont(ofSize: 44, weight: .bold)
+        $0.font = .systemFont(ofSize: .largeFontSize, weight: .bold)
     }
     private let upperTextField = MainViewTextField()
     private let lowerTextField = MainViewTextField()
@@ -47,7 +47,7 @@ final class MainBaseView: Viеw {
             title.topAnchor.constraint(equalTo: topAnchor),
             title.centerXAnchor.constraint(equalTo: centerXAnchor),
             upperTextField.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            upperTextField.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 60),
+            upperTextField.topAnchor.constraint(equalTo: title.bottomAnchor, constant: .titleInset),
             upperTextField.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             upperTextField.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             lowerTextField.centerXAnchor.constraint(equalTo: centerXAnchor),
@@ -84,18 +84,3 @@ final class MainBaseView: Viеw {
         }
     }
 }
-
-//extension MainBaseView: UITextFieldDelegate {
-//    func textFieldDidEndEditing(_ textField: UITextField) {
-//        guard textField.text!.areDigits() else { return }
-//
-//    }
-//}
-
-//extension String {
-//    func areDigits() -> Bool {
-//        let allowedCharacters = CharacterSet.decimalDigits
-//        let characterSet = CharacterSet(charactersIn: self)
-//        return allowedCharacters.isSuperset(of: characterSet)
-//    }
-//}

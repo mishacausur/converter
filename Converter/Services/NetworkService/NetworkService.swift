@@ -64,23 +64,3 @@ struct NetworkService {
         response.map { .init(sign: $0.0, name: $0.1) }
     }
 }
-
-enum Link: String {
-    case currencies = "https://api.apilayer.com/exchangerates_data/symbols"
-    case convert = "https://api.apilayer.com/exchangerates_data/convert"
-}
-
-enum HTTPHeaders: String {
-    case apikey = "apikey"
-}
-
-enum NetworkError: Error {
-    case badURL
-    case badData
-    case badDecode
-}
-
-enum Security {}
-extension Security {
-    static let apiKey = ""
-}

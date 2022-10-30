@@ -19,7 +19,6 @@ extension ViewController {
     }
 }
 
-
 extension UIViewController {
 
     func remove() {

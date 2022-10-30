@@ -23,11 +23,3 @@ struct Symbol: Decodable {
     }
 }
 
-struct Currency {
-    let sign: String
-    let name: String
-}
-
-extension Currency: Equatable {
-
-}

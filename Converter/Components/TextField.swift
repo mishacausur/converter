@@ -9,7 +9,7 @@ import UIKit.UITextField
 
 final class TextField: UITextField {
     
-    var cornerRadius: CGFloat = 12
+    var cornerRadius: CGFloat = .regularCornerRadius
   
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -24,7 +24,7 @@ final class TextField: UITextField {
         layer.masksToBounds = true
         layer.cornerRadius = cornerRadius
         layer.borderColor = Color.gray.cgColor
-        layer.borderWidth = 0.5
+        layer.borderWidth = .defaultBorderWidth
         placeholder = placeHolder
         keyboardType = .numberPad
         textAlignment = .center

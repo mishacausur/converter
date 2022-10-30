@@ -49,8 +49,3 @@ final class MainView: Viеw {
         view.setupTextFieldValue(label, value: value)
     }
 }
-
-enum CurrencyButton {
-    case upper
-    case lower
-}

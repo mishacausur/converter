@@ -9,7 +9,7 @@ import UIKit
 
 struct UIFactory {
     
-    static func createButton(with title: String, radius: CGFloat = 12, font: Button.Font = .regular) -> Button {
+    static func createButton(with title: String, radius: CGFloat = .regularCornerRadius, font: Button.Font = .regular) -> Button {
         let button = Button()
         button.cornerRadius = radius
         button.configure(title, font: font)

@@ -11,7 +11,7 @@ final class ActivityViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let spinner = UIActivityIndicatorView(style: .gray)
+        let spinner = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
         spinner.translatesAutoresizingMaskIntoConstraints = false
         spinner.startAnimating()
         view.addSubview(spinner)

@@ -13,7 +13,7 @@ final class MainViewTextField: Viеw {
     var valueDidEntered: ((String) -> Void)?
     var value: Double {
         get {
-            Double(textField.text!) ?? 0.0
+            Double(textField.text!) ?? .zero
         }
         set {
             DispatchQueue.main.async { [weak self] in
@@ -27,7 +27,7 @@ final class MainViewTextField: Viеw {
     }
     private let textField = UIFactory.createTextField(with: .enterValue)
     private let circle = CircleLabel().configure { $0.translatesAutoresizingMaskIntoConstraints = false }
-    private let textFieldButton = UIFactory.createButton(with: .chooseCurrency, radius: 8, font: .small)
+    private let textFieldButton = UIFactory.createButton(with: .chooseCurrency, radius: .smallCornerRadius, font: .small)
     
     override func addViews() {
         addViews(textField, circle, textFieldButton)
@@ -44,11 +44,11 @@ final class MainViewTextField: Viеw {
 
         let constraints = [
             textField.topAnchor.constraint(equalTo: topAnchor),
-            textField.widthAnchor.constraint(equalToConstant: .defaultWidth - .defaultWidth/3 - 4),
+            textField.widthAnchor.constraint(equalToConstant: .defaultWidth - .defaultWidth/3 + .smallInset),
             textField.heightAnchor.constraint(equalToConstant: .defaultHeight),
             textField.bottomAnchor.constraint(equalTo: bottomAnchor),
             textField.leadingAnchor.constraint(equalTo: leadingAnchor),
-            textField.trailingAnchor.constraint(equalTo: textFieldButton.leadingAnchor, constant: -4),
+            textField.trailingAnchor.constraint(equalTo: textFieldButton.leadingAnchor, constant: .smallInset),
             circle.leadingAnchor.constraint(equalTo: textField.leadingAnchor),
             circle.centerYAnchor.constraint(equalTo: textField.centerYAnchor),
             textFieldButton.trailingAnchor.constraint(equalTo: trailingAnchor),

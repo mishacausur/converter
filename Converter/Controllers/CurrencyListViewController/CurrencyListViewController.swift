@@ -6,11 +6,13 @@
 //
 
 final class CurrencyListViewController: ViewController<CurrencyListView, CurrencyViewModel> {
+    
     let activity = ActivityViewController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         add(activity)
-//        navigationItem.searchController = mainView.searchController
+        navigationItem.searchController = mainView.searchController
         title = .currencies
         viewModel.getCurrencies()
         mainView.currencyDidChosen = { [weak self] in

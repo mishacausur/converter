@@ -14,6 +14,4 @@ protocol ViewOutput: Coordinated {}
 class ViewModel: ViewOutput {
     
     var coordinator: Coordinatable?
-    weak var view: ViewInput?
-    
 }

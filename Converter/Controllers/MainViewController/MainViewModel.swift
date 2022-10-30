@@ -45,15 +45,15 @@ final class MainViewModel: ViewModel {
     func convertDidTapped() {
         let ntwrkr = NetworkService()
         guard let first = dataManager.firstCurrency, let second = dataManager.secondCurrency else {
-            mainView?.showError("You haven't chose any currency", message: "Please, chose both of the currencies to allow exchange 'em")
+            mainView?.showError(.emptyCurrencies)
             return
         }
         guard first != second else {
-            mainView?.showError("You've chosen the same values of currencies", message: "Exchange currency into itself doesn't have any meaning")
+            mainView?.showError(.sameItems)
             return
         }
         guard dataManager.lastChangedField == .upper ? dataManager.firstCurrencyValue > 0 : dataManager.secondCurrencyValue > 0 else {
-            mainView?.showError("You need to enter the value", message: "Enter a number of currency you want to exchange")
+            mainView?.showError(.sameValues)
             return
         }
         ntwrkr.convertCurrencies(to: dataManager.lastChangedField == .upper ? second.sign : first.sign,
@@ -64,7 +64,7 @@ final class MainViewModel: ViewModel {
                 self?.mainView?.setupValueTextFiled(label: self?.dataManager.lastChangedField == .upper ? .lower : .upper, value: value.result)
             case .failure(let error):
                 print(error)
-                self?.mainView?.showError("Error has occured", message: "Something goes wrong but we're already working to fix it")
+                self?.mainView?.showError(.undefined)
             }
         }
     }
@@ -86,5 +86,4 @@ final class MainViewModel: ViewModel {
     private func changeLabelValue(_ label: CurrencyButton, value: String) {
         mainView?.changeValueLabel(label, value: value)
     }
-    
 }

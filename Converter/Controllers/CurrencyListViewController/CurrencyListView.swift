@@ -25,7 +25,7 @@ final class CurrencyListView: Viеw {
         backgroundColor = .white
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: .cellID)
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
     }
@@ -59,7 +59,7 @@ extension CurrencyListView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: .cellID, for: indexPath)
         cell.textLabel?.text = isFiltered ? filteredItems[indexPath.row].name : items[indexPath.row].name
         return cell
     }
@@ -73,12 +73,12 @@ extension CurrencyListView: UITableViewDelegate, UITableViewDataSource {
 extension CurrencyListView: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let text = searchController.searchBar.text else { return }
-               if !text.isEmpty {
-                   isFiltered = true
-               } else {
-                   isFiltered = false
-               }
-               search(text)
+        if !text.isEmpty {
+            isFiltered = true
+        } else {
+            isFiltered = false
+        }
+        search(text)
     }
     
     private func search(_ searchText: String) {

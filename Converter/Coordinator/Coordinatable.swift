@@ -8,6 +8,7 @@
 import UIKit.UINavigationController
 
 protocol Coordinatable {
+    
     var navigationController: UINavigationController { get set }
     func start()
     func route(_ destination: Route)

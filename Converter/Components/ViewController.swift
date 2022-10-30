@@ -11,7 +11,9 @@ class ViewController<View: Viеw, ViewModеl: ViewModel>: UIViewController,
                                   ViewInput {
 
     let viewModel: ViewModеl
+    
     private(set) lazy var mainView = createView()
+    
     init(viewModel: ViewModеl) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -33,9 +35,9 @@ class ViewController<View: Viеw, ViewModеl: ViewModel>: UIViewController,
         return View()
     }
     
-    func showError(_ title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
-        alert.addAction(.init(title: "Ok", style: .cancel))
+    func showError(_ error: AppError) {
+        let alert = UIAlertController(title: AppError.error(error).0, message: AppError.error(error).1, preferredStyle: .actionSheet)
+        alert.addAction(.init(title: .ok, style: .cancel))
         present(alert, animated: true)
     }
 }
