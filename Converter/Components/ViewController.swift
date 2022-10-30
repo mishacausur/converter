@@ -32,4 +32,10 @@ class ViewController<View: Viеw, ViewModеl: ViewModel>: UIViewController,
     func createView() -> View {
         return View()
     }
+    
+    func showError(_ title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+        alert.addAction(.init(title: "Ok", style: .cancel))
+        present(alert, animated: true)
+    }
 }

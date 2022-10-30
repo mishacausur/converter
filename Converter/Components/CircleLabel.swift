@@ -13,7 +13,7 @@ final class CircleLabel: Viеw {
     private let view = UIView()
     private let label = UILabel().configure {
         $0.textColor = Color.white
-        $0.font = .systemFont(ofSize: 24, weight: .bold)
+        $0.font = .systemFont(ofSize: 14, weight: .bold)
     }
     
     private(set) var value: String? {
@@ -52,7 +52,7 @@ final class CircleLabel: Viеw {
     }
     
     func configureLabel(_ currency: String) {
-        guard currency.count == 1 else {
+        guard currency.count == 3 else {
             value = .rubleSign
             return
         }

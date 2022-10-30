@@ -12,9 +12,28 @@ struct NetworkService {
     typealias convertHandler = ((Result<Convert, NetworkError>) -> Void)?
     typealias currenciesHandler = ((Result<[Currency], NetworkError>) -> Void)?
     
-    static func convertCurrencies(to: String, from: String, amount: Int, convertHandler: convertHandler) {
-        let url = Link.convert.rawValue + "?to=\(to)&from=\(from)&amount=\(amount)"
-       
+    func convertCurrencies(to: String, from: String, amount: Int, convertHandler: convertHandler) {
+        guard let url = URL(string: Link.convert.rawValue + "?to=\(to)&from=\(from)&amount=\(amount)") else {
+            convertHandler?(.failure(.badURL))
+            return
+        }
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.addValue(Security.apiKey, forHTTPHeaderField: HTTPHeaders.apikey.rawValue)
+        let response = URLSession.shared.dataTask(with: request) { data, _, _ in
+            guard let data = data else {
+                convertHandler?(.failure(.badData))
+                return
+            }
+            do {
+                let value = try JSONDecoder().decode(Convert.self, from: data)
+                convertHandler?(.success(value))
+            } catch(let error) {
+                print(error)
+                convertHandler?(.failure(.badDecode))
+            }
+        }
+        response.resume()
     }
     
     func getCurrencies(currenciesHandler: currenciesHandler) {
@@ -25,7 +44,7 @@ struct NetworkService {
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.addValue(Security.apiKey, forHTTPHeaderField: HTTPHeaders.apikey.rawValue)
-        let response = URLSession.shared.dataTask(with: request) { data, response, error in
+        let response = URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else {
                 currenciesHandler?(.failure(.badData))
                 return

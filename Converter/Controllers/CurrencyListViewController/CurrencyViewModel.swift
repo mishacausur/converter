@@ -6,8 +6,15 @@
 //
 
 final class CurrencyViewModel: ViewModel {
+    var isUpper: Bool = true
+    let dataManager: DataManager
     let networkService = NetworkService()
     weak var currencyView: CurrencyListViewController?
+    
+    init(dataManager: DataManager) {
+        self.dataManager = dataManager
+    }
+    
     func getCurrencies() {
         networkService.getCurrencies { [weak self] result in
             switch result {
@@ -17,5 +24,15 @@ final class CurrencyViewModel: ViewModel {
                 print(error)
             }
         }
+    }
+    
+    func setupCurrency(_ currency: Currency) {
+        switch dataManager.openedFirstCurrency {
+        case true:
+            dataManager.firstCurrency = currency
+        case false:
+            dataManager.secondCurrency = currency
+        }
+        coordinator?.route(.dismiss)
     }
 }

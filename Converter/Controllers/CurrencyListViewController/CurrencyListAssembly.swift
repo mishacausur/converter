@@ -7,8 +7,8 @@
 
 extension ModuleFactory {
     
-    static func createCurrencyListModule(_ coordinator: Coordinatable) -> Module<CurrencyListViewController> {
-        let viewModel = CurrencyViewModel()
+    static func createCurrencyListModule(_ coordinator: Coordinatable, dataManager: DataManager) -> Module<CurrencyListViewController> {
+        let viewModel = CurrencyViewModel(dataManager: dataManager)
         viewModel.coordinator = coordinator
         let viewController = CurrencyListViewController(viewModel: viewModel)
         viewModel.currencyView = viewController

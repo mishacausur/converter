@@ -19,18 +19,6 @@ final class TextField: UITextField {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func textRect(forBounds bounds: CGRect) -> CGRect {
-        var rect = super.textRect(forBounds: bounds)
-        rect.origin.x += 26
-        return rect
-    }
-    
-    override func caretRect(for position: UITextPosition) -> CGRect {
-        var rect = super.caretRect(for: position)
-        rect.origin.x += 26
-        return rect
-    }
-    
     func configure(_ placeHolder: String) {
         translatesAutoresizingMaskIntoConstraints = false
         layer.masksToBounds = true
@@ -38,5 +26,7 @@ final class TextField: UITextField {
         layer.borderColor = Color.gray.cgColor
         layer.borderWidth = 0.5
         placeholder = placeHolder
+        keyboardType = .numberPad
+        textAlignment = .center
     }
 }

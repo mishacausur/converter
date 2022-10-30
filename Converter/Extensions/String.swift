@@ -7,8 +7,11 @@
 
 extension String {
     
-    static let convert = "Kонвертировать"
-    static let enterValue = "Введите значение"
+    static let convert = "Convert"
+    static let enterValue = "Enter value"
     static let rubleSign = "₽"
-    static let chooseCurrency = "Выбрать"
+    static let chooseCurrency = "Choose"
+    static let currencies = "Currencies"
+    static let mainViewTitle = "Converter"
+    static let empty = ""
 }

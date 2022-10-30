@@ -7,10 +7,11 @@
 
 extension ModuleFactory {
     
-    static func createMainModule(_ coordinator: Coordinatable) -> Module<MainViewController> {
-        let viewModel = MainViewModel()
+    static func createMainModule(_ coordinator: Coordinatable, dataManager: DataManager) -> Module<MainViewController> {
+        let viewModel = MainViewModel(dataManager: dataManager)
         viewModel.coordinator = coordinator
         let viewController = MainViewController(viewModel: viewModel)
+        viewModel.mainView = viewController
         return Module(presentable: viewController)
     }
 }

@@ -12,6 +12,8 @@ final class Coordinator: Coordinatable {
     unowned let window: UIWindow
     var navigationController: UINavigationController
     
+    let dataManager = DataManager()
+    
     init(_ window: UIWindow) {
         self.window = window
         navigationController = .init()
@@ -28,17 +30,17 @@ final class Coordinator: Coordinatable {
         case .currencyList:
             startCurrencyListFLow()
         case .dismiss:
-            navigationController.dismiss(animated: true)
+            navigationController.popViewController(animated: true)
         }
     }
     
     private func startMainFlow() {
-        let mainModule = ModuleFactory.createMainModule(self)
+        let mainModule = ModuleFactory.createMainModule(self, dataManager: dataManager)
         navigationController.pushViewController(mainModule.presentable, animated: false)
     }
     
     private func startCurrencyListFLow() {
-        let module = ModuleFactory.createCurrencyListModule(self)
+        let module = ModuleFactory.createCurrencyListModule(self, dataManager: dataManager)
         navigationController.pushViewController(module.presentable, animated: true)
     }
 }

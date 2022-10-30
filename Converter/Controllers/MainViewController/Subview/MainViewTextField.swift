@@ -10,7 +10,21 @@ import UIKit.NSLayoutConstraint
 final class MainViewTextField: Viеw {
     
     var buttonDidTapped: (() -> Void)?
-    
+    var valueDidEntered: ((String) -> Void)?
+    var value: Double {
+        get {
+            Double(textField.text!) ?? 0.0
+        }
+        set {
+            DispatchQueue.main.async { [weak self] in
+                guard !newValue.isZero else {
+                    self?.textField.text = .empty
+                    return
+                }
+                self?.textField.text = "\(newValue)"
+            }
+        }
+    }
     private let textField = UIFactory.createTextField(with: .enterValue)
     private let circle = CircleLabel().configure { $0.translatesAutoresizingMaskIntoConstraints = false }
     private let textFieldButton = UIFactory.createButton(with: .chooseCurrency, radius: 8, font: .small)
@@ -21,6 +35,9 @@ final class MainViewTextField: Viеw {
     
     override func bindViews() {
         textFieldButton.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        textField.addTarget(self, action: #selector(editingDidEnded), for: .editingDidEnd)
+        textField.addTarget(self, action: #selector(editingDidChanged), for: .editingChanged)
+
     }
     
     override func layout() {
@@ -48,5 +65,12 @@ final class MainViewTextField: Viеw {
 
     @objc private func buttonTapped() {
         buttonDidTapped?()
+    }
+    @objc private func editingDidEnded() {
+        textField.resignFirstResponder()
+        valueDidEntered?(textField.text!)
+    }
+    @objc private func editingDidChanged() {
+        valueDidEntered?(textField.text!)
     }
 }
