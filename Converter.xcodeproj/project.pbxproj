@@ -144,6 +144,8 @@
 		B6F67B2A290C1A0300CB8263 /* Converter */ = {
 			isa = PBXGroup;
 			children = (
+				B6F67B39290C1A0600CB8263 /* Info.plist */,
+				B6F67BAF290EE76100CB8263 /* Ancillaries */,
 				B6F67BA9290EDC2F00CB8263 /* Entities */,
 				B6F67B83290D866700CB8263 /* DataModels */,
 				B6F67B81290D864A00CB8263 /* Services */,
@@ -152,11 +154,6 @@
 				B6F67B4D290C256B00CB8263 /* Controllers */,
 				B6F67B4A290C24E200CB8263 /* Components */,
 				B6F67B41290C1D2B00CB8263 /* Coordinator */,
-				B6F67B94290EC83D00CB8263 /* SceneDelegate.swift */,
-				B6F67B2B290C1A0300CB8263 /* AppDelegate.swift */,
-				B6F67B34290C1A0600CB8263 /* Assets.xcassets */,
-				B6F67B36290C1A0600CB8263 /* LaunchScreen.storyboard */,
-				B6F67B39290C1A0600CB8263 /* Info.plist */,
 			);
 			path = Converter;
 			sourceTree = "<group>";
@@ -325,6 +322,17 @@
 				B6F67BAD290EE46D00CB8263 /* CacheService.swift */,
 			);
 			path = CacheService;
+			sourceTree = "<group>";
+		};
+		B6F67BAF290EE76100CB8263 /* Ancillaries */ = {
+			isa = PBXGroup;
+			children = (
+				B6F67B34290C1A0600CB8263 /* Assets.xcassets */,
+				B6F67B36290C1A0600CB8263 /* LaunchScreen.storyboard */,
+				B6F67B2B290C1A0300CB8263 /* AppDelegate.swift */,
+				B6F67B94290EC83D00CB8263 /* SceneDelegate.swift */,
+			);
+			path = Ancillaries;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

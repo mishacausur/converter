@@ -8,5 +8,6 @@
 import Foundation
 
 enum HTTPHeaders: String {
+    
     case apikey = "apikey"
 }

@@ -13,5 +13,4 @@ struct Currency {
 }
 
 extension Currency: Equatable {
-
 }

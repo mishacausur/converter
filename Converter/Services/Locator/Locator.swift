@@ -8,6 +8,7 @@
 import Foundation
 
 final class Locator {
+    
     let networkService: NetworkService
     let dataManager: DataManager
     let cacheService: CacheService

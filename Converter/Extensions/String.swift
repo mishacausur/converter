@@ -34,6 +34,7 @@ extension String {
 }
 
 extension String {
+    
     var isNumber: Bool {
         return self.allSatisfy { $0.isNumber }
     }

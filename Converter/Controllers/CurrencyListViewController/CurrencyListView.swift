@@ -48,7 +48,9 @@ final class CurrencyListView: Viеw {
     }
 }
 
+// MARK: - TableView
 extension CurrencyListView: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch isFiltered {
         case true:
@@ -70,7 +72,9 @@ extension CurrencyListView: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+// MARK: - Searching
 extension CurrencyListView: UISearchResultsUpdating {
+    
     func updateSearchResults(for searchController: UISearchController) {
         guard let text = searchController.searchBar.text else { return }
         if !text.isEmpty {

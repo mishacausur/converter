@@ -6,6 +6,7 @@
 //
 
 final class CurrencyViewModel: ViewModel {
+    
     var isUpper: Bool = true
     let dataManager: DataManager
     let networkService: NetworkService

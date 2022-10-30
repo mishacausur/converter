@@ -22,4 +22,3 @@ struct Symbol: Decodable {
         symbols = try container.decode([String: String].self, forKey: .symbols)
     }
 }
-

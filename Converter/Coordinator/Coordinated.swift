@@ -6,5 +6,6 @@
 //
 
 protocol Coordinated {
+    
     var coordinator: Coordinatable? { get set }
 }

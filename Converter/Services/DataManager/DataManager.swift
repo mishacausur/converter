@@ -8,6 +8,7 @@
 import Foundation
 
 final class DataManager {
+    
     @Published var firstCurrency: Currency?
     @Published var secondCurrency: Currency?
     var firstCurrencyValue: Int = 0

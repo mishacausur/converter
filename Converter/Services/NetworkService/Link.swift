@@ -8,6 +8,7 @@
 import Foundation
 
 enum Link: String {
+    
     case currencies = "https://api.apilayer.com/exchangerates_data/symbols"
     case convert = "https://api.apilayer.com/exchangerates_data/convert"
 }

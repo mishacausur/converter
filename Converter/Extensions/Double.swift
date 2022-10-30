@@ -8,5 +8,6 @@
 import Foundation
 
 extension Double {
+    
     static let zero = 0.0
 }
