@@ -13,7 +13,7 @@ struct NetworkService {
     typealias currenciesHandler = ((Result<[Currency], NetworkError>) -> Void)?
     
     func convertCurrencies(to: String, from: String, amount: Int, convertHandler: convertHandler) {
-        guard let url = URL(string: Link.convert.rawValue + "?to=\(to)&from=\(from)&amount=\(amount)") else {
+        guard let url = URL(string: [Link.convert.rawValue + createQueryString(to: to, from: from, amount: amount)].reduce(.empty, +)) else {
             convertHandler?(.failure(.badURL))
             return
         }
@@ -62,5 +62,9 @@ struct NetworkService {
     
     private func mapCurrency(_ response: [String: String]) -> [Currency] {
         response.map { .init(sign: $0.0, name: $0.1) }
+    }
+    
+    private func createQueryString(to: String, from: String, amount: Int) -> String {
+        "?to=\(to)&from=\(from)&amount=\(amount)"
     }
 }
