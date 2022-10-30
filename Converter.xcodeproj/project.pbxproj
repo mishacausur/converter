@@ -55,6 +55,7 @@
 		B6F67BA2290ECF0400CB8263 /* Security.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67BA1290ECF0400CB8263 /* Security.swift */; };
 		B6F67BA4290ECF9400CB8263 /* CurrencyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67BA3290ECF9400CB8263 /* CurrencyButton.swift */; };
 		B6F67BA8290ED73000CB8263 /* Locator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67BA7290ED73000CB8263 /* Locator.swift */; };
+		B6F67BAB290EDD7000CB8263 /* Print.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67BAA290EDD7000CB8263 /* Print.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -108,6 +109,7 @@
 		B6F67BA1290ECF0400CB8263 /* Security.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Security.swift; sourceTree = "<group>"; };
 		B6F67BA3290ECF9400CB8263 /* CurrencyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyButton.swift; sourceTree = "<group>"; };
 		B6F67BA7290ED73000CB8263 /* Locator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Locator.swift; sourceTree = "<group>"; };
+		B6F67BAA290EDD7000CB8263 /* Print.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Print.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -309,6 +311,7 @@
 				B6F67BA1290ECF0400CB8263 /* Security.swift */,
 				B6F67BA3290ECF9400CB8263 /* CurrencyButton.swift */,
 				B6F67B9F290ECEE600CB8263 /* Error.swift */,
+				B6F67BAA290EDD7000CB8263 /* Print.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -423,6 +426,7 @@
 				B6F67B9E290ECEC900CB8263 /* HTTPHeaders.swift in Sources */,
 				B6F67B5D290C2E6C00CB8263 /* Module.swift in Sources */,
 				B6F67BA0290ECEE600CB8263 /* Error.swift in Sources */,
+				B6F67BAB290EDD7000CB8263 /* Print.swift in Sources */,
 				B6F67B61290C491000CB8263 /* UIComponentFactory.swift in Sources */,
 				B6F67B80290C710F00CB8263 /* CurrencyListAssembly.swift in Sources */,
 				B6F67B75290C5D1A00CB8263 /* CircleLabel.swift in Sources */,

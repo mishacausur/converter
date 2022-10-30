@@ -65,7 +65,7 @@ final class MainViewModel: ViewModel {
             case .success(let value):
                 self?.mainView?.setupValueTextFiled(label: self?.dataManager.lastChangedField == .upper ? .lower : .upper, value: value.result)
             case .failure(let error):
-                print(error)
+                Print.printToConsole(error.localizedDescription)
                 self?.mainView?.showError(.undefined)
             }
         }

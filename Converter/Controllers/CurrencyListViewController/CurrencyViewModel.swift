@@ -22,7 +22,8 @@ final class CurrencyViewModel: ViewModel {
             case .success(let currencies):
                 self?.currencyView?.reloadView(currencies.sorted { $0.name < $1.name })
             case .failure(let error):
-                print(error)
+                Print.printToConsole(error.localizedDescription)
+                self?.currencyView?.showError(.undefined)
             }
         }
     }

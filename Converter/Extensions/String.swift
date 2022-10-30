@@ -32,3 +32,9 @@ extension String {
     static let errorTitle = "Error has occured"
     static let errorDescription = "Something goes wrong but we're already working to fix it"
 }
+
+extension String {
+    var isNumber: Bool {
+        return self.allSatisfy { $0.isNumber }
+    }
+}

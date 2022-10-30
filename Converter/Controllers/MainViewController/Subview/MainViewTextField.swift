@@ -29,6 +29,11 @@ final class MainViewTextField: Viеw {
     private let circle = CircleLabel().configure { $0.translatesAutoresizingMaskIntoConstraints = false }
     private let textFieldButton = UIFactory.createButton(with: .chooseCurrency, radius: .smallCornerRadius, font: .small)
     
+    override func configure() {
+        super.configure()
+        textField.delegate = self
+    }
+    
     override func addViews() {
         addViews(textField, circle, textFieldButton)
     }
@@ -68,9 +73,17 @@ final class MainViewTextField: Viеw {
     }
     @objc private func editingDidEnded() {
         textField.resignFirstResponder()
-        valueDidEntered?(textField.text!)
+        guard let text = textField.text else { return }
+        valueDidEntered?(text)
     }
     @objc private func editingDidChanged() {
-        valueDidEntered?(textField.text!)
+        guard let text = textField.text else { return }
+        valueDidEntered?(text)
+    }
+}
+
+extension MainViewTextField: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        return Int(string) != nil
     }
 }
