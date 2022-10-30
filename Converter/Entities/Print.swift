@@ -9,8 +9,8 @@ import Foundation
 
 final class Print {
     static func printToConsole(_ message : String) {
-           #if DEBUG
-               print(message)
-           #endif
-       }
+#if DEBUG
+        print(message)
+#endif
+    }
 }

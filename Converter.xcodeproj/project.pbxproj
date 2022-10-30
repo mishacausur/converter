@@ -256,8 +256,8 @@
 		B6F67B81290D864A00CB8263 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				B6F67BAC290EE45D00CB8263 /* CacheService */,
 				B6F67BA6290ED72100CB8263 /* Locator */,
+				B6F67BAC290EE45D00CB8263 /* CacheService */,
 				B6F67B9A290ECE9D00CB8263 /* DataManager */,
 				B6F67B82290D865700CB8263 /* NetworkService */,
 			);

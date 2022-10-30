@@ -15,6 +15,8 @@ enum NetworkError: Error {
     case badDecode
 }
 
+// MARK: - Application error (UI showing)
+
 enum AppError: Error {
     case emptyCurrencies
     case emptyValues
