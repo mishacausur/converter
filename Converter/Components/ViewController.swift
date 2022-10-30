@@ -35,9 +35,14 @@ class ViewController<View: Viеw, ViewModеl: ViewModel>: UIViewController,
         return View()
     }
     
-    func showError(_ error: AppError) {
-        let alert = UIAlertController(title: AppError.error(error).0, message: AppError.error(error).1, preferredStyle: .actionSheet)
-        alert.addAction(.init(title: .ok, style: .cancel))
-        present(alert, animated: true)
+    func showError(_ error: AppError, completion: (() -> Void)? = nil) {
+        let alert = UIAlertController(title: AppError.error(error).0, message: AppError.error(error).1, preferredStyle: .alert)
+        alert.addAction(.init(title: .ok, style: .cancel, handler: { _ in
+            completion?()
+        }))
+        DispatchQueue.main.async { [weak self] in
+            self?.present(alert, animated: true)
+        }
+        
     }
 }

@@ -32,7 +32,9 @@ final class CurrencyViewModel: ViewModel {
                 self?.cacheService.store(items)
             case .failure(let error):
                 Print.printToConsole(error.localizedDescription)
-                self?.currencyView?.showError(.undefined)
+                self?.currencyView?.showError(.undefined) {
+                    self?.coordinator?.route(.dismiss)
+                }
             }
         }
     }
