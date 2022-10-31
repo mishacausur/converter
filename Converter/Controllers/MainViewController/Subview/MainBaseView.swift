@@ -19,7 +19,7 @@ final class MainBaseView: Viеw {
     }
     private let upperTextField = MainViewTextField()
     private let lowerTextField = MainViewTextField()
-    private let button = UIFactory.createButton(with: .convert)
+    private let button = UIFactory.createButton(with: .convert).configure { $0.isHidden = true }
     
     override func bindViews() {
         
@@ -82,5 +82,9 @@ final class MainBaseView: Viеw {
         case .lower:
             lowerTextField.value = value
         }
+    }
+    
+    func showButton(_ value: Bool) {
+        button.isHidden = !value
     }
 }

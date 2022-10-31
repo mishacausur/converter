@@ -28,11 +28,15 @@ final class MainViewController: ViewController<MainView, MainViewModel> {
         mainView.changeValueLabel(label, value: value)
     }
     
-    @objc private func convertButtonDidTapped() {
-        viewModel.convertDidTapped()
-    }
-    
     func setupValueTextFiled(label: CurrencyButton, value: Double) {
         mainView.setupTextFieldValue(label, value: value)
+    }
+    
+    func showButton(_ value: Bool) {
+        mainView.showButton(value)
+    }
+    
+    @objc private func convertButtonDidTapped() {
+        viewModel.convertDidTapped()
     }
 }

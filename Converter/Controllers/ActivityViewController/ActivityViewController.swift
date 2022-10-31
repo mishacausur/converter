@@ -8,6 +8,7 @@
 import UIKit
 
 final class ActivityViewController: UIViewController {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

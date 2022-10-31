@@ -8,6 +8,7 @@
 extension ModuleFactory {
     
     static func createMainModule(_ coordinator: Coordinatable, locator: Locator) -> Module<MainViewController> {
+        
         let viewModel = MainViewModel(locator: locator)
         viewModel.coordinator = coordinator
         let viewController = MainViewController(viewModel: viewModel)

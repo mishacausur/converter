@@ -10,11 +10,12 @@ import Combine
 
 final class MainViewModel: ViewModel {
     
+    weak var mainView: MainViewController?
+    
     private let networkService: NetworkService
     private let dataManager: DataManager
     private var cancellables = Set<AnyCancellable>()
-    weak var mainView: MainViewController?
-    
+   
     init(locator: Locator) {
         self.dataManager = locator.dataManager
         self.networkService = locator.networkService
@@ -27,9 +28,16 @@ final class MainViewModel: ViewModel {
             self?.changeLabelValue(.upper, value: value)
         }
         .store(in: &cancellables)
+        
         dataManager.$secondCurrency.removeDuplicates().dropFirst().sink { [weak self] in
             guard let value = $0?.sign else { return }
             self?.changeLabelValue(.lower, value: value)
+        }
+        .store(in: &cancellables)
+        
+        dataManager.$valueEntered.removeDuplicates().dropFirst().sink { [weak self] in
+            guard $0 else { return }
+            self?.showButton($0)
         }
         .store(in: &cancellables)
     }
@@ -54,7 +62,7 @@ final class MainViewModel: ViewModel {
             mainView?.showError(.sameValues)
             return
         }
-        guard dataManager.lastChangedField == .upper ? dataManager.firstCurrencyValue > 0 : dataManager.secondCurrencyValue > 0 else {
+        guard dataManager.lastChangedField == .upper ? dataManager.isFirstValueCorrect : dataManager.isSecondValueCorrect else {
             mainView?.showError(.emptyValues)
             return
         }
@@ -87,5 +95,9 @@ final class MainViewModel: ViewModel {
     
     private func changeLabelValue(_ label: CurrencyButton, value: String) {
         mainView?.changeValueLabel(label, value: value)
+    }
+    
+    private func showButton(_ value: Bool) {
+        mainView?.showButton(value)
     }
 }

@@ -88,6 +88,6 @@ final class MainViewTextField: Viеw {
 
 extension MainViewTextField: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        return Int(string) != nil
+        return Int(string) != nil || string.isEmpty
     }
 }

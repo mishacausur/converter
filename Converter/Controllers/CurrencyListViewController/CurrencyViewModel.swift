@@ -7,11 +7,11 @@
 
 final class CurrencyViewModel: ViewModel {
     
+    weak var currencyView: CurrencyListViewController?
     var isUpper: Bool = true
     let dataManager: DataManager
     let networkService: NetworkService
     let cacheService: CacheService
-    weak var currencyView: CurrencyListViewController?
     
     init(locator: Locator) {
         self.dataManager = locator.dataManager

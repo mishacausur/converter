@@ -9,5 +9,5 @@ import Foundation
 
 enum Security {}
 extension Security {
-    static let apiKey = ""
+    static let apiKey = "m8tahySW1S16SyREAQlRSmhESVox9bgd"
 }

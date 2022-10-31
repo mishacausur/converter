@@ -20,6 +20,7 @@ final class CurrencyListView: Viеw {
     }
     var filteredItems: [Currency] = []
     var isFiltered = false
+    
     override func configure() {
         super.configure()
         backgroundColor = .white

@@ -48,4 +48,8 @@ final class MainView: Viеw {
     func setupTextFieldValue(_ label: CurrencyButton, value: Double) {
         view.setupTextFieldValue(label, value: value)
     }
+    
+    func showButton(_ value: Bool) {
+        view.showButton(value)
+    }
 }
