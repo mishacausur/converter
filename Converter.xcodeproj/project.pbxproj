@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B6A0E7912912CDA500D487B3 /* ConstraintBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A0E7902912CDA500D487B3 /* ConstraintBuilder.swift */; };
+		B6A0E7942912D27F00D487B3 /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A0E7932912D27F00D487B3 /* Layout.swift */; };
+		B6A0E7962912D3D500D487B3 /* NSLayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A0E7952912D3D500D487B3 /* NSLayoutConstraint.swift */; };
 		B6F67B2C290C1A0300CB8263 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B2B290C1A0300CB8263 /* AppDelegate.swift */; };
 		B6F67B30290C1A0300CB8263 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B2F290C1A0300CB8263 /* ViewController.swift */; };
 		B6F67B35290C1A0600CB8263 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6F67B34290C1A0600CB8263 /* Assets.xcassets */; };
@@ -60,6 +63,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B6A0E7902912CDA500D487B3 /* ConstraintBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstraintBuilder.swift; sourceTree = "<group>"; };
+		B6A0E7932912D27F00D487B3 /* Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Layout.swift; sourceTree = "<group>"; };
+		B6A0E7952912D3D500D487B3 /* NSLayoutConstraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSLayoutConstraint.swift; sourceTree = "<group>"; };
 		B6F67B28290C1A0300CB8263 /* Converter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Converter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6F67B2B290C1A0300CB8263 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B6F67B2F290C1A0300CB8263 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -125,6 +131,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B6A0E7922912D26300D487B3 /* ConstraintBuilder */ = {
+			isa = PBXGroup;
+			children = (
+				B6A0E7902912CDA500D487B3 /* ConstraintBuilder.swift */,
+				B6A0E7932912D27F00D487B3 /* Layout.swift */,
+			);
+			path = ConstraintBuilder;
+			sourceTree = "<group>";
+		};
 		B6F67B1F290C1A0200CB8263 = {
 			isa = PBXGroup;
 			children = (
@@ -145,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				B6F67B39290C1A0600CB8263 /* Info.plist */,
+				B6A0E7922912D26300D487B3 /* ConstraintBuilder */,
 				B6F67BAF290EE76100CB8263 /* Ancillaries */,
 				B6F67BA9290EDC2F00CB8263 /* Entities */,
 				B6F67B83290D866700CB8263 /* DataModels */,
@@ -226,6 +242,7 @@
 				B6F67B96290ECD2600CB8263 /* Double.swift */,
 				B6F67B72290C5C9B00CB8263 /* UIView.swift */,
 				B6F67B92290EBE0E00CB8263 /* ViewControllers.swift */,
+				B6A0E7952912D3D500D487B3 /* NSLayoutConstraint.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -432,6 +449,7 @@
 				B6F67B64290C4C9300CB8263 /* UIColor.swift in Sources */,
 				B6F67BA2290ECF0400CB8263 /* Security.swift in Sources */,
 				B6F67B2C290C1A0300CB8263 /* AppDelegate.swift in Sources */,
+				B6A0E7942912D27F00D487B3 /* Layout.swift in Sources */,
 				B6F67B43290C1D4100CB8263 /* Coordinator.swift in Sources */,
 				B6F67B89290D87E300CB8263 /* NetworkService.swift in Sources */,
 				B6F67B71290C5C5700CB8263 /* Button.swift in Sources */,
@@ -447,12 +465,14 @@
 				B6F67B5D290C2E6C00CB8263 /* Module.swift in Sources */,
 				B6F67BA0290ECEE600CB8263 /* Error.swift in Sources */,
 				B6F67BAB290EDD7000CB8263 /* Print.swift in Sources */,
+				B6A0E7962912D3D500D487B3 /* NSLayoutConstraint.swift in Sources */,
 				B6F67B61290C491000CB8263 /* UIComponentFactory.swift in Sources */,
 				B6F67B80290C710F00CB8263 /* CurrencyListAssembly.swift in Sources */,
 				B6F67B75290C5D1A00CB8263 /* CircleLabel.swift in Sources */,
 				B6F67B7A290C70A000CB8263 /* CurrencyListViewController.swift in Sources */,
 				B6F67B91290EB63D00CB8263 /* ActivityViewController.swift in Sources */,
 				B6F67B45290C246800CB8263 /* Coordinatable.swift in Sources */,
+				B6A0E7912912CDA500D487B3 /* ConstraintBuilder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

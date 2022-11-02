@@ -36,10 +36,12 @@ final class CurrencyListView: Viеw {
     }
     
     override func layout() {
-        [tableView.topAnchor.constraint(equalTo: topAnchor),
-         tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
-         tableView.trailingAnchor.constraint(equalTo: trailingAnchor),
-         tableView.bottomAnchor.constraint(equalTo: bottomAnchor)].forEach { $0.isActive = true }
+        NSLayoutConstraint.activate  {
+            tableView.topAnchor.constraint(equalTo: topAnchor)
+            tableView.leadingAnchor.constraint(equalTo: leadingAnchor)
+            tableView.trailingAnchor.constraint(equalTo: trailingAnchor)
+            tableView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        }
     }
     
     func reloadView() {

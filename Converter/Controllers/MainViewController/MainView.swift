@@ -33,8 +33,10 @@ final class MainView: Viеw {
     }
     
     override func layout() {
-        [view.centerXAnchor.constraint(equalTo: centerXAnchor),
-         view.centerYAnchor.constraint(equalTo: centerYAnchor)].forEach { $0.isActive = true }
+        NSLayoutConstraint.activate  {
+            view.centerXAnchor.constraint(equalTo: centerXAnchor)
+            view.centerYAnchor.constraint(equalTo: centerYAnchor)
+        }
     }
     
     func changeValueLabel(_ label: CurrencyButton, value: String) {

@@ -17,9 +17,9 @@ final class ActivityViewController: UIViewController {
         spinner.startAnimating()
         view.addSubview(spinner)
         
-        NSLayoutConstraint.activate([
-            spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+        NSLayoutConstraint.activate {
+            spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor)
             spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        ])
+        }
     }
 }

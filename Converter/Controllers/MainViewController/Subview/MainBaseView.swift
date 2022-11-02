@@ -43,23 +43,22 @@ final class MainBaseView: Viеw {
     
     override func layout() {
         [upperTextField, lowerTextField].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
-        let constraints = [
-            title.topAnchor.constraint(equalTo: topAnchor),
-            title.centerXAnchor.constraint(equalTo: centerXAnchor),
-            upperTextField.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            upperTextField.topAnchor.constraint(equalTo: title.bottomAnchor, constant: .titleInset),
-            upperTextField.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            upperTextField.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            lowerTextField.centerXAnchor.constraint(equalTo: centerXAnchor),
-            lowerTextField.topAnchor.constraint(equalTo: upperTextField.bottomAnchor, constant: .defaultInset),
-            self.widthAnchor.constraint(greaterThanOrEqualToConstant: .defaultWidth),
-            button.centerXAnchor.constraint(equalTo: centerXAnchor),
-            button.topAnchor.constraint(equalTo: lowerTextField.bottomAnchor, constant: .defaultInset),
-            button.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            button.widthAnchor.constraint(equalToConstant: .defaultWidth),
-            button.heightAnchor.constraint(equalToConstant: .defaultHeight)]
-        
-        NSLayoutConstraint.activate(constraints)
+        NSLayoutConstraint.activate  {
+            title.topAnchor.constraint(equalTo: topAnchor)
+            title.centerXAnchor.constraint(equalTo: centerXAnchor)
+            upperTextField.centerXAnchor.constraint(equalTo: self.centerXAnchor)
+            upperTextField.topAnchor.constraint(equalTo: title.bottomAnchor, constant: .titleInset)
+            upperTextField.leadingAnchor.constraint(equalTo: self.leadingAnchor)
+            upperTextField.trailingAnchor.constraint(equalTo: self.trailingAnchor)
+            lowerTextField.centerXAnchor.constraint(equalTo: centerXAnchor)
+            lowerTextField.topAnchor.constraint(equalTo: upperTextField.bottomAnchor, constant: .defaultInset)
+            self.widthAnchor.constraint(greaterThanOrEqualToConstant: .defaultWidth)
+            button.centerXAnchor.constraint(equalTo: centerXAnchor)
+            button.topAnchor.constraint(equalTo: lowerTextField.bottomAnchor, constant: .defaultInset)
+            button.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+            button.widthAnchor.constraint(equalToConstant: .defaultWidth)
+            button.heightAnchor.constraint(equalToConstant: .defaultHeight)
+        }
     }
     
     func setupCurrencyLabel(_ label: CurrencyButton, value: String) {

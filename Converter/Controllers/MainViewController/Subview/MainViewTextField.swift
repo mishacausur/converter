@@ -40,22 +40,21 @@ final class MainViewTextField: Viеw {
     }
     
     override func layout() {
-
-        let constraints = [
-            textField.topAnchor.constraint(equalTo: topAnchor),
-            textField.widthAnchor.constraint(equalToConstant: .defaultWidth - .defaultWidth/3 + .smallInset),
-            textField.heightAnchor.constraint(equalToConstant: .defaultHeight),
-            textField.bottomAnchor.constraint(equalTo: bottomAnchor),
-            textField.leadingAnchor.constraint(equalTo: leadingAnchor),
-            textField.trailingAnchor.constraint(equalTo: textFieldButton.leadingAnchor, constant: .smallInset),
-            circle.leadingAnchor.constraint(equalTo: textField.leadingAnchor),
-            circle.centerYAnchor.constraint(equalTo: textField.centerYAnchor),
-            textFieldButton.trailingAnchor.constraint(equalTo: trailingAnchor),
-            textFieldButton.widthAnchor.constraint(equalToConstant: .defaultWidth/3),
-            textFieldButton.heightAnchor.constraint(equalToConstant: .defaultHeight),
-            textFieldButton.centerYAnchor.constraint(equalTo: textField.centerYAnchor)]
         
-        NSLayoutConstraint.activate(constraints)
+        NSLayoutConstraint.activate  {
+            textField.topAnchor.constraint(equalTo: topAnchor)
+            textField.widthAnchor.constraint(equalToConstant: .defaultWidth - .defaultWidth/3 + .smallInset)
+            textField.heightAnchor.constraint(equalToConstant: .defaultHeight)
+            textField.bottomAnchor.constraint(equalTo: bottomAnchor)
+            textField.leadingAnchor.constraint(equalTo: leadingAnchor)
+            textField.trailingAnchor.constraint(equalTo: textFieldButton.leadingAnchor, constant: .smallInset)
+            circle.leadingAnchor.constraint(equalTo: textField.leadingAnchor)
+            circle.centerYAnchor.constraint(equalTo: textField.centerYAnchor)
+            textFieldButton.trailingAnchor.constraint(equalTo: trailingAnchor)
+            textFieldButton.widthAnchor.constraint(equalToConstant: .defaultWidth/3)
+            textFieldButton.heightAnchor.constraint(equalToConstant: .defaultHeight)
+            textFieldButton.centerYAnchor.constraint(equalTo: textField.centerYAnchor)
+        }
     }
     
     func configureLabel(currency: String) {
