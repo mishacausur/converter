@@ -26,6 +26,7 @@ final class CurrencyViewController_Arch: UIViewController, ViewType {
         super.viewDidLoad()
         configure()
         createLayout()
+        definesPresentationContext = true
     }
     
     func bind(to viewModel: CurrencyViewModel_Arch) {
@@ -57,8 +58,9 @@ final class CurrencyViewController_Arch: UIViewController, ViewType {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         }
-        
-        tableView.tableHeaderView = searchBar
+        searchBar.showsCancelButton = true
+        searchBar.placeholder = "Search for currency"
+        tableView.tableHeaderView = searchController.searchBar
     }
 }
 

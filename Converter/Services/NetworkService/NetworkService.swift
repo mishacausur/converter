@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RxSwift
 
 struct NetworkService {
     
@@ -59,6 +60,20 @@ struct NetworkService {
         }
         response.resume()
     }
+    
+//    func rxGetCurrencies() -> Observable<[Currency]> {
+//        guard let url = URL(string: Link.currencies.rawValue) else {
+//            return Observable.just([])
+//        }
+//        
+//        return URLSession.shared
+//            .rx
+//            .json(request: URLRequest(url: url))
+//            .retry(3)
+//            .map {
+//                mapCurrency($0)
+//            }
+//    }
     
     private func mapCurrency(_ response: [String: String]) -> [Currency] {
         response.map { .init(sign: $0.0, name: $0.1) }

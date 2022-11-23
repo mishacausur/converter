@@ -15,10 +15,11 @@ final class MainViewModel: ViewModel {
     private let networkService: NetworkService
     private let dataManager: DataManager
     private var cancellables = Set<AnyCancellable>()
-   
+    private let cache: CacheService
     init(locator: Locator) {
         self.dataManager = locator.dataManager
         self.networkService = locator.networkService
+        self.cache = locator.cacheService
     }
     
     func setupSubscription() {
@@ -43,7 +44,8 @@ final class MainViewModel: ViewModel {
     }
     
     func openCurrencyListDidTapped(_ button: CurrencyButton) {
-        coordinator?.route(.currencyList)
+//        coordinator?.route(.currencyList)
+        coordinator?.route(.currencyList_arch(cache.storedCurrencies))
         switch button {
         case .upper:
             dataManager.openedFirstCurrency = true
