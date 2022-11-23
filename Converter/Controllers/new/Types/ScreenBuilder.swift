@@ -5,7 +5,7 @@
 //  Created by Миша on 23.11.2022.
 //
 
-import Foundation
+import class UIKit.UIViewController
 
 protocol ScreenBuilder: HasEmptyInitialization {
     

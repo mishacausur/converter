@@ -43,4 +43,8 @@ final class Coordinator: Coordinatable {
         let module = ModuleFactory.createCurrencyListModule(self, locator: locator)
         navigationController.pushViewController(module.presentable, animated: true)
     }
+    
+    private func startCurrencyListFLow_Arch() {
+        let builder = CurrencyListScreenBuilder()
+    }
 }
