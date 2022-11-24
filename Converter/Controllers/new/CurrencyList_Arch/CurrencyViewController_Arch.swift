@@ -2,10 +2,11 @@
 //  CurrencyViewController_Arch.swift
 //  Converter
 //
-//  Created by Миша on 23.11.2022.
+//  Created by Misha Causur on 23.11.2022.
 //
 
 import UIKit
+import Combine
 
 final class CurrencyViewController_Arch: UIViewController, ViewType {
     
@@ -17,7 +18,7 @@ final class CurrencyViewController_Arch: UIViewController, ViewType {
     var items: [Currency] = []
     var filteredItems: [Currency] = []
     var isFiltered = false
-    
+    var cancellables = Set<AnyCancellable>()
     let searchController = UISearchController(searchResultsController: nil)
     var searchBar: UISearchBar { searchController.searchBar }
     private lazy var tableView = UITableView(frame: .zero, style: .grouped).configure { $0.translatesAutoresizingMaskIntoConstraints = false }
@@ -32,13 +33,18 @@ final class CurrencyViewController_Arch: UIViewController, ViewType {
     func bind(to viewModel: CurrencyViewModel_Arch) {
         
         currencyDidChosen = bindings.setupCurrencies
-        
-        switch viewModel._currencies {
-        case .items(let items):
-            self.items = items
-        case .error(_), .initialized:
-            Print.printToConsole("no data found")
+        guard let items = viewModel.currencies else {
+            viewModel.publishedCurrencies?
+                .replaceError(with: [])
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] in
+                    self?.items = $0.sorted { $0.name < $1.name }
+                    self?.tableView.reloadData()
+                }
+                .store(in: &cancellables)
+            return
         }
+        self.items = items
     }
     
     private func configure() {

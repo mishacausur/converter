@@ -2,7 +2,7 @@
 //  CurrencyListScreenBuilder.swift
 //  Converter
 //
-//  Created by Миша on 23.11.2022.
+//  Created by Misha Causur on 23.11.2022.
 //
 
 
