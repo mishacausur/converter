@@ -29,8 +29,8 @@ final class Coordinator: Coordinatable {
         switch destination {
         case .currencyList:
             startCurrencyListFLow()
-        case .currencyList_arch(let cache, let manager):
-            startCurrencyListFLow_Arch(cache, dataManager: manager)
+        case .currencyList_arch(let manager):
+            startCurrencyListFLow_Arch(manager)
         case .dismiss:
             navigationController.popViewController(animated: true)
         }
@@ -46,7 +46,7 @@ final class Coordinator: Coordinatable {
         navigationController.pushViewController(module.presentable, animated: true)
     }
     
-    private func startCurrencyListFLow_Arch(_ cacheService: CacheService, dataManager: DataManager) {
+    private func startCurrencyListFLow_Arch(_ dataManager: DataManager) {
         
         let builder = CurrencyListScreenBuilder()
         let vc = builder.build(.init(dataManager: dataManager) { [weak self] in
