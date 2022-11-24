@@ -14,16 +14,7 @@ struct CurrencyViewModel_Arch {
 extension CurrencyViewModel_Arch: ViewModelType {
     
     struct Inputs {
-        
         let dataManager: DataManager
-        let cache: CacheService
-        var currencies: [Currency] {
-            cache.storedCurrencies
-        }
-        
-        var isEmpty: Bool {
-            cache.isEmpty
-        }
         let dismiss: () -> Void
     }
     
@@ -34,16 +25,17 @@ extension CurrencyViewModel_Arch: ViewModelType {
     
     struct Dependecies {
         let networkService: NetworkService
+        var cacheService: CacheService
     }
     
     static func configure(input: Inputs, binding: Bindings, dependency: Dependecies, router: EmptyRouter) -> CurrencyViewModel_Arch {
         let subject = CurrentValueSubject<[Currency], NetworkError>([])
         let isFiltered = CurrentValueSubject<Bool, Never>(false)
-
+        
         binding.searchText = { text in
             isFiltered.value = !text.isEmpty
-            let items = input.cache.storedCurrencies.filter { $0.name.lowercased().contains(text.lowercased()) }
-            subject.value = isFiltered.value ? items : input.cache.storedCurrencies
+            let items = dependency.cacheService.storedCurrencies.filter { $0.name.lowercased().contains(text.lowercased()) }
+            subject.value = isFiltered.value ? items : dependency.cacheService.storedCurrencies
         }
         
         binding.currencyDidChosen = {
@@ -56,7 +48,7 @@ extension CurrencyViewModel_Arch: ViewModelType {
             input.dismiss()
         }
         
-        return .init(publishedCurrencies: bindCurrencies(subject, networker: dependency.networkService, cache: input.cache))
+        return .init(publishedCurrencies: bindCurrencies(subject, networker: dependency.networkService, cache: dependency.cacheService))
     }
     
     static func bindCurrencies(_ subject: CurrentValueSubject<[Currency], NetworkError>, networker: NetworkService, cache: CacheService) -> AnyPublisher<[Currency], NetworkError> {

@@ -9,6 +9,8 @@ import Foundation
 
 final class CacheService {
     
+    static let shared = CacheService()
+    
     private(set) var storedCurrencies: [Currency] = []
     
     var isEmpty: Bool {
