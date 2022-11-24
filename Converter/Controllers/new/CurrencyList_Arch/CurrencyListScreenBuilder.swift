@@ -8,8 +8,7 @@
 
 final class CurrencyListScreenBuilder: ScreenBuilder {
     var dependencies: CurrencyViewModel_Arch.Dependecies {
-        .init(dataManager: .init(),
-              networkService: .init())
+        .init(networkService: .init())
     }
     
     typealias VC = CurrencyViewController_Arch

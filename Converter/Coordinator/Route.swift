@@ -8,5 +8,5 @@
 enum Route {
     case currencyList
     case dismiss
-    case currencyList_arch([Currency]?)
+    case currencyList_arch([Currency]?, cache: CacheService, dataManager: DataManager)
 }

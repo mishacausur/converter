@@ -38,12 +38,15 @@ final class CurrencyViewController_Arch: UIViewController, ViewType {
                 .replaceError(with: [])
                 .receive(on: DispatchQueue.main)
                 .sink { [weak self] in
-                    self?.items = $0.sorted { $0.name < $1.name }
+                    let items = $0.sorted { $0.name < $1.name }
+                    viewModel.storeCache?(items)
+                    self?.items = items
                     self?.tableView.reloadData()
                 }
                 .store(in: &cancellables)
             return
         }
+        currencyDidChosen = viewModel.setupCurrency
         self.items = items
     }
     
