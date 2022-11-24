@@ -16,18 +16,16 @@ struct CurrencyViewModel_Arch {
 
 extension CurrencyViewModel_Arch: ViewModelType {
     
-    /// При наличии в кеше будут переданы сюда, в противном случае нужен сетевой запрос
     struct Inputs {
         
         let dataManager: DataManager
         let cache: CacheService
-        let currencies: [Currency]?
+        var currencies: [Currency] {
+            cache.storedCurrencies
+        }
         
         var isEmpty: Bool {
-            guard let currencies = currencies else {
-                return true
-            }
-            return currencies.isEmpty
+            cache.isEmpty
         }
         let dismiss: () -> Void
     }
