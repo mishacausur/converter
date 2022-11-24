@@ -18,6 +18,7 @@ extension CurrencyViewModel_Arch: ViewModelType {
     
     /// При наличии в кеше будут переданы сюда, в противном случае нужен сетевой запрос
     struct Inputs {
+        
         let dataManager: DataManager
         let cache: CacheService
         let currencies: [Currency]?
@@ -28,11 +29,10 @@ extension CurrencyViewModel_Arch: ViewModelType {
             }
             return currencies.isEmpty
         }
+        let dismiss: () -> Void
     }
     
-    struct Bindings {
-        var setupCurrencies: (Currency) -> Void = { _ in }
-    }
+    typealias Bindings = Void
     
     struct Dependecies {
         let networkService: NetworkService
@@ -54,6 +54,7 @@ extension CurrencyViewModel_Arch: ViewModelType {
             case false:
                 input.dataManager.secondCurrency = $0
             }
+            input.dismiss()
         }
         
         return vm
@@ -72,5 +73,4 @@ extension CurrencyViewModel_Arch: ViewModelType {
         }
         return subject.eraseToAnyPublisher()
     }
-    
 }

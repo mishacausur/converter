@@ -49,7 +49,9 @@ final class Coordinator: Coordinatable {
     private func startCurrencyListFLow_Arch(_ currencies: [Currency]?, cacheService: CacheService, dataManager: DataManager) {
         
         let builder = CurrencyListScreenBuilder()
-        let vc = builder.build(.init(dataManager: dataManager, cache: cacheService, currencies: currencies))
+        let vc = builder.build(.init(dataManager: dataManager, cache: cacheService, currencies: currencies) { [weak self] in
+            self?.route(.dismiss)
+        })
         navigationController.pushViewController(vc, animated: true)
     }
 }

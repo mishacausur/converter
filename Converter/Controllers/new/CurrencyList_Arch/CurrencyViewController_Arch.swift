@@ -31,8 +31,7 @@ final class CurrencyViewController_Arch: UIViewController, ViewType {
     }
     
     func bind(to viewModel: CurrencyViewModel_Arch) {
-        
-        currencyDidChosen = bindings.setupCurrencies
+        currencyDidChosen = viewModel.setupCurrency
         guard let items = viewModel.currencies else {
             viewModel.publishedCurrencies?
                 .replaceError(with: [])
@@ -46,7 +45,6 @@ final class CurrencyViewController_Arch: UIViewController, ViewType {
                 .store(in: &cancellables)
             return
         }
-        currencyDidChosen = viewModel.setupCurrency
         self.items = items
     }
     
