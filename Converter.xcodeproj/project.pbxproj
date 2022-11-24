@@ -71,6 +71,7 @@
 		C6884E8B292E69D400626270 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C6884E8A292E69D400626270 /* RxSwift */; };
 		C6884E8D292E69FE00626270 /* CurrencyViewController_Arch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6884E8C292E69FE00626270 /* CurrencyViewController_Arch.swift */; };
 		C6884E8F292E6A3400626270 /* CurrencyViewModel_Arch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6884E8E292E6A3400626270 /* CurrencyViewModel_Arch.swift */; };
+		C6884E95292F779F00626270 /* CurrencyRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6884E94292F779F00626270 /* CurrencyRouter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -138,6 +139,7 @@
 		C6884E85292E470200626270 /* CurrencyListScreenBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyListScreenBuilder.swift; sourceTree = "<group>"; };
 		C6884E8C292E69FE00626270 /* CurrencyViewController_Arch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyViewController_Arch.swift; sourceTree = "<group>"; };
 		C6884E8E292E6A3400626270 /* CurrencyViewModel_Arch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyViewModel_Arch.swift; sourceTree = "<group>"; };
+		C6884E94292F779F00626270 /* CurrencyRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyRouter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -409,6 +411,7 @@
 			isa = PBXGroup;
 			children = (
 				C6884E85292E470200626270 /* CurrencyListScreenBuilder.swift */,
+				C6884E94292F779F00626270 /* CurrencyRouter.swift */,
 				C6884E8C292E69FE00626270 /* CurrencyViewController_Arch.swift */,
 				C6884E8E292E6A3400626270 /* CurrencyViewModel_Arch.swift */,
 			);
@@ -543,6 +546,7 @@
 				B6F67BA0290ECEE600CB8263 /* Error.swift in Sources */,
 				C6884E80292E388700626270 /* RouterType.swift in Sources */,
 				B6F67BAB290EDD7000CB8263 /* Print.swift in Sources */,
+				C6884E95292F779F00626270 /* CurrencyRouter.swift in Sources */,
 				B6A0E7962912D3D500D487B3 /* NSLayoutConstraint.swift in Sources */,
 				B6F67B61290C491000CB8263 /* UIComponentFactory.swift in Sources */,
 				B6F67B80290C710F00CB8263 /* CurrencyListAssembly.swift in Sources */,

@@ -14,10 +14,7 @@ final class CurrencyViewController_Arch: UIViewController, ViewType {
     
     var bindings = ViewModel.Bindings()
     
-    var currencyDidChosen: ((Currency) -> Void)?
     var items: [Currency] = []
-    var filteredItems: [Currency] = []
-    var isFiltered = false
     var cancellables = Set<AnyCancellable>()
     let searchController = UISearchController(searchResultsController: nil)
     var searchBar: UISearchBar { searchController.searchBar }
@@ -31,21 +28,15 @@ final class CurrencyViewController_Arch: UIViewController, ViewType {
     }
     
     func bind(to viewModel: CurrencyViewModel_Arch) {
-        currencyDidChosen = viewModel.setupCurrency
-        guard let items = viewModel.currencies else {
-            viewModel.publishedCurrencies?
-                .replaceError(with: [])
-                .receive(on: DispatchQueue.main)
-                .sink { [weak self] in
-                    let items = $0.sorted { $0.name < $1.name }
-                    viewModel.storeCache?(items)
-                    self?.items = items
-                    self?.tableView.reloadData()
-                }
-                .store(in: &cancellables)
-            return
-        }
-        self.items = items
+        
+        viewModel.publishedCurrencies
+            .replaceError(with: [])
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in
+                self?.items = $0
+                self?.tableView.reloadData()
+            }
+            .store(in: &cancellables)
     }
     
     private func configure() {
@@ -75,23 +66,18 @@ final class CurrencyViewController_Arch: UIViewController, ViewType {
 extension CurrencyViewController_Arch: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch isFiltered {
-        case true:
-            return filteredItems.count
-        case false:
-            return items.count
-        }
+        return items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: .cellID, for: indexPath)
-        cell.textLabel?.text = isFiltered ? filteredItems[indexPath.row].name : items[indexPath.row].name
+        cell.textLabel?.text = items[indexPath.row].name
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let title = isFiltered ? filteredItems[indexPath.row] : items[indexPath.row]
-        currencyDidChosen?(title)
+        let title = items[indexPath.row]
+        bindings.currencyDidChosen?(title)
     }
 }
 
@@ -100,23 +86,6 @@ extension CurrencyViewController_Arch: UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
         guard let text = searchController.searchBar.text else { return }
-        if !text.isEmpty {
-            isFiltered = true
-        } else {
-            isFiltered = false
-        }
-        search(text)
-    }
-    
-    private func search(_ searchText: String) {
-        DispatchQueue.global().async { [weak self] in
-            guard let self = self else { return }
-            
-            self.filteredItems = self.items.filter { $0.name.lowercased().contains(searchText.lowercased()) }
-            
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        }
+        bindings.searchText?(text)
     }
 }
