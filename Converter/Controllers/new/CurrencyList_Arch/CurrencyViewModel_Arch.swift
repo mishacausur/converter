@@ -4,6 +4,7 @@
 //
 //  Created by Misha Causur on 23.11.2022.
 //
+
 import Foundation
 import Combine
 
@@ -12,10 +13,9 @@ struct CurrencyViewModel_Arch {
 }
 
 extension CurrencyViewModel_Arch: ViewModelType {
-    
+   
     struct Inputs {
-        let dataManager: DataManager
-        let dismiss: () -> Void
+        let currencyDidChosen: ((Currency) -> Void)?
     }
     
     class Bindings {
@@ -28,7 +28,9 @@ extension CurrencyViewModel_Arch: ViewModelType {
         var cacheService: CacheService
     }
     
-    static func configure(input: Inputs, binding: Bindings, dependency: Dependecies, router: EmptyRouter) -> CurrencyViewModel_Arch {
+    typealias Router = CurrencyRouter
+    
+    static func configure(input: Inputs, binding: Bindings, dependency: Dependecies, router: Router) -> CurrencyViewModel_Arch {
         let subject = CurrentValueSubject<[Currency], NetworkError>([])
         let isFiltered = CurrentValueSubject<Bool, Never>(false)
         
@@ -39,13 +41,8 @@ extension CurrencyViewModel_Arch: ViewModelType {
         }
         
         binding.currencyDidChosen = {
-            switch input.dataManager.openedFirstCurrency {
-            case true:
-                input.dataManager.firstCurrency = $0
-            case false:
-                input.dataManager.secondCurrency = $0
-            }
-            input.dismiss()
+            input.currencyDidChosen?($0)
+            router.dismiss()
         }
         
         return .init(publishedCurrencies: bindCurrencies(subject, networker: dependency.networkService, cache: dependency.cacheService))

@@ -9,9 +9,13 @@ import class UIKit.UIViewController
 
 struct CurrencyRouter: RouterType {
     
-    let vc: CurrencyViewController_Arch
+    let vc: UIViewController
     
-    init(transitionHandler: CurrencyViewController_Arch) {
-        vc = transitionHandler
+    init(transitionHandler: UIViewController) {
+       vc = transitionHandler
+    }
+    
+    func dismiss() {
+        vc.navigationController?.popViewController(animated: true)
     }
 }

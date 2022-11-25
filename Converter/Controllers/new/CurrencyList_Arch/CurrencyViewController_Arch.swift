@@ -13,9 +13,9 @@ final class CurrencyViewController_Arch: UIViewController, ViewType {
     typealias ViewModel = CurrencyViewModel_Arch
     
     var bindings = ViewModel.Bindings()
-    
     var items: [Currency] = []
     var cancellables = Set<AnyCancellable>()
+    
     let searchController = UISearchController(searchResultsController: nil)
     var searchBar: UISearchBar { searchController.searchBar }
     private lazy var tableView = UITableView(frame: .zero, style: .grouped).configure { $0.translatesAutoresizingMaskIntoConstraints = false }

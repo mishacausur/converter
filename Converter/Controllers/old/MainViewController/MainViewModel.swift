@@ -44,7 +44,16 @@ final class MainViewModel: ViewModel {
     
     func openCurrencyListDidTapped(_ button: CurrencyButton) {
 //        coordinator?.route(.currencyList)
-        coordinator?.route(.currencyList_arch(dataManager: dataManager))
+        let currencyDidChosen: (Currency) -> Void = { [weak self] in
+            guard let self else { return }
+            switch self.dataManager.openedFirstCurrency {
+            case true:
+                self.dataManager.firstCurrency = $0
+            case false:
+                self.dataManager.secondCurrency = $0
+            }
+        }
+        coordinator?.route(.currencyList_arch(currencyDidChosen))
         switch button {
         case .upper:
             dataManager.openedFirstCurrency = true
