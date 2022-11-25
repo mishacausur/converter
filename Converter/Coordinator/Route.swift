@@ -8,4 +8,5 @@
 enum Route {
     case currencyList
     case dismiss
+    case currencyList_arch(((Currency) -> Void))
 }

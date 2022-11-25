@@ -15,7 +15,7 @@ final class MainViewModel: ViewModel {
     private let networkService: NetworkService
     private let dataManager: DataManager
     private var cancellables = Set<AnyCancellable>()
-   
+
     init(locator: Locator) {
         self.dataManager = locator.dataManager
         self.networkService = locator.networkService
@@ -43,7 +43,17 @@ final class MainViewModel: ViewModel {
     }
     
     func openCurrencyListDidTapped(_ button: CurrencyButton) {
-        coordinator?.route(.currencyList)
+//        coordinator?.route(.currencyList)
+        let currencyDidChosen: (Currency) -> Void = { [weak self] in
+            guard let self else { return }
+            switch self.dataManager.openedFirstCurrency {
+            case true:
+                self.dataManager.firstCurrency = $0
+            case false:
+                self.dataManager.secondCurrency = $0
+            }
+        }
+        coordinator?.route(.currencyList_arch(currencyDidChosen))
         switch button {
         case .upper:
             dataManager.openedFirstCurrency = true
