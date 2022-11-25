@@ -10,14 +10,12 @@ import class UIKit.UIViewController
 protocol ScreenBuilder: HasEmptyInitialization {
     
     associatedtype VC: UIViewController & ViewType
-    
-    /// Здесь передаем все зависимости экрана.
+   
     var dependencies: VC.ViewModel.Dependencies { get }
 }
 
 extension ScreenBuilder {
-    
-    /// Здесь создается контроллер, модель и роутер, и связываются друг с другом.
+   
     func build(
         _ inputs: VC.ViewModel.Inputs
     ) -> VC where VC.ViewModel.Routes.TransitionHandler == UIViewController {

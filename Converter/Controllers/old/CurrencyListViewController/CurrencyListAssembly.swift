@@ -15,4 +15,11 @@ extension ModuleFactory {
         viewModel.currencyView = viewController
         return Module(presentable: viewController)
     }
+    
+    static func createCurrencyListModule_Arch(_ currencyDidChosen: ((Currency) -> Void)?) -> Module<CurrencyViewController_Arch> {
+        
+        let builder = CurrencyListScreenBuilder()
+        let vc = builder.build(.init(currencyDidChosen: currencyDidChosen))
+        return Module(presentable: vc)
+    }
 }

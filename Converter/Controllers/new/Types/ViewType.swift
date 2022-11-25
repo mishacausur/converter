@@ -8,11 +8,9 @@
 protocol ViewType: HasEmptyInitialization {
     
     associatedtype ViewModel: ViewModelType
-    
-    /// Здесь передаем все состояния и события из контроллера в модель.
+   
     var bindings: ViewModel.Bindings { get }
     
-    /// Здесь происходит привязка состояний модели к экрану.
     func bind(to viewModel: ViewModel)
     
     static func make() -> Self
