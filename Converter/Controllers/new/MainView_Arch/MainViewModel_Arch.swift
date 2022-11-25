@@ -11,7 +11,7 @@ struct MainViewModel_Arch {
     let firstCurrency: any Publisher<Currency?, Never>
     let secondCurrency: any Publisher<Currency?, Never>
     let valueEntered: any Publisher<Bool, Never>
-    let convertValue: AnyPublisher<Convert?, NetworkError>
+    let convertValue: AnyPublisher<(Convert?, CurrencyButton), NetworkError>
 }
 
 extension MainViewModel_Arch: ViewModelType {
@@ -32,7 +32,7 @@ extension MainViewModel_Arch: ViewModelType {
     typealias Router = MainViewRouter
     
     static func configure(input: Inputs, binding: Bindings, dependency: Dependecies, router: Router) -> MainViewModel_Arch {
-        let subject = CurrentValueSubject<Convert?, NetworkError>(nil)
+        let subject = CurrentValueSubject<(Convert?, CurrencyButton), NetworkError>((nil, .upper))
         let lastUpdated = CurrentValueSubject<CurrencyButton, Never>(.upper)
         
         let currencyDidChosen: (Currency) -> Void = {
@@ -82,7 +82,7 @@ extension MainViewModel_Arch: ViewModelType {
                                            dataManager: dependency.dataManager))
     }
     
-    static func convert(_ subject: CurrentValueSubject<Convert?, NetworkError>, _ last: CurrencyButton, networkService: NetworkService, dataManager: DataManager) -> AnyPublisher<Convert?, NetworkError> {
+    static func convert(_ subject: CurrentValueSubject<(Convert?, CurrencyButton), NetworkError>, _ last: CurrencyButton, networkService: NetworkService, dataManager: DataManager) -> AnyPublisher<(Convert?, CurrencyButton), NetworkError> {
         
         guard let first = dataManager.firstCurrency,
               let second = dataManager.secondCurrency,
@@ -98,7 +98,7 @@ extension MainViewModel_Arch: ViewModelType {
         networkService.convertCurrencies(to: to, from: from, amount: amount) {
             switch $0 {
             case .success(let value):
-                subject.send(value)
+                subject.send((value, last == .upper ? .lower : .upper))
             case .failure(let error):
                 subject.send(completion: .failure(error))
             }

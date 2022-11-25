@@ -18,14 +18,18 @@ final class MainViewController_Arch: UIViewController, ViewType {
         viewModel.firstCurrency
             .sink { [weak self] in
                 guard let currency = $0 else { return }
-                self?.upperTextField.configureLabel(currency: currency.sign)
+                DispatchQueue.main.async {
+                    self?.upperTextField.configureLabel(currency: currency.sign)
+                }
             }
             .store(in: &cancellables)
         
         viewModel.secondCurrency
             .sink { [weak self] in
                 guard let currency = $0 else { return }
-                self?.lowerTextField.configureLabel(currency: currency.sign)
+                DispatchQueue.main.async {
+                    self?.lowerTextField.configureLabel(currency: currency.sign)
+                }
             }
             .store(in: &cancellables)
         
@@ -36,11 +40,11 @@ final class MainViewController_Arch: UIViewController, ViewType {
             .store(in: &cancellables)
         
         viewModel.convertValue
-            .replaceError(with: nil)
+            .replaceError(with: (nil, .upper))
             .receive(on: DispatchQueue.main)
             .sink { [weak self] in
-                guard let result = $0 else { return }
-                self?.lowerTextField.value = result.result
+                guard let result = $0.0 else { return }
+                self?.setupValue(result.result, label: $0.1)
             }
             .store(in: &cancellables)
     }
@@ -101,6 +105,17 @@ final class MainViewController_Arch: UIViewController, ViewType {
         }
         lowerTextField.valueDidEntered = { [weak self] in
             self?.bindings.fieldValueEntered?((.lower, $0))
+        }
+    }
+    
+    private func setupValue(_ value: Double, label: CurrencyButton) {
+        DispatchQueue.main.async { [weak self] in
+            switch label {
+            case .upper:
+                self?.upperTextField.value = value
+            case .lower:
+                self?.lowerTextField.value = value
+            }
         }
     }
     
