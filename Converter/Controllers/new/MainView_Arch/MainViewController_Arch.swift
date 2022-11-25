@@ -64,21 +64,7 @@ final class MainViewController_Arch: UIViewController, ViewType {
         view.backgroundColor = .white
         addViews()
         layout()
-        
-        button.addTarget(self, action: #selector(buttonDidTapped), for: .touchUpInside)
-        
-        upperTextField.buttonDidTapped = { [weak self] in
-            self?.bindings.buttonDidTapped?(.upper)
-        }
-        lowerTextField.buttonDidTapped = { [weak self] in
-            self?.bindings.buttonDidTapped?(.lower)
-        }
-        upperTextField.valueDidEntered = { [weak self] in
-            self?.bindings.fieldValueEntered?((.upper, $0))
-        }
-        lowerTextField.valueDidEntered = { [weak self] in
-            self?.bindings.fieldValueEntered?((.lower, $0))
-        }
+        bindActions()
     }
     
     private func addViews() {
@@ -98,6 +84,23 @@ final class MainViewController_Arch: UIViewController, ViewType {
             button.topAnchor.constraint(equalTo: lowerTextField.bottomAnchor, constant: .defaultInset)
             button.widthAnchor.constraint(equalToConstant: .defaultWidth)
             button.heightAnchor.constraint(equalToConstant: .defaultHeight)
+        }
+    }
+    
+    private func bindActions() {
+        button.addTarget(self, action: #selector(buttonDidTapped), for: .touchUpInside)
+        
+        upperTextField.buttonDidTapped = { [weak self] in
+            self?.bindings.buttonDidTapped?(.upper)
+        }
+        lowerTextField.buttonDidTapped = { [weak self] in
+            self?.bindings.buttonDidTapped?(.lower)
+        }
+        upperTextField.valueDidEntered = { [weak self] in
+            self?.bindings.fieldValueEntered?((.upper, $0))
+        }
+        lowerTextField.valueDidEntered = { [weak self] in
+            self?.bindings.fieldValueEntered?((.lower, $0))
         }
     }
     
