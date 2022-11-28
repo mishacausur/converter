@@ -53,6 +53,9 @@ final class CurrencyViewController_Arch: UIViewController, ViewType {
                 self?.showActivity(!$0)
             }
             .disposed(by: disposeBag)
+        
+        viewModel.disposables
+            .disposed(by: disposeBag)
     }
 
     private func configure() {
