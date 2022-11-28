@@ -43,8 +43,7 @@ final class CurrencyViewController_Arch: UIViewController, ViewType {
     func bind(to viewModel: CurrencyViewModel_Arch) {
        
         viewModel.currencies
-            .asObservable()
-            .bind(to: tableView.rx.items(cellIdentifier: .cellID)) { _, currency, cell in
+            .drive(tableView.rx.items(cellIdentifier: .cellID)) { _, currency, cell in
             cell.textLabel?.text = currency.name
         }
         .disposed(by: disposeBag)
