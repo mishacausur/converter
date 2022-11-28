@@ -35,29 +35,29 @@ extension CurrencyViewModel_Arch: ViewModelType {
     
     static func configure(input: Inputs, binding: Bindings, dependency: Dependecies, router: Router) -> CurrencyViewModel_Arch {
         let currencies = BehaviorRelay(value: [Currency]())
-        let isLoading = BehaviorRelay(value: !dependency.cacheService.isEmpty)
+        let isLoading = BehaviorRelay(value: dependency.cacheService.isEmpty)
         let cachedCurrencies = dependency.cacheService.storedCurrencies
         
-        let currencyNetworkDesposables = dependency.networkService
+        let currencyNetworkDesposable = dependency.networkService
             .getCurrencies()
             .asSignal(onErrorJustReturn: [])
             .emit {
                 let items = $0.sorted { $0.name < $1.name }
                 dependency.cacheService.store(items)
                 currencies.accept(items)
-                isLoading.accept(true)
+                isLoading.accept(false)
             }
         
         let currenciesFlatMapped = cachedCurrencies
-            .flatMapLatest { cachedCurrencies -> Driver<[Currency]> in
-                guard cachedCurrencies.isEmpty else {
-                    currencies.accept(cachedCurrencies)
+            .flatMapLatest { cached -> Driver<[Currency]> in
+                guard cached.isEmpty else {
+                    _ = cachedCurrencies.drive(currencies)
                     return currencies.asDriver()
                 }
                 return currencies.asDriver()
             }
         
-        let filteredCurrenciesDesposables = Driver.combineLatest(cachedCurrencies, binding.searchText) { cache, searchText in
+        let filteredCurrenciesDesposable = Driver.combineLatest(cachedCurrencies, binding.searchText) { cache, searchText in
             cache.filter { $0.name.lowercased().contains(searchText.lowercased()) }
         }
             .drive(currencies)
@@ -67,7 +67,7 @@ extension CurrencyViewModel_Arch: ViewModelType {
             router.dismiss()
         }
         
-        let compositeDisposables = CompositeDisposable(filteredCurrenciesDesposables, choseCurrencyAndDismissDisposable, currencyNetworkDesposables)
+        let compositeDisposables = CompositeDisposable(filteredCurrenciesDesposable, choseCurrencyAndDismissDisposable, currencyNetworkDesposable)
 
         return .init(currencies: currenciesFlatMapped.asDriver(),
                      isLoading: isLoading.asDriver(),

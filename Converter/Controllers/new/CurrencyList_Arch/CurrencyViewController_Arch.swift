@@ -15,17 +15,23 @@ final class CurrencyViewController_Arch: UIViewController, ViewType {
     
     var bindings: ViewModel.Bindings {
         .init(searchText: searchText.asDriver(),
-              didChosenCurrency: didChosenCurrency.asSignal())
+              didChosenCurrency: tableView.rx
+                                    .modelSelected(Currency.self)
+                                    .asSignal()
+            )
     }
-
+    /// RX
     private let searchText = BehaviorRelay(value: "")
     private let didChosenCurrency = PublishRelay<Currency>()
     private let disposeBag = DisposeBag()
+    
+    /// UI
     private let activityController = ActivityViewController()
     private let searchController = UISearchController(searchResultsController: nil)
     private var searchBar: UISearchBar { searchController.searchBar }
     private lazy var tableView = UITableView(frame: .zero, style: .grouped).configure { $0.translatesAutoresizingMaskIntoConstraints = false }
     
+    /// LC
     override func viewDidLoad() {
         super.viewDidLoad()
         configure()
@@ -33,14 +39,9 @@ final class CurrencyViewController_Arch: UIViewController, ViewType {
         definesPresentationContext = true
     }
     
+    /// ViewType
     func bind(to viewModel: CurrencyViewModel_Arch) {
-         
-        tableView.rx
-            .modelSelected(Currency.self)
-            .subscribe(onNext: { [weak completion = self.didChosenCurrency] in
-                completion?.accept($0) })
-            .disposed(by: disposeBag)
-        
+       
         viewModel.currencies
             .asObservable()
             .bind(to: tableView.rx.items(cellIdentifier: .cellID)) { _, currency, cell in
@@ -50,7 +51,7 @@ final class CurrencyViewController_Arch: UIViewController, ViewType {
 
         viewModel.isLoading
             .drive { [weak self] in
-                self?.showActivity(!$0)
+                self?.showActivity($0)
             }
             .disposed(by: disposeBag)
         
@@ -78,6 +79,7 @@ final class CurrencyViewController_Arch: UIViewController, ViewType {
         tableView.tableHeaderView = searchController.searchBar
     }
     
+    /// Activity Indicator's animating due to loading is in progress
     private func showActivity(_ show: Bool) {
         show ? add(activityController) : activityController.remove()
     }

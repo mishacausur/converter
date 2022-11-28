@@ -73,14 +73,14 @@ struct NetworkService {
 extension NetworkService {
     
     /// reactive wrapper
-    func getCurrencies() -> Observable<[Currency]> {
-        Observable.create { observer in
+    func getCurrencies() -> Single<[Currency]> {
+        Single.create { observer in
             self.getCurrencies {
                 switch $0 {
                 case .success(let currencies):
-                    observer.on(.next(currencies))
+                    observer(.success(currencies))
                 case .failure(let error):
-                    observer.onError(error)
+                    observer(.failure(error))
                 }
             }
             return Disposables.create()
