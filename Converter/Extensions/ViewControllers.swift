@@ -7,7 +7,7 @@
 
 import UIKit.UIViewController
 
-extension ViewController {
+extension UIViewController {
     
     func add(_ child: UIViewController) {
         DispatchQueue.main.async { [weak self] in
@@ -15,11 +15,7 @@ extension ViewController {
             self?.view.addSubview(child.view)
             child.didMove(toParent: self)
         }
-        
     }
-}
-
-extension UIViewController {
 
     func remove() {
         DispatchQueue.main.async { [weak self] in

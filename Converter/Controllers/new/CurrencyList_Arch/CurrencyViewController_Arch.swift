@@ -6,16 +6,22 @@
 //
 
 import UIKit
-import Combine
+import RxCocoa
+import RxSwift
 
 final class CurrencyViewController_Arch: UIViewController, ViewType {
     
     typealias ViewModel = CurrencyViewModel_Arch
     
-    var bindings = ViewModel.Bindings()
-    private var items: [Currency] = []
-    private var cancellables = Set<AnyCancellable>()
-    
+    var bindings: ViewModel.Bindings {
+        .init(searchText: searchText.asDriver(),
+              didChosenCurrency: didChosenCurrency.asSignal())
+    }
+
+    private let searchText = BehaviorRelay(value: "")
+    private let didChosenCurrency = PublishRelay<Currency>()
+    private let disposeBag = DisposeBag()
+    private let activityController = ActivityViewController()
     private let searchController = UISearchController(searchResultsController: nil)
     private var searchBar: UISearchBar { searchController.searchBar }
     private lazy var tableView = UITableView(frame: .zero, style: .grouped).configure { $0.translatesAutoresizingMaskIntoConstraints = false }
@@ -28,20 +34,28 @@ final class CurrencyViewController_Arch: UIViewController, ViewType {
     }
     
     func bind(to viewModel: CurrencyViewModel_Arch) {
+         
+        tableView.rx
+            .modelSelected(Currency.self)
+            .subscribe(onNext: { [weak completion = self.didChosenCurrency] in
+                completion?.accept($0) })
+            .disposed(by: disposeBag)
         
-        viewModel.publishedCurrencies
-            .replaceError(with: [])
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] in
-                self?.items = $0
-                self?.tableView.reloadData()
+        viewModel.currencies
+            .asObservable()
+            .bind(to: tableView.rx.items(cellIdentifier: .cellID)) { _, currency, cell in
+            cell.textLabel?.text = currency.name
+        }
+        .disposed(by: disposeBag)
+
+        viewModel.isLoading
+            .drive { [weak self] in
+                self?.showActivity(!$0)
             }
-            .store(in: &cancellables)
+            .disposed(by: disposeBag)
     }
-    
+
     private func configure() {
-        tableView.delegate = self
-        tableView.dataSource = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: .cellID)
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
@@ -60,24 +74,9 @@ final class CurrencyViewController_Arch: UIViewController, ViewType {
         searchBar.placeholder = "Search for currency"
         tableView.tableHeaderView = searchController.searchBar
     }
-}
-
-// MARK: - TableView
-extension CurrencyViewController_Arch: UITableViewDelegate, UITableViewDataSource {
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: .cellID, for: indexPath)
-        cell.textLabel?.text = items[indexPath.row].name
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let title = items[indexPath.row]
-        bindings.currencyDidChosen?(title)
+    private func showActivity(_ show: Bool) {
+        show ? add(activityController) : activityController.remove()
     }
 }
 
@@ -86,6 +85,6 @@ extension CurrencyViewController_Arch: UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
         guard let text = searchController.searchBar.text else { return }
-        bindings.searchText?(text)
+        searchText.accept(text)
     }
 }

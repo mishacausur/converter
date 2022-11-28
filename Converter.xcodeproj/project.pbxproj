@@ -64,6 +64,7 @@
 		C64067E82930BE9700CA9F8C /* MainViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64067E72930BE9700CA9F8C /* MainViewRouter.swift */; };
 		C64067EA2930BEA900CA9F8C /* MainViewController_Arch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64067E92930BEA900CA9F8C /* MainViewController_Arch.swift */; };
 		C64067EC2930BEB600CA9F8C /* MainViewModel_Arch.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64067EB2930BEB600CA9F8C /* MainViewModel_Arch.swift */; };
+		C64067EF29348A8600CA9F8C /* PinLayout in Frameworks */ = {isa = PBXBuildFile; productRef = C64067EE29348A8600CA9F8C /* PinLayout */; };
 		C6884E78292E37D000626270 /* Architectures.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6884E77292E37D000626270 /* Architectures.swift */; };
 		C6884E7A292E383600626270 /* ViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6884E79292E383600626270 /* ViewType.swift */; };
 		C6884E7C292E385000626270 /* ScreenBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6884E7B292E385000626270 /* ScreenBuilder.swift */; };
@@ -155,6 +156,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C64067EF29348A8600CA9F8C /* PinLayout in Frameworks */,
 				C6884E8B292E69D400626270 /* RxSwift in Frameworks */,
 				C6884E89292E69D400626270 /* RxCocoa in Frameworks */,
 			);
@@ -457,6 +459,7 @@
 			packageProductDependencies = (
 				C6884E88292E69D400626270 /* RxCocoa */,
 				C6884E8A292E69D400626270 /* RxSwift */,
+				C64067EE29348A8600CA9F8C /* PinLayout */,
 			);
 			productName = Converter;
 			productReference = B6F67B28290C1A0300CB8263 /* Converter.app */;
@@ -488,6 +491,7 @@
 			mainGroup = B6F67B1F290C1A0200CB8263;
 			packageReferences = (
 				C6884E87292E69D400626270 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				C64067ED29348A8600CA9F8C /* XCRemoteSwiftPackageReference "PinLayout" */,
 			);
 			productRefGroup = B6F67B29290C1A0300CB8263 /* Products */;
 			projectDirPath = "";
@@ -789,6 +793,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		C64067ED29348A8600CA9F8C /* XCRemoteSwiftPackageReference "PinLayout" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/layoutBox/PinLayout";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		C6884E87292E69D400626270 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ReactiveX/RxSwift";
@@ -800,6 +812,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		C64067EE29348A8600CA9F8C /* PinLayout */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C64067ED29348A8600CA9F8C /* XCRemoteSwiftPackageReference "PinLayout" */;
+			productName = PinLayout;
+		};
 		C6884E88292E69D400626270 /* RxCocoa */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = C6884E87292E69D400626270 /* XCRemoteSwiftPackageReference "RxSwift" */;

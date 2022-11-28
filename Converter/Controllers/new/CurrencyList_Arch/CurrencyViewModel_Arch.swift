@@ -6,10 +6,13 @@
 //
 
 import Foundation
-import Combine
+import RxCocoa
+import RxSwift
 
 struct CurrencyViewModel_Arch {
-    let publishedCurrencies: AnyPublisher<[Currency], NetworkError>
+    let currencies: Driver<[Currency]>
+    let isLoading: Driver<Bool>
+    let disposables: CompositeDisposable
 }
 
 extension CurrencyViewModel_Arch: ViewModelType {
@@ -18,9 +21,9 @@ extension CurrencyViewModel_Arch: ViewModelType {
         let currencyDidChosen: ((Currency) -> Void)?
     }
     
-    class Bindings {
-        var searchText: ((String) -> Void)? = nil
-        var currencyDidChosen: ((Currency) -> Void)? = nil
+    struct Bindings {
+        let searchText: Driver<String>
+        let didChosenCurrency: Signal<Currency>
     }
     
     struct Dependecies {
@@ -31,39 +34,43 @@ extension CurrencyViewModel_Arch: ViewModelType {
     typealias Router = CurrencyRouter
     
     static func configure(input: Inputs, binding: Bindings, dependency: Dependecies, router: Router) -> CurrencyViewModel_Arch {
-        let subject = CurrentValueSubject<[Currency], NetworkError>([])
-        let isFiltered = CurrentValueSubject<Bool, Never>(false)
+        let currencies = BehaviorRelay(value: [Currency]())
+        let isLoading = BehaviorRelay(value: !dependency.cacheService.isEmpty)
+        let cachedCurrencies = dependency.cacheService.storedCurrencies
         
-        binding.searchText = { text in
-            isFiltered.value = !text.isEmpty
-            let items = dependency.cacheService.storedCurrencies.filter { $0.name.lowercased().contains(text.lowercased()) }
-            subject.value = isFiltered.value ? items : dependency.cacheService.storedCurrencies
+        let currencyNetworkDesposables = dependency.networkService
+            .getCurrencies()
+            .asSignal(onErrorJustReturn: [])
+            .emit {
+                let items = $0.sorted { $0.name < $1.name }
+                dependency.cacheService.store(items)
+                currencies.accept(items)
+                isLoading.accept(true)
+            }
+        
+        let currenciesFlatMapped = cachedCurrencies
+            .flatMapLatest { cachedCurrencies -> Driver<[Currency]> in
+                guard cachedCurrencies.isEmpty else {
+                    currencies.accept(cachedCurrencies)
+                    return currencies.asDriver()
+                }
+                return currencies.asDriver()
+            }
+        
+        let filteredCurrenciesDesposables = Driver.combineLatest(cachedCurrencies, binding.searchText) { cache, searchText in
+            cache.filter { $0.name.lowercased().contains(searchText.lowercased()) }
         }
+            .drive(currencies)
         
-        binding.currencyDidChosen = {
+        let choseCurrencyAndDismissDisposable = binding.didChosenCurrency.emit {
             input.currencyDidChosen?($0)
             router.dismiss()
         }
         
-        return .init(publishedCurrencies: bindCurrencies(subject, networker: dependency.networkService, cache: dependency.cacheService))
-    }
-    
-    static func bindCurrencies(_ subject: CurrentValueSubject<[Currency], NetworkError>, networker: NetworkService, cache: CacheService) -> AnyPublisher<[Currency], NetworkError> {
-        switch cache.isEmpty {
-        case true:
-            networker.getCurrencies {
-                switch $0 {
-                case .success(let items):
-                    let currencies = items.sorted { $0.name < $1.name }
-                    cache.store(currencies)
-                    subject.send(currencies)
-                case .failure(let error):
-                    subject.send(completion: .failure(error))
-                }
-            }
-        case false:
-            subject.send(cache.storedCurrencies)
-        }
-        return subject.eraseToAnyPublisher()
+        let compositeDisposables = CompositeDisposable(filteredCurrenciesDesposables, choseCurrencyAndDismissDisposable, currencyNetworkDesposables)
+
+        return .init(currencies: currenciesFlatMapped.asDriver(),
+                     isLoading: isLoading.asDriver(),
+                     disposables: compositeDisposables)
     }
 }

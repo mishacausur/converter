@@ -21,7 +21,7 @@ final class CurrencyViewModel: ViewModel {
     
     func getCurrencies() {
         guard cacheService.isEmpty else {
-            self.currencyView?.reloadView(cacheService.storedCurrencies)
+//            self.currencyView?.reloadView(cacheService.storedCurrencies)
             return
         }
         networkService.getCurrencies { [weak self] result in
