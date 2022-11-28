@@ -109,12 +109,13 @@ final class MainViewController_Arch: UIViewController, ViewType {
     }
     
     private func setupValue(_ value: Double, label: CurrencyButton) {
-        DispatchQueue.main.async { [weak self] in
+        DispatchQueue.main.async { [weak upper = self.upperTextField,
+                                    weak lower = self.lowerTextField] in
             switch label {
             case .upper:
-                self?.upperTextField.value = value
+                upper?.value = value
             case .lower:
-                self?.lowerTextField.value = value
+                lower?.value = value
             }
         }
     }
