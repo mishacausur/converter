@@ -22,7 +22,8 @@ final class Coordinator: Coordinatable {
     }
     
     func start() {
-        startMainFlow()
+//        startMainFlow()
+        startMainFlow_Arch()
     }
     
     func route(_ destination: Route) {
@@ -44,6 +45,11 @@ final class Coordinator: Coordinatable {
     private func startCurrencyListFlow() {
         let module = ModuleFactory.createCurrencyListModule(self, locator: locator)
         navigationController.pushViewController(module.presentable, animated: true)
+    }
+    
+    private func startMainFlow_Arch() {
+        let mainModule = ModuleFactory.createMainModule_Arch()
+        navigationController.pushViewController(mainModule.presentable, animated: false)
     }
     
     private func startCurrencyListFlow_Arch(_ currencyDidChosen: ((Currency) -> Void)?) {

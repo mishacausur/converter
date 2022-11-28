@@ -15,4 +15,13 @@ extension ModuleFactory {
         viewModel.mainView = viewController
         return Module(presentable: viewController)
     }
+    
+    static func createMainModule_Arch() -> Module<MainViewController_Arch> {
+        
+        let builder = MainViewScreenBuilder()
+        let vc = builder.build(())
+       
+        return Module(presentable: vc)
+    }
+    
 }
