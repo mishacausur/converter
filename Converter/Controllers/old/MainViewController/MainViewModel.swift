@@ -53,7 +53,7 @@ final class MainViewModel: ViewModel {
                 self.dataManager.secondCurrency = $0
             }
         }
-        coordinator?.route(.currencyList_arch(currencyDidChosen))
+        coordinator?.route(.currencyList(currencyDidChosen))
         switch button {
         case .upper:
             dataManager.openedFirstCurrency = true

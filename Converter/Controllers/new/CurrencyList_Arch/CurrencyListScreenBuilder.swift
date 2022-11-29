@@ -7,10 +7,10 @@
 
 
 final class CurrencyListScreenBuilder: ScreenBuilder {
-    var dependencies: CurrencyViewModel_Arch.Dependecies {
+    var dependencies: CurrencyViewModel.Dependecies {
         .init(networkService: .init(),
               cacheService: CacheService.shared)
     }
     
-    typealias VC = CurrencyViewController_Arch
+    typealias VC = CurrencyViewController
 }

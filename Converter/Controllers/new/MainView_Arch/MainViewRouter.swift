@@ -15,8 +15,8 @@ struct MainViewRouter: RouterType {
        vc = transitionHandler
     }
     
-    func startCurrencyListFlow(_ currencyDidChosen: ((Currency) -> Void)?) {
-        let module = ModuleFactory.createCurrencyListModule_Arch(currencyDidChosen)
+    func startCurrencyListFlow(_ currencyDidChosen: @escaping (Currency) -> Void) {
+        let module = ModuleFactory.createCurrencyListModule(currencyDidChosen)
         vc.navigationController?.pushViewController(module.presentable, animated: true)
     }
 }

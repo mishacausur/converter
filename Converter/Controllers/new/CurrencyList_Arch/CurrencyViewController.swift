@@ -1,5 +1,5 @@
 //
-//  CurrencyViewController_Arch.swift
+//  CurrencyViewController.swift
 //  Converter
 //
 //  Created by Misha Causur on 23.11.2022.
@@ -9,20 +9,23 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-final class CurrencyViewController_Arch: UIViewController, ViewType {
+final class CurrencyViewController: UIViewController, ViewType {
     
-    typealias ViewModel = CurrencyViewModel_Arch
+    typealias ViewModel = CurrencyViewModel
     
     var bindings: ViewModel.Bindings {
-        .init(searchText: searchText.asDriver(),
-              didChosenCurrency: tableView.rx
-                                    .modelSelected(Currency.self)
-                                    .asSignal()
-            )
+        .init(
+            searchText: searchBar.rx
+                .text
+                .compactMap { $0 }
+                .asDriver(onErrorJustReturn: .empty),
+            didChosenCurrency: tableView.rx
+                .modelSelected(Currency.self)
+                .asSignal()
+        )
     }
+    
     /// RX
-    private let searchText = BehaviorRelay(value: "")
-    private let didChosenCurrency = PublishRelay<Currency>()
     private let disposeBag = DisposeBag()
     
     /// UI
@@ -34,20 +37,21 @@ final class CurrencyViewController_Arch: UIViewController, ViewType {
     /// LC
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = .currencies
         configure()
         createLayout()
         definesPresentationContext = true
     }
     
     /// ViewType
-    func bind(to viewModel: CurrencyViewModel_Arch) {
-       
+    func bind(to viewModel: CurrencyViewModel) {
+        
         viewModel.currencies
             .drive(tableView.rx.items(cellIdentifier: .cellID)) { _, currency, cell in
-            cell.textLabel?.text = currency.name
-        }
-        .disposed(by: disposeBag)
-
+                cell.textLabel?.text = currency.name
+            }
+            .disposed(by: disposeBag)
+        
         viewModel.isLoading
             .drive { [weak self] in
                 self?.showActivity($0)
@@ -57,10 +61,9 @@ final class CurrencyViewController_Arch: UIViewController, ViewType {
         viewModel.disposables
             .disposed(by: disposeBag)
     }
-
+    
     private func configure() {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: .cellID)
-        searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
     }
     
@@ -81,14 +84,5 @@ final class CurrencyViewController_Arch: UIViewController, ViewType {
     /// Activity Indicator's animating due to loading is in progress
     private func showActivity(_ show: Bool) {
         show ? add(activityController) : activityController.remove()
-    }
-}
-
-// MARK: - Searching
-extension CurrencyViewController_Arch: UISearchResultsUpdating {
-    
-    func updateSearchResults(for searchController: UISearchController) {
-        guard let text = searchController.searchBar.text else { return }
-        searchText.accept(text)
     }
 }
