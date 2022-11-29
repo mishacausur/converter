@@ -40,11 +40,7 @@ extension CurrencyViewModel: ViewModelType {
             .getCurrencies()
             .asObservable()
             .map { $0.sorted { $0.name < $1.name } }
-            .do(onNext: {
-                dependency
-                    .cacheService
-                    .store($0)
-            })
+            .do(onNext: dependency.cacheService.store)
                 
         let isLoading = currencyNetwork
             .map { _ in false }
@@ -63,8 +59,9 @@ extension CurrencyViewModel: ViewModelType {
             }
         
         let filteredCurrencies = Driver
-            .combineLatest(сurrencies,
-                           binding.searchText
+            .combineLatest(
+                сurrencies,
+                binding.searchText
             ) { cache, searchText in
                 guard !searchText.isEmpty else { return cache }
                 return cache.filter {

@@ -17,8 +17,8 @@ final class CurrencyViewController: UIViewController, ViewType {
         .init(
             searchText: searchBar.rx
                 .text
-                .compactMap { $0 }
-                .asDriver(onErrorJustReturn: .empty),
+                .asDriver()
+                .compactMap { $0 },
             didChosenCurrency: tableView.rx
                 .modelSelected(Currency.self)
                 .asSignal()
