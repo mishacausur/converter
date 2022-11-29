@@ -5,19 +5,23 @@
 //  Created by Misha Causur on 30.10.2022.
 //
 
-import Foundation
+import RxCocoa
 
 final class CacheService {
     
     static let shared = CacheService()
     
-    private(set) var storedCurrencies: [Currency] = []
-    
     var isEmpty: Bool {
-        storedCurrencies.isEmpty
+        _storedCurrencies.value.isEmpty
     }
     
+    var storedCurrencies: Driver<[Currency]> {
+        _storedCurrencies.asDriver()
+    }
+    
+    private let _storedCurrencies = BehaviorRelay<[Currency]>(value: [])
+    
     func store(_ items: [Currency]) {
-        storedCurrencies = items
+        _storedCurrencies.accept(items)
     }
 }

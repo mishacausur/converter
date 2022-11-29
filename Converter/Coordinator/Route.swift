@@ -6,7 +6,6 @@
 //
 
 enum Route {
-    case currencyList
+    case currencyList(((Currency) -> Void))
     case dismiss
-    case currencyList_arch(((Currency) -> Void))
 }

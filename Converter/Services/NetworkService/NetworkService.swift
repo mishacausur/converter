@@ -14,7 +14,7 @@ struct NetworkService {
     typealias currenciesHandler = ((Result<[Currency], NetworkError>) -> Void)?
     
     func convertCurrencies(to: String, from: String, amount: Int, convertHandler: convertHandler) {
-        guard let url = URL(string: [Link.convert.rawValue + createQueryString(to: to, from: from, amount: amount)].reduce(.empty, +)) else {
+        guard let url = URL(string: [Link.convert.rawValue, createQueryString(to: to, from: from, amount: amount)].reduce(.empty, +)) else {
             convertHandler?(.failure(.badURL))
             return
         }
@@ -67,5 +67,38 @@ struct NetworkService {
     
     private func createQueryString(to: String, from: String, amount: Int) -> String {
         "?to=\(to)&from=\(from)&amount=\(amount)"
+    }
+}
+
+extension NetworkService {
+    
+    /// reactive wrapper
+    func getCurrencies() -> Single<[Currency]> {
+        Single.create { observer in
+            self.getCurrencies {
+                switch $0 {
+                case .success(let currencies):
+                    observer(.success(currencies))
+                case .failure(let error):
+                    observer(.failure(error))
+                }
+            }
+            return Disposables.create()
+        }
+    }
+    
+    /// reactive wrapper
+    func convertCurrencies(to: String, from: String, amount: Int) -> Single<Convert> {
+        Single.create { observer in
+            self.convertCurrencies(to: to, from: from, amount: amount) {
+                switch $0 {
+                case let .success(result):
+                    observer(.success(result))
+                case let .failure(error):
+                    observer(.failure(error))
+                }
+            }
+            return Disposables.create()
+        }
     }
 }
