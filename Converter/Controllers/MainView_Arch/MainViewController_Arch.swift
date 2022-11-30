@@ -6,51 +6,60 @@
 //
 
 import UIKit
-import Combine
+import RxCocoa
+import RxSwift
 
 final class MainViewController_Arch: UIViewController, ViewType {
     
     // MARK: - ViewType
     typealias ViewModel = MainViewModel_Arch
-    var bindings = ViewModel.Bindings()
+    
+    var bindings: ViewModel.Bindings {
+        .init(
+            didTapButton: didButtonTapped
+                .asSignal(),
+            didEnterFieldValue: didEnteredValue
+                .asSignal(),
+            didTapConvertButton: button.rx
+                .tap
+                .asSignal()
+        )
+    }
     
     func bind(to viewModel: MainViewModel_Arch) {
+        
         viewModel.firstCurrency
-            .sink { [weak self] in
-                guard let currency = $0 else { return }
-                DispatchQueue.main.async {
-                    self?.upperTextField.configureLabel(currency: currency.sign)
-                }
-            }
-            .store(in: &cancellables)
+            .drive(onNext: { [weak upperLabel = self.upperTextField] in
+                upperLabel?.configureLabel(currency: $0.sign)
+            })
+            .disposed(by: disposeBag)
         
         viewModel.secondCurrency
-            .sink { [weak self] in
-                guard let currency = $0 else { return }
-                DispatchQueue.main.async {
-                    self?.lowerTextField.configureLabel(currency: currency.sign)
-                }
-            }
-            .store(in: &cancellables)
+            .drive(onNext: { [weak lowerLable = self.lowerTextField] in
+                lowerLable?.configureLabel(currency: $0.sign)
+            })
+            .disposed(by: disposeBag)
         
         viewModel.valueEntered
-            .sink { [weak self] in
-                self?.button.isHidden = !$0
-            }
-            .store(in: &cancellables)
+            .map(!)
+            .drive(button.rx.isHidden)
+            .disposed(by: disposeBag)
         
-        viewModel.convertValue
-            .replaceError(with: (nil, .upper))
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] in
-                guard let result = $0.0 else { return }
-                self?.setupValue(result.result, label: $0.1)
-            }
-            .store(in: &cancellables)
+        viewModel.convertedValue.drive { [weak self] in
+            /// обработать ошибку (прилетит в $0.0.success = false)
+            let convertResult: Double = $0.0.result
+            self?.setupValue(convertResult, label: $0.1)
+        }
+        .disposed(by: disposeBag)
+        
+        viewModel.disposables
+            .disposed(by: disposeBag)
     }
     
     // MARK: - PRIVATE PROPS
-    private var cancellables = Set<AnyCancellable>()
+    private let disposeBag = DisposeBag()
+    private let didButtonTapped = PublishRelay<CurrencyButton>()
+    private let didEnteredValue = PublishRelay<(CurrencyButton, String)>()
     
     // MARK: - UI
     private let titleLabel = UILabel().configure {
@@ -92,19 +101,18 @@ final class MainViewController_Arch: UIViewController, ViewType {
     }
     
     private func bindActions() {
-        button.addTarget(self, action: #selector(buttonDidTapped), for: .touchUpInside)
-        
+       
         upperTextField.buttonDidTapped = { [weak self] in
-            self?.bindings.buttonDidTapped?(.upper)
+            self?.didButtonTapped.accept(.upper)
         }
         lowerTextField.buttonDidTapped = { [weak self] in
-            self?.bindings.buttonDidTapped?(.lower)
+            self?.didButtonTapped.accept(.lower)
         }
         upperTextField.valueDidEntered = { [weak self] in
-            self?.bindings.fieldValueEntered?((.upper, $0))
+            self?.didEnteredValue.accept((.upper, $0))
         }
         lowerTextField.valueDidEntered = { [weak self] in
-            self?.bindings.fieldValueEntered?((.lower, $0))
+            self?.didEnteredValue.accept((.lower, $0))
         }
     }
     
@@ -118,9 +126,5 @@ final class MainViewController_Arch: UIViewController, ViewType {
                 lower?.value = value
             }
         }
-    }
-    
-    @objc private func buttonDidTapped() {
-        bindings.convertButtonDidTapped?()
     }
 }

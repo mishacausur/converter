@@ -5,56 +5,75 @@
 //  Created by Misha Causur on 30.10.2022.
 //
 
-import Foundation
+import RxCocoa
 
 final class DataManager {
     
     /// Published properties
-    @Published var firstCurrency: Currency? {
-        didSet {
-            checkValues()
-        }
+    var firstCurrency: Driver<Currency> {
+        _firstCurrency.asDriver(onErrorJustReturn: .init(sign: "", name: ""))
     }
-    @Published var secondCurrency: Currency? {
-        didSet {
-            checkValues()
-        }
-    }
-    @Published var valueEntered = false
     
-    /// Currencies values properties
-    var firstCurrencyValue: Int = 0 {
-        didSet {
-            checkValues()
+    var secondCurrency: Driver<Currency> {
+        _secondCurrency.asDriver(onErrorJustReturn: .init(sign: "", name: ""))
+    }
+    
+    var valueEntered: Driver<Bool> {
+        _valueEntered.asDriver()
+    }
+    
+    var dataToConvert: (to: String, from: String, amount: Int) {
+        let from = lastChangedField == .upper ? _firstCurrency.value.sign : _secondCurrency.value.sign
+        let to = lastChangedField == .upper ? _secondCurrency.value.sign : _firstCurrency.value.sign
+        let amount = lastChangedField == .upper ? firstCurrencyValue : secondCurrencyValue
+        return (to, from, amount)
+    }
+    
+    /// Private properties
+    private let _firstCurrency = BehaviorRelay<Currency>(value: .init(sign: "", name: ""))
+    private let _secondCurrency = BehaviorRelay<Currency>(value: .init(sign: "", name: ""))
+    private let _valueEntered = BehaviorRelay(value: false)
+    private(set) var firstCurrencyValue: Int = 0
+    private(set) var secondCurrencyValue: Int = 0
+   
+    func storeCurrency(_ currency: Currency, into: CurrencyButton) {
+        switch into {
+        case .upper:
+            _firstCurrency.accept(currency)
+        case .lower:
+            _secondCurrency.accept(currency)
         }
     }
-    var secondCurrencyValue: Int = 0 {
-        didSet {
-            checkValues()
+    
+    func storeValue(store value: Int, into: CurrencyButton) {
+        switch into {
+        case .upper:
+            firstCurrencyValue = value
+            lastChangedField = .upper
+        case .lower:
+            secondCurrencyValue = value
+            lastChangedField = .lower
         }
+        checkValues()
     }
     
     /// Checking properties
-    var lastChangedField: CurrencyButton = .upper
-    var openedFirstCurrency: Bool = true
+    private (set) var lastChangedField: CurrencyButton = .upper
+
     var isFirstValueCorrect: Bool {
         firstCurrencyValue > 0
     }
     var isSecondValueCorrect: Bool {
         secondCurrencyValue > 0
     }
-    
+
     /// Private properties
     private var hasRequiredValue: Bool {
-        !areCurrenciesEmpty && (isFirstValueCorrect || isSecondValueCorrect)
+        isFirstValueCorrect || isSecondValueCorrect
     }
     
-    private var areCurrenciesEmpty: Bool {
-        return firstCurrency == nil && secondCurrency == nil
-    }
-
     private func checkValues() {
         guard hasRequiredValue else { return }
-        valueEntered = true
+        _valueEntered.accept(true)
     }
 }
