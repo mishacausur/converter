@@ -15,11 +15,32 @@ final class MainViewController_Arch: UIViewController, ViewType {
     typealias ViewModel = MainViewModel_Arch
     
     var bindings: ViewModel.Bindings {
-        .init(
-            didTapButton: didButtonTapped
-                .asSignal(),
-            didEnterFieldValue: didEnteredValue
-                .asSignal(),
+        
+        let didTapUpperField = upperTextField
+            .didTapButton
+            .map { _ in CurrencyButton.upper }
+        
+        let didTapLowerField = lowerTextField
+            .didTapButton
+            .map { _ in CurrencyButton.lower }
+        
+        let didEnterUpperValue = upperTextField
+            .didEnterTextFieldValue
+            .map { (CurrencyButton.upper, $0) }
+        
+        let didEnterLowerValue = lowerTextField
+            .didEnterTextFieldValue
+            .map { (CurrencyButton.lower, $0) }
+        
+        return .init(
+            didTapButton: .merge(
+                didTapUpperField,
+                didTapLowerField
+            ),
+            didEnterFieldValue: .merge(
+                didEnterUpperValue,
+                didEnterLowerValue
+            ),
             didTapConvertButton: button.rx
                 .tap
                 .asSignal()
@@ -29,14 +50,14 @@ final class MainViewController_Arch: UIViewController, ViewType {
     func bind(to viewModel: MainViewModel_Arch) {
         
         viewModel.firstCurrency
-            .drive(onNext: { [weak upperLabel = self.upperTextField] in
-                upperLabel?.configureLabel(currency: $0.sign)
+            .drive(Binder(upperTextField) {
+                $0.configureLabel(currency: $1.sign)
             })
             .disposed(by: disposeBag)
         
         viewModel.secondCurrency
-            .drive(onNext: { [weak lowerLable = self.lowerTextField] in
-                lowerLable?.configureLabel(currency: $0.sign)
+            .drive(Binder(lowerTextField) {
+                $0.configureLabel(currency: $1.sign)
             })
             .disposed(by: disposeBag)
         
@@ -45,11 +66,11 @@ final class MainViewController_Arch: UIViewController, ViewType {
             .drive(button.rx.isHidden)
             .disposed(by: disposeBag)
         
-        viewModel.convertedValue.drive { [weak self] in
+        viewModel.convertedValue.drive(Binder(self) {
             /// обработать ошибку (прилетит в $0.0.success = false)
-            let convertResult: Double = $0.0.result
-            self?.setupValue(convertResult, label: $0.1)
-        }
+            let convertResult: Double = $1.0.result
+            $0.setupValue(convertResult, label: $1.1)
+        })
         .disposed(by: disposeBag)
         
         viewModel.disposables
@@ -77,7 +98,6 @@ final class MainViewController_Arch: UIViewController, ViewType {
         view.backgroundColor = .white
         addViews()
         layout()
-        bindActions()
     }
     
     private func addViews() {
@@ -97,22 +117,6 @@ final class MainViewController_Arch: UIViewController, ViewType {
             button.topAnchor.constraint(equalTo: lowerTextField.bottomAnchor, constant: .defaultInset)
             button.widthAnchor.constraint(equalToConstant: .defaultWidth)
             button.heightAnchor.constraint(equalToConstant: .defaultHeight)
-        }
-    }
-    
-    private func bindActions() {
-       
-        upperTextField.buttonDidTapped = { [weak self] in
-            self?.didButtonTapped.accept(.upper)
-        }
-        lowerTextField.buttonDidTapped = { [weak self] in
-            self?.didButtonTapped.accept(.lower)
-        }
-        upperTextField.valueDidEntered = { [weak self] in
-            self?.didEnteredValue.accept((.upper, $0))
-        }
-        lowerTextField.valueDidEntered = { [weak self] in
-            self?.didEnteredValue.accept((.lower, $0))
         }
     }
     

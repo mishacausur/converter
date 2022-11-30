@@ -5,12 +5,24 @@
 //  Created by Misha Causur on 29.10.2022.
 //
 
+import RxCocoa
 import UIKit.NSLayoutConstraint
 
 final class MainViewTextField: Viеw {
     
-    var buttonDidTapped: (() -> Void)?
-    var valueDidEntered: ((String) -> Void)?
+    var didTapButton: Signal<Void> {
+        textFieldButton.rx
+            .tap
+            .asSignal()
+    }
+    
+    var didEnterTextFieldValue: Signal<String> {
+        textField.rx
+            .text
+            .compactMap { $0 }
+            .asSignal(onErrorJustReturn: "")
+    }
+
     var value: Double {
         get {
             .zero
@@ -23,20 +35,8 @@ final class MainViewTextField: Viеw {
     private let circle = CircleLabel().configure { $0.translatesAutoresizingMaskIntoConstraints = false }
     private let textFieldButton = UIFactory.createButton(with: .chooseCurrency, radius: .smallCornerRadius, font: .small)
     
-    override func configure() {
-        super.configure()
-        textField.delegate = self
-    }
-    
     override func addViews() {
         addViews(textField, circle, textFieldButton)
-    }
-    
-    override func bindViews() {
-        textFieldButton.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
-        textField.addTarget(self, action: #selector(editingDidEnded), for: .editingDidEnd)
-        textField.addTarget(self, action: #selector(editingDidChanged), for: .editingChanged)
-
     }
     
     override func layout() {
@@ -69,24 +69,5 @@ final class MainViewTextField: Viеw {
             }
             self?.textField.text = "\(value)"
         }
-    }
-    
-    @objc private func buttonTapped() {
-        buttonDidTapped?()
-    }
-    @objc private func editingDidEnded() {
-        textField.resignFirstResponder()
-        guard let text = textField.text else { return }
-        valueDidEntered?(text)
-    }
-    @objc private func editingDidChanged() {
-        guard let text = textField.text else { return }
-        valueDidEntered?(text)
-    }
-}
-
-extension MainViewTextField: UITextFieldDelegate {
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        return Int(string) != nil || string.isEmpty
     }
 }

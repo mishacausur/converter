@@ -29,7 +29,6 @@
 		B6F67B64290C4C9300CB8263 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B63290C4C9300CB8263 /* UIColor.swift */; };
 		B6F67B66290C54C900CB8263 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B65290C54C900CB8263 /* String.swift */; };
 		B6F67B68290C54E300CB8263 /* CGFloat.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B67290C54E300CB8263 /* CGFloat.swift */; };
-		B6F67B6B290C554200CB8263 /* MainBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B6A290C554200CB8263 /* MainBaseView.swift */; };
 		B6F67B6D290C5BDC00CB8263 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B6C290C5BDC00CB8263 /* Color.swift */; };
 		B6F67B6F290C5C3700CB8263 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B6E290C5C3700CB8263 /* TextField.swift */; };
 		B6F67B71290C5C5700CB8263 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B70290C5C5700CB8263 /* Button.swift */; };
@@ -98,7 +97,6 @@
 		B6F67B63290C4C9300CB8263 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		B6F67B65290C54C900CB8263 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		B6F67B67290C54E300CB8263 /* CGFloat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGFloat.swift; sourceTree = "<group>"; };
-		B6F67B6A290C554200CB8263 /* MainBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainBaseView.swift; sourceTree = "<group>"; };
 		B6F67B6C290C5BDC00CB8263 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		B6F67B6E290C5C3700CB8263 /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		B6F67B70290C5C5700CB8263 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
@@ -263,7 +261,6 @@
 		B6F67B69290C553300CB8263 /* Subview */ = {
 			isa = PBXGroup;
 			children = (
-				B6F67B6A290C554200CB8263 /* MainBaseView.swift */,
 				B6F67B76290C6D6700CB8263 /* MainViewTextField.swift */,
 			);
 			path = Subview;
@@ -504,7 +501,6 @@
 				C6884E86292E470200626270 /* CurrencyListScreenBuilder.swift in Sources */,
 				C6884E7E292E386900626270 /* ViewModelType.swift in Sources */,
 				B6F67B40290C1BAF00CB8263 /* Configurable.swift in Sources */,
-				B6F67B6B290C554200CB8263 /* MainBaseView.swift in Sources */,
 				B6F67B99290ECE8600CB8263 /* Convert.swift in Sources */,
 				C64067E82930BE9700CA9F8C /* MainViewRouter.swift in Sources */,
 				B6F67B8F290E96A600CB8263 /* DataManager.swift in Sources */,
