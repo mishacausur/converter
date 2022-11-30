@@ -29,14 +29,14 @@ final class MainViewController_Arch: UIViewController, ViewType {
     func bind(to viewModel: MainViewModel_Arch) {
         
         viewModel.firstCurrency
-            .drive(onNext: { [weak upperLabel = self.upperTextField] in
-                upperLabel?.configureLabel(currency: $0.sign)
+            .drive(Binder(upperTextField) {
+                $0.configureLabel(currency: $1.sign)
             })
             .disposed(by: disposeBag)
         
         viewModel.secondCurrency
-            .drive(onNext: { [weak lowerLable = self.lowerTextField] in
-                lowerLable?.configureLabel(currency: $0.sign)
+            .drive(Binder(lowerTextField) {
+                $0.configureLabel(currency: $1.sign)
             })
             .disposed(by: disposeBag)
         
@@ -45,11 +45,11 @@ final class MainViewController_Arch: UIViewController, ViewType {
             .drive(button.rx.isHidden)
             .disposed(by: disposeBag)
         
-        viewModel.convertedValue.drive { [weak self] in
+        viewModel.convertedValue.drive(Binder(self) {
             /// обработать ошибку (прилетит в $0.0.success = false)
-            let convertResult: Double = $0.0.result
-            self?.setupValue(convertResult, label: $0.1)
-        }
+            let convertResult: Double = $1.0.result
+            $0.setupValue(convertResult, label: $1.1)
+        })
         .disposed(by: disposeBag)
         
         viewModel.disposables
