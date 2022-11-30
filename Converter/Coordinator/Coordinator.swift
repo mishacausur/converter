@@ -35,11 +35,6 @@ final class Coordinator: Coordinatable {
         }
     }
     
-    private func startMainFlow() {
-        let mainModule = ModuleFactory.createMainModule(self, locator: locator)
-        navigationController.pushViewController(mainModule.presentable, animated: false)
-    }
-    
     private func startMainFlow_Arch() {
         let mainModule = ModuleFactory.createMainModule_Arch()
         navigationController.pushViewController(mainModule.presentable, animated: false)
