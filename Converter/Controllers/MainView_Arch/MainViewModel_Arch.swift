@@ -65,7 +65,7 @@ extension MainViewModel_Arch: ViewModelType {
                     from: dependency.dataManager.dataToConvert.from,
                     amount: dependency.dataManager.dataToConvert.amount)
                 .map { ($0, currentButton.1) }
-                .asDriver(onErrorJustReturn: (.init(result: 2.2, success: false), .upper))
+                .asDriver(onErrorJustReturn: (.init(result: 0.0, success: false), .upper))
             }
         
         let disposables = CompositeDisposable(

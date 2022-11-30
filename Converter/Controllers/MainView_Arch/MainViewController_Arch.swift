@@ -26,8 +26,6 @@ final class MainViewController_Arch: UIViewController, ViewType {
         )
     }
     
-    private let didButtonTapped = PublishRelay<CurrencyButton>()
-    private let didEnteredValue = PublishRelay<(CurrencyButton, String)>()
     func bind(to viewModel: MainViewModel_Arch) {
         
         viewModel.firstCurrency
@@ -49,6 +47,7 @@ final class MainViewController_Arch: UIViewController, ViewType {
             .disposed(by: disposeBag)
         
         viewModel.convertedValue.drive { [weak self] in
+            /// обработать ошибку (прилетит в $0.0.success = false)
             self?.setupValue($0.0.result, label: $0.1)
         }
         .disposed(by: disposeBag)
@@ -59,6 +58,8 @@ final class MainViewController_Arch: UIViewController, ViewType {
     
     // MARK: - PRIVATE PROPS
     private let disposeBag = DisposeBag()
+    private let didButtonTapped = PublishRelay<CurrencyButton>()
+    private let didEnteredValue = PublishRelay<(CurrencyButton, String)>()
     
     // MARK: - UI
     private let titleLabel = UILabel().configure {
