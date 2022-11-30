@@ -15,11 +15,32 @@ final class MainViewController_Arch: UIViewController, ViewType {
     typealias ViewModel = MainViewModel_Arch
     
     var bindings: ViewModel.Bindings {
-        .init(
-            didTapButton: didButtonTapped
-                .asSignal(),
-            didEnterFieldValue: didEnteredValue
-                .asSignal(),
+        
+        let didTapUpperField = upperTextField
+            .didTapButton
+            .map { _ in CurrencyButton.upper }
+        
+        let didTapLowerField = lowerTextField
+            .didTapButton
+            .map { _ in CurrencyButton.lower }
+        
+        let didEnterUpperValue = upperTextField
+            .didEnterTextFieldValue
+            .map { (CurrencyButton.upper, $0) }
+        
+        let didEnterLowerValue = lowerTextField
+            .didEnterTextFieldValue
+            .map { (CurrencyButton.lower, $0) }
+        
+        return .init(
+            didTapButton: .merge(
+                didTapUpperField,
+                didTapLowerField
+            ),
+            didEnterFieldValue: .merge(
+                didEnterUpperValue,
+                didEnterLowerValue
+            ),
             didTapConvertButton: button.rx
                 .tap
                 .asSignal()
@@ -77,7 +98,6 @@ final class MainViewController_Arch: UIViewController, ViewType {
         view.backgroundColor = .white
         addViews()
         layout()
-        bindActions()
     }
     
     private func addViews() {
@@ -97,22 +117,6 @@ final class MainViewController_Arch: UIViewController, ViewType {
             button.topAnchor.constraint(equalTo: lowerTextField.bottomAnchor, constant: .defaultInset)
             button.widthAnchor.constraint(equalToConstant: .defaultWidth)
             button.heightAnchor.constraint(equalToConstant: .defaultHeight)
-        }
-    }
-    
-    private func bindActions() {
-       
-        upperTextField.buttonDidTapped = { [weak self] in
-            self?.didButtonTapped.accept(.upper)
-        }
-        lowerTextField.buttonDidTapped = { [weak self] in
-            self?.didButtonTapped.accept(.lower)
-        }
-        upperTextField.valueDidEntered = { [weak self] in
-            self?.didEnteredValue.accept((.upper, $0))
-        }
-        lowerTextField.valueDidEntered = { [weak self] in
-            self?.didEnteredValue.accept((.lower, $0))
         }
     }
     
