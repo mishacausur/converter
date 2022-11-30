@@ -21,9 +21,9 @@ extension MainViewModel_Arch: ViewModelType {
     typealias Inputs = Void
     
     struct Bindings {
-        let buttonDidTapped: Signal<CurrencyButton>
-        let fieldValueEntered: Signal<(CurrencyButton, String)>
-        let convertButtonDidTapped: Signal<Void>
+        let didTapButton: Signal<CurrencyButton>
+        let didEnterFieldValue: Signal<(CurrencyButton, String)>
+        let didTapConvertButton: Signal<Void>
     }
     
     struct Dependecies {
@@ -35,36 +35,37 @@ extension MainViewModel_Arch: ViewModelType {
     
     static func configure(input: Inputs, binding: Bindings, dependency: Dependecies, router: Router) -> MainViewModel_Arch {
         
-        var currentButton: (CurrencyButton, CurrencyButton) = (.upper, .lower)
+        var fieldToChange: CurrencyButton = .lower
         
         let didTappedConvert = binding
-            .convertButtonDidTapped
+            .didTapConvertButton
             .asSignal()
             .flatMapLatest { () -> Driver<(Convert, CurrencyButton)> in
-                return dependency.networkService.convertCurrencies(
+                return dependency.networkService
+                    .convertCurrencies(
                     to: dependency.dataManager.dataToConvert.to,
                     from: dependency.dataManager.dataToConvert.from,
                     amount: dependency.dataManager.dataToConvert.amount)
-                .map { ($0, currentButton.1) }
+                .map { ($0, fieldToChange) }
                 .asDriver(onErrorJustReturn: (.init(result: 0.0, success: false), .upper))
             }
         
         let fieldValueEnteredDisposable = binding
-            .fieldValueEntered
+            .didEnterFieldValue
             .emit(onNext: {
                 guard let number = Int($0.1) else { return }
                 dependency.dataManager.storeValue(store: number, into: $0.0)
-                currentButton.1 = $0.0 == .upper ? .lower : .upper
+                fieldToChange = $0.0 == .upper ? .lower : .upper
             })
         
         let didButtonTappedDisposable = binding
-            .buttonDidTapped
+            .didTapButton
             .emit {
-                currentButton.0 = $0
+                let field = $0
                 router.startCurrencyListFlow {
                     dependency
                         .dataManager
-                        .storeCurrency($0, into: currentButton.0)
+                        .storeCurrency($0, into: field)
                 }
             }
         
@@ -78,6 +79,7 @@ extension MainViewModel_Arch: ViewModelType {
             secondCurrency: dependency.dataManager.secondCurrency,
             valueEntered: dependency.dataManager.valueEntered,
             convertedValue: didTappedConvert,
-            disposables: disposables)
+            disposables: disposables
+        )
     }
 }

@@ -16,11 +16,11 @@ final class MainViewController_Arch: UIViewController, ViewType {
     
     var bindings: ViewModel.Bindings {
         .init(
-            buttonDidTapped: didButtonTapped
+            didTapButton: didButtonTapped
                 .asSignal(),
-            fieldValueEntered: didEnteredValue
+            didEnterFieldValue: didEnteredValue
                 .asSignal(),
-            convertButtonDidTapped: button.rx
+            didTapConvertButton: button.rx
                 .tap
                 .asSignal()
         )
@@ -41,14 +41,14 @@ final class MainViewController_Arch: UIViewController, ViewType {
             .disposed(by: disposeBag)
         
         viewModel.valueEntered
-            .drive { [weak button = self.button] in
-                button?.isHidden = !$0
-            }
+            .map(!)
+            .drive(button.rx.isHidden)
             .disposed(by: disposeBag)
         
         viewModel.convertedValue.drive { [weak self] in
             /// обработать ошибку (прилетит в $0.0.success = false)
-            self?.setupValue($0.0.result, label: $0.1)
+            let convertResult: Double = $0.0.result
+            self?.setupValue(convertResult, label: $0.1)
         }
         .disposed(by: disposeBag)
         
@@ -102,17 +102,17 @@ final class MainViewController_Arch: UIViewController, ViewType {
     
     private func bindActions() {
        
-        upperTextField.buttonDidTapped = { [weak button = self.didButtonTapped] in
-            button?.accept(.upper)
+        upperTextField.buttonDidTapped = { [weak self] in
+            self?.didButtonTapped.accept(.upper)
         }
-        lowerTextField.buttonDidTapped = { [weak button = self.didButtonTapped] in
-            button?.accept(.lower)
+        lowerTextField.buttonDidTapped = { [weak self] in
+            self?.didButtonTapped.accept(.lower)
         }
-        upperTextField.valueDidEntered = { [weak field = self.didEnteredValue] in
-            field?.accept((.upper, $0))
+        upperTextField.valueDidEntered = { [weak self] in
+            self?.didEnteredValue.accept((.upper, $0))
         }
-        lowerTextField.valueDidEntered = { [weak field = self.didEnteredValue] in
-            field?.accept((.lower, $0))
+        lowerTextField.valueDidEntered = { [weak self] in
+            self?.didEnteredValue.accept((.lower, $0))
         }
     }
     
