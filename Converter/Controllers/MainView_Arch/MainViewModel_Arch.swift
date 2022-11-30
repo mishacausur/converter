@@ -56,7 +56,7 @@ extension MainViewModel_Arch: ViewModelType {
                 }
             }
         
-        let didTappedConvertDisposable = binding
+        let didTappedConvert = binding
             .convertButtonDidTapped
             .asSignal()
             .flatMapLatest { () -> Driver<(Convert, CurrencyButton)> in
@@ -77,7 +77,7 @@ extension MainViewModel_Arch: ViewModelType {
             firstCurrency: dependency.dataManager.firstCurrency,
             secondCurrency: dependency.dataManager.secondCurrency,
             valueEntered: dependency.dataManager.valueEntered,
-            convertedValue: didTappedConvertDisposable,
+            convertedValue: didTappedConvert,
             disposables: disposables)
     }
 }
