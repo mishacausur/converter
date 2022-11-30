@@ -34,8 +34,20 @@ extension MainViewModel_Arch: ViewModelType {
     typealias Router = MainViewRouter
     
     static func configure(input: Inputs, binding: Bindings, dependency: Dependecies, router: Router) -> MainViewModel_Arch {
-
+        
         var currentButton: (CurrencyButton, CurrencyButton) = (.upper, .lower)
+        
+        let didTappedConvert = binding
+            .convertButtonDidTapped
+            .asSignal()
+            .flatMapLatest { () -> Driver<(Convert, CurrencyButton)> in
+                return dependency.networkService.convertCurrencies(
+                    to: dependency.dataManager.dataToConvert.to,
+                    from: dependency.dataManager.dataToConvert.from,
+                    amount: dependency.dataManager.dataToConvert.amount)
+                .map { ($0, currentButton.1) }
+                .asDriver(onErrorJustReturn: (.init(result: 0.0, success: false), .upper))
+            }
         
         let fieldValueEnteredDisposable = binding
             .fieldValueEntered
@@ -54,18 +66,6 @@ extension MainViewModel_Arch: ViewModelType {
                         .dataManager
                         .storeCurrency($0, into: currentButton.0)
                 }
-            }
-        
-        let didTappedConvert = binding
-            .convertButtonDidTapped
-            .asSignal()
-            .flatMapLatest { () -> Driver<(Convert, CurrencyButton)> in
-                return dependency.networkService.convertCurrencies(
-                    to: dependency.dataManager.dataToConvert.to,
-                    from: dependency.dataManager.dataToConvert.from,
-                    amount: dependency.dataManager.dataToConvert.amount)
-                .map { ($0, currentButton.1) }
-                .asDriver(onErrorJustReturn: (.init(result: 0.0, success: false), .upper))
             }
         
         let disposables = CompositeDisposable(
