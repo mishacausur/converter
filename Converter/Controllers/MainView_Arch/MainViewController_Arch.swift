@@ -49,29 +49,46 @@ final class MainViewController_Arch: UIViewController, ViewType {
     
     func bind(to viewModel: MainViewModel_Arch) {
         
-        viewModel.firstCurrency
+        viewModel.upperCurrency
             .drive(Binder(upperTextField) {
-                $0.configureLabel(currency: $1.sign)
+                $0.configureLabel(currency: $1?.sign ?? .empty)
             })
             .disposed(by: disposeBag)
         
-        viewModel.secondCurrency
+        viewModel.lowerCurrency
             .drive(Binder(lowerTextField) {
-                $0.configureLabel(currency: $1.sign)
+                $0.configureLabel(currency: $1?.sign ?? .empty)
             })
             .disposed(by: disposeBag)
         
-        viewModel.valueEntered
+        viewModel.upperFieldValue
+            .drive(Binder(upperTextField) {
+                $0.value = $1
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.lowerFieldValue
+            .drive(Binder(lowerTextField) {
+                $0.value = $1
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.isConvertButtonHidden
             .map(!)
             .drive(button.rx.isHidden)
             .disposed(by: disposeBag)
         
-        viewModel.convertedValue.drive(Binder(self) {
-            /// обработать ошибку (прилетит в $0.0.success = false)
-            let convertResult: Double = $1.0.result
-            $0.setupValue(convertResult, label: $1.1)
-        })
-        .disposed(by: disposeBag)
+        viewModel.isLoading
+            .drive {
+                print($0)
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel.isLoading
+            .drive(Binder(self) {
+                $0.showActivity($1)
+            })
+            .disposed(by: disposeBag)
         
         viewModel.disposables
             .disposed(by: disposeBag)
@@ -91,6 +108,7 @@ final class MainViewController_Arch: UIViewController, ViewType {
     private let upperTextField = MainViewTextField()
     private let lowerTextField = MainViewTextField()
     private let button = UIFactory.createButton(with: .convert).configure { $0.isHidden = true }
+    private let activityController = ActivityViewController()
     
     /// Life Cycle
     override func viewDidLoad() {
@@ -120,15 +138,7 @@ final class MainViewController_Arch: UIViewController, ViewType {
         }
     }
     
-    private func setupValue(_ value: Double, label: CurrencyButton) {
-        DispatchQueue.main.async { [weak upper = self.upperTextField,
-                                    weak lower = self.lowerTextField] in
-            switch label {
-            case .upper:
-                upper?.value = value
-            case .lower:
-                lower?.value = value
-            }
-        }
+    private func showActivity(_ show: Bool) {
+        show ? add(activityController) : activityController.remove()
     }
 }
