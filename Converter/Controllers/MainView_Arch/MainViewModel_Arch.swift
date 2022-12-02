@@ -9,8 +9,8 @@ import RxCocoa
 import RxSwift
 
 struct MainViewModel_Arch {
-    let upperCurrency: Driver<Currency?>
-    let lowerCurrency: Driver<Currency?>
+    let upperCurrency: Driver<String>
+    let lowerCurrency: Driver<String>
     let upperFieldValue: Driver<String>
     let lowerFieldValue: Driver<String>
     let isConvertButtonHidden: Driver<Bool>
@@ -181,8 +181,8 @@ extension MainViewModel_Arch: ViewModelType {
         )
         
         return .init(
-            upperCurrency: upperCurrency,
-            lowerCurrency: lowerCurrency,
+            upperCurrency: upperCurrency.compactMap(\.?.sign),
+            lowerCurrency: lowerCurrency.compactMap(\.?.sign),
             upperFieldValue: upperValue.asDriver(),
             lowerFieldValue: lowerValue.asDriver(),
             isConvertButtonHidden: isButtonHidden,

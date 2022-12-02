@@ -51,13 +51,13 @@ final class MainViewController_Arch: UIViewController, ViewType {
         
         viewModel.upperCurrency
             .drive(Binder(upperTextField) {
-                $0.configureLabel(currency: $1?.sign ?? .empty)
+                $0.configureLabel(currency: $1)
             })
             .disposed(by: disposeBag)
         
         viewModel.lowerCurrency
             .drive(Binder(lowerTextField) {
-                $0.configureLabel(currency: $1?.sign ?? .empty)
+                $0.configureLabel(currency: $1)
             })
             .disposed(by: disposeBag)
         
