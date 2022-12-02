@@ -88,11 +88,17 @@ extension MainViewModel_Arch: ViewModelType {
         // MARK: - Convert button visiability
         /// should be hidden if there ain't value and chosen currencies on the screen
         let isButtonHidden = Driver.combineLatest(
-            lastResponder.asDriver(onErrorDriveWith: .empty()),
-            upperCurrency.asDriver(),
-            lowerCurrency.asDriver())
+            lastResponder
+                .asDriver(onErrorDriveWith: .empty()),
+            upperCurrency
+                .asDriver(),
+            lowerCurrency
+                .asDriver()
+        )
             .flatMapLatest {
-                let value: BehaviorRelay<Bool> = .init(value: $0.1 != nil && $0.2 != nil)
+                let value: BehaviorRelay<Bool> = .init(
+                    value: $0.1 != nil && $0.2 != nil
+                )
                 return value.asDriver()
             }
         
@@ -102,15 +108,21 @@ extension MainViewModel_Arch: ViewModelType {
             lastResponder
                 .asDriver(onErrorDriveWith: .empty()),
             /// 2). value from the first text field
-            upperValue.asDriver()
+            upperValue
+                .asDriver()
                 .distinctUntilChanged(),
             /// 3). value from the second text field
-            lowerValue.asDriver()
+            lowerValue
+                .asDriver()
                 .distinctUntilChanged(),
             /// 4). the first currency sign as a `String`
-            upperCurrency.compactMap { $0 }.map(\.sign),
+            upperCurrency
+                .compactMap { $0 }
+                .map(\.sign),
             /// 5). the second currency sign as a `String`
-            lowerCurrency.compactMap { $0 }.map(\.sign)
+            lowerCurrency
+                .compactMap { $0 }
+                .map(\.sign)
         )
         
         
