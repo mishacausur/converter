@@ -125,14 +125,14 @@ extension MainViewModel_Arch: ViewModelType {
                 /// 2). the `from` currency
                 let from = $0.0 == .upper ? $0.4 : $0.3
                 /// 3). the `amount` from last responder (the last text field that has been changed)
-                let amount = $0.0 == .upper ? $0.1 : $0.2
+                let amount = Int($0.0 == .upper ? $0.1 : $0.2) ?? 0
                 
                 return dependency
                     .networkService
                     .convertCurrencies(
                         to: from,
                         from: to,
-                        amount: Int(amount) ?? 0
+                        amount: amount
                     )
                     /// notificate the driver for activity loading has started
                     .do(onSubscribe: {
