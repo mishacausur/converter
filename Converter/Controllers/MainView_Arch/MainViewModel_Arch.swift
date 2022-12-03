@@ -69,12 +69,12 @@ extension MainViewModel_Arch: ViewModelType {
         let didEnteredValueDisposable = binding
             .didEnterFieldValue
             .filter { Int($0.1) ?? 0 > 0 }
-            .emit {
-                switch $0.0 {
+            .emit { button, value in
+                switch button {
                 case .upper:
-                    upperValue.accept($0.1)
+                    upperValue.accept(value)
                 case .lower:
-                    lowerValue.accept($0.1)
+                    lowerValue.accept(value)
                 }
             }
         
@@ -82,24 +82,20 @@ extension MainViewModel_Arch: ViewModelType {
         /// (to figure out `to` and `from` variables)
         let lastResponder = binding
             .didEnterFieldValue
-//            .distinctUntilChanged(\.1)
             .map(\.0)
         
         // MARK: - Convert button visiability
         /// should be hidden if there ain't value and chosen currencies on the screen
-        let isButtonHidden = Driver.combineLatest(
-            lastResponder
-                .asDriver(onErrorDriveWith: .empty()),
-            upperCurrency
-                .asDriver(),
-            lowerCurrency
-                .asDriver()
-        )
-            .flatMapLatest {
-                let value: BehaviorRelay<Bool> = .init(
-                    value: $0.1 != nil && $0.2 != nil
-                )
-                return value.asDriver()
+        let isButtonHidden: Driver<Bool> = Driver
+            .combineLatest(
+                lastResponder
+                    .asDriver(onErrorDriveWith: .empty()),
+                upperCurrency
+                    .asDriver(),
+                lowerCurrency
+                    .asDriver()
+            ) { _, upperCurrency, lowerCurrency -> Bool in
+                return upperCurrency != nil && lowerCurrency != nil
             }
         
         // MARK: - ALL OF THE VARIABLES
@@ -131,13 +127,13 @@ extension MainViewModel_Arch: ViewModelType {
             .didTapConvertButton
             .withLatestFrom(values)
         /// unite subscribtions needed
-            .flatMapLatest {
+            .flatMapLatest { button, upperValue, lowerValue, upperCurrency, lowerCurrency in
                 /// 1). the `to` currency
-                let to = $0.0 == .lower ? $0.4 : $0.3
+                let to = button == .lower ? lowerCurrency : upperCurrency
                 /// 2). the `from` currency
-                let from = $0.0 == .upper ? $0.4 : $0.3
+                let from = button == .upper ? lowerCurrency : upperCurrency
                 /// 3). the `amount` from last responder (the last text field that has been changed)
-                let amount = Int($0.0 == .upper ? $0.1 : $0.2) ?? 0
+                let amount = Int(button == .upper ? upperValue : lowerValue) ?? 0
                 
                 return dependency
                     .networkService
@@ -159,13 +155,14 @@ extension MainViewModel_Arch: ViewModelType {
                     .asDriver(onErrorDriveWith: .empty())
             }
         
-        let didGetConvertResponseDisposable = Signal.combineLatest(
-            convertValues
-                .compactMap { String(describing: $0) }
-                .asSignal(onErrorSignalWith: .empty()),
-            lastResponder
-                .asSignal(onErrorSignalWith: .empty())
-        )
+        let didGetConvertResponseDisposable = Signal
+            .combineLatest(
+                convertValues
+                    .compactMap { String(describing: $0) }
+                    .asSignal(onErrorSignalWith: .empty()),
+                lastResponder
+                    .asSignal(onErrorSignalWith: .empty())
+            )
             .emit {
                 switch $1 {
                 case .upper:
@@ -185,7 +182,7 @@ extension MainViewModel_Arch: ViewModelType {
             lowerCurrency: lowerCurrency.compactMap(\.?.sign),
             upperFieldValue: upperValue.asDriver(),
             lowerFieldValue: lowerValue.asDriver(),
-            isConvertButtonHidden: isButtonHidden,
+            isConvertButtonHidden: isButtonHidden.asDriver(),
             isLoading: isLoading.asDriver(),
             disposables: disposables
         )

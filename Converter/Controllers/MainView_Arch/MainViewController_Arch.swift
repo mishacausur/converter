@@ -62,26 +62,16 @@ final class MainViewController_Arch: UIViewController, ViewType {
             .disposed(by: disposeBag)
         
         viewModel.upperFieldValue
-            .drive(Binder(upperTextField) {
-                $0.value = $1
-            })
+            .drive(upperTextField.rx.value)
             .disposed(by: disposeBag)
         
         viewModel.lowerFieldValue
-            .drive(Binder(lowerTextField) {
-                $0.value = $1
-            })
+            .drive(lowerTextField.rx.value)
             .disposed(by: disposeBag)
         
         viewModel.isConvertButtonHidden
             .map(!)
             .drive(button.rx.isHidden)
-            .disposed(by: disposeBag)
-        
-        viewModel.isLoading
-            .drive {
-                print($0)
-            }
             .disposed(by: disposeBag)
         
         viewModel.isLoading
