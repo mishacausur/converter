@@ -83,19 +83,29 @@ extension MainViewModel_Arch: ViewModelType {
         let lastResponder = binding
             .didEnterFieldValue
             .map(\.0)
+            .distinctUntilChanged()
+        
+        
+        let didEnteredNonEmptyValue = Driver
+            .combineLatest(
+                upperValue.asDriver(),
+                lowerValue.asDriver()
+            )
+            .asObservable()
+            .map { !$0.0.isEmpty || !$0.1.isEmpty }
+            .asDriver(onErrorDriveWith: .empty())
         
         // MARK: - Convert button visiability
         /// should be hidden if there ain't value and chosen currencies on the screen
         let isButtonHidden: Driver<Bool> = Driver
             .combineLatest(
-                lastResponder
-                    .asDriver(onErrorDriveWith: .empty()),
+                didEnteredNonEmptyValue,
                 upperCurrency
                     .asDriver(),
                 lowerCurrency
                     .asDriver()
-            ) { _, upperCurrency, lowerCurrency -> Bool in
-                return upperCurrency != nil && lowerCurrency != nil
+            ) { hasValue, upperCurrency, lowerCurrency -> Bool in
+                return upperCurrency != nil && lowerCurrency != nil && hasValue
             }
         
         // MARK: - ALL OF THE VARIABLES

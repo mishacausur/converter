@@ -62,10 +62,18 @@ final class MainViewController_Arch: UIViewController, ViewType {
             .disposed(by: disposeBag)
         
         viewModel.upperFieldValue
+            .throttle(.milliseconds(1000))
+            .filter { [weak lowerTextField] in
+                $0 != lowerTextField?.value
+            }
             .drive(upperTextField.rx.value)
             .disposed(by: disposeBag)
         
         viewModel.lowerFieldValue
+            .throttle(.milliseconds(1000))
+            .filter { [weak upperTextField] in
+                $0 != upperTextField?.value
+            }
             .drive(lowerTextField.rx.value)
             .disposed(by: disposeBag)
         
