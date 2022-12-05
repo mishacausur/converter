@@ -35,7 +35,7 @@ extension MainViewModel_Arch: ViewModelType {
     typealias Router = MainViewRouter
     
     static func configure(input: Inputs, binding: Bindings, dependency: Dependencies, router: Router) -> MainViewModel_Arch {
-        
+        let buttonSubject = BehaviorRelay(value: CurrencyButton.upper)
         let upperValue = BehaviorRelay<String>(value: "")
         let lowerValue = BehaviorRelay<String>(value: "")
         let isLoading = BehaviorRelay<Bool>(value: false)
@@ -84,7 +84,9 @@ extension MainViewModel_Arch: ViewModelType {
             .didEnterFieldValue
             .map(\.0)
             .distinctUntilChanged()
-        
+            .do {
+                buttonSubject.accept($0)
+            }
         
         let didEnteredNonEmptyValue = Driver
             .combineLatest(
@@ -110,22 +112,19 @@ extension MainViewModel_Arch: ViewModelType {
         
         // MARK: - ALL OF THE VARIABLES
         let values = Driver.combineLatest(
-            /// 1). the last changed text field
-            lastResponder
-                .asDriver(onErrorDriveWith: .empty()),
-            /// 2). value from the first text field
+            /// 1). value from the first text field
             upperValue
                 .asDriver()
                 .distinctUntilChanged(),
-            /// 3). value from the second text field
+            /// 2). value from the second text field
             lowerValue
                 .asDriver()
                 .distinctUntilChanged(),
-            /// 4). the first currency sign as a `String`
+            /// 3). the first currency sign as a `String`
             upperCurrency
                 .compactMap { $0 }
                 .map(\.sign),
-            /// 5). the second currency sign as a `String`
+            /// 4). the second currency sign as a `String`
             lowerCurrency
                 .compactMap { $0 }
                 .map(\.sign)
@@ -137,12 +136,13 @@ extension MainViewModel_Arch: ViewModelType {
             .didTapConvertButton
             .withLatestFrom(values)
         /// unite subscribtions needed
-            .flatMapLatest { button, upperValue, lowerValue, upperCurrency, lowerCurrency in
+            .flatMapLatest { upperValue, lowerValue, upperCurrency, lowerCurrency in
                 /// 1). the `to` currency
+                let button = buttonSubject.value
                 let to = button == .lower ? lowerCurrency : upperCurrency
                 /// 2). the `from` currency
                 let from = button == .upper ? lowerCurrency : upperCurrency
-                /// 3). the `amount` from last responder (the last text field that has been changed)
+                /// 3). the `amount` from last responder (the last text field that had been changed)
                 let amount = Int(button == .upper ? upperValue : lowerValue) ?? 0
                 
                 return dependency
@@ -165,16 +165,12 @@ extension MainViewModel_Arch: ViewModelType {
                     .asDriver(onErrorDriveWith: .empty())
             }
         
-        let didGetConvertResponseDisposable = Signal
-            .combineLatest(
-                convertValues
-                    .compactMap { String(describing: $0) }
-                    .asSignal(onErrorSignalWith: .empty()),
-                lastResponder
-                    .asSignal(onErrorSignalWith: .empty())
-            )
+        let didGetConvertResponseDisposable = convertValues
+            .compactMap { String(describing: $0) }
+            .asSignal(onErrorSignalWith: .empty())
             .emit {
-                switch $1 {
+                let button = buttonSubject.value
+                switch button {
                 case .upper:
                     lowerValue.accept($0)
                 case .lower:

@@ -62,18 +62,10 @@ final class MainViewController_Arch: UIViewController, ViewType {
             .disposed(by: disposeBag)
         
         viewModel.upperFieldValue
-            .throttle(.milliseconds(1000))
-            .filter { [weak lowerTextField] in
-                $0 != lowerTextField?.value
-            }
             .drive(upperTextField.rx.value)
             .disposed(by: disposeBag)
         
         viewModel.lowerFieldValue
-            .throttle(.milliseconds(1000))
-            .filter { [weak upperTextField] in
-                $0 != upperTextField?.value
-            }
             .drive(lowerTextField.rx.value)
             .disposed(by: disposeBag)
         
@@ -83,9 +75,7 @@ final class MainViewController_Arch: UIViewController, ViewType {
             .disposed(by: disposeBag)
         
         viewModel.isLoading
-            .drive(Binder(self) {
-                $0.showActivity($1)
-            })
+            .drive(rx.showProgress)
             .disposed(by: disposeBag)
         
         viewModel.disposables
@@ -96,7 +86,11 @@ final class MainViewController_Arch: UIViewController, ViewType {
     private let disposeBag = DisposeBag()
     private let didButtonTapped = PublishRelay<CurrencyButton>()
     private let didEnteredValue = PublishRelay<(CurrencyButton, String)>()
-    
+    private var showProgress: Bool = false {
+        didSet {
+            showActivity(showProgress)
+        }
+    }
     // MARK: - UI
     private let titleLabel = UILabel().configure {
         $0.translatesAutoresizingMaskIntoConstraints = false

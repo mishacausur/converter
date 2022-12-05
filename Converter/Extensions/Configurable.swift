@@ -14,6 +14,8 @@ protocol Configurable {
 extension Configurable where Self: UIView {
     
     @discardableResult
+    @inlinable
+    @inline(__always)
     func configure(_ block: (Self) throws -> Void) rethrows -> Self {
         try block(self)
         return self

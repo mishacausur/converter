@@ -13,6 +13,7 @@ extension String {
     static let currencies = "Currencies"
     static let mainViewTitle = "Converter"
     static let ok = "OK"
+    static let loading = "Loading..."
     
     // MARK: - Services
     static let empty = ""

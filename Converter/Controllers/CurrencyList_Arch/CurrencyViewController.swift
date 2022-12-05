@@ -29,6 +29,11 @@ final class CurrencyViewController: UIViewController, ViewType {
     private let disposeBag = DisposeBag()
     
     /// UI
+    private var showProgress: Bool = false {
+    didSet {
+        showActivity(showProgress)
+    }
+}
     private let activityController = ActivityViewController()
     private let searchController = UISearchController(searchResultsController: nil)
     private var searchBar: UISearchBar { searchController.searchBar }
@@ -40,6 +45,7 @@ final class CurrencyViewController: UIViewController, ViewType {
         title = .currencies
         configure()
         createLayout()
+        view.backgroundColor = .white
         definesPresentationContext = true
     }
     
@@ -53,9 +59,7 @@ final class CurrencyViewController: UIViewController, ViewType {
             .disposed(by: disposeBag)
         
         viewModel.isLoading
-            .drive { [weak self] in
-                self?.showActivity($0)
-            }
+            .drive(rx.showProgress)
             .disposed(by: disposeBag)
         
         viewModel.disposables
@@ -84,5 +88,10 @@ final class CurrencyViewController: UIViewController, ViewType {
     /// Activity Indicator's animating due to loading is in progress
     private func showActivity(_ show: Bool) {
         show ? add(activityController) : activityController.remove()
+        Task {
+           await MainActor.run {
+                tableView.isHidden = show
+            }
+        }
     }
 }
