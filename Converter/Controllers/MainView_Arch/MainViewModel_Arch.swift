@@ -35,7 +35,7 @@ extension MainViewModel_Arch: ViewModelType {
     typealias Router = MainViewRouter
     
     static func configure(input: Inputs, binding: Bindings, dependency: Dependencies, router: Router) -> MainViewModel_Arch {
-        let buttonSubject = BehaviorRelay(value: CurrencyButton.upper)
+        let currentResponder = BehaviorRelay(value: CurrencyButton.upper)
         let upperValue = BehaviorRelay<String>(value: "")
         let lowerValue = BehaviorRelay<String>(value: "")
         let isLoading = BehaviorRelay<Bool>(value: false)
@@ -85,7 +85,7 @@ extension MainViewModel_Arch: ViewModelType {
             .map(\.0)
             .distinctUntilChanged()
             .do {
-                buttonSubject.accept($0)
+                currentResponder.accept($0)
             }
         
         let didEnteredNonEmptyValue = Driver
@@ -138,7 +138,7 @@ extension MainViewModel_Arch: ViewModelType {
         /// unite subscribtions needed
             .flatMapLatest { upperValue, lowerValue, upperCurrency, lowerCurrency in
                 /// 1). the `to` currency
-                let button = buttonSubject.value
+                let button = currentResponder.value
                 let to = button == .lower ? lowerCurrency : upperCurrency
                 /// 2). the `from` currency
                 let from = button == .upper ? lowerCurrency : upperCurrency
@@ -169,7 +169,7 @@ extension MainViewModel_Arch: ViewModelType {
             .compactMap { String(describing: $0) }
             .asSignal(onErrorSignalWith: .empty())
             .emit {
-                let button = buttonSubject.value
+                let button = currentResponder.value
                 switch button {
                 case .upper:
                     lowerValue.accept($0)

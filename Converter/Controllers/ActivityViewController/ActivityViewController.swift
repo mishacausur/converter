@@ -14,7 +14,7 @@ final class ActivityViewController: UIViewController {
         configure()
     }
     
-    @inline(__always) private func configure() {
+    private func configure() {
         
         let effect = UIBlurEffect(style: .dark)
         

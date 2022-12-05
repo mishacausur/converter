@@ -30,10 +30,10 @@ final class CurrencyViewController: UIViewController, ViewType {
     
     /// UI
     private var showProgress: Bool = false {
-    didSet {
-        showActivity(showProgress)
+        didSet {
+            showActivity(showProgress)
+        }
     }
-}
     private let activityController = ActivityViewController()
     private let searchController = UISearchController(searchResultsController: nil)
     private var searchBar: UISearchBar { searchController.searchBar }
@@ -89,7 +89,7 @@ final class CurrencyViewController: UIViewController, ViewType {
     private func showActivity(_ show: Bool) {
         show ? add(activityController) : activityController.remove()
         Task {
-           await MainActor.run {
+            await MainActor.run {
                 tableView.isHidden = show
             }
         }
