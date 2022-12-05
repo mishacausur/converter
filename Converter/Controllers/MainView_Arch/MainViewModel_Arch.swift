@@ -192,7 +192,7 @@ extension MainViewModel_Arch: ViewModelType {
             lowerCurrency: lowerCurrency.compactMap(\.?.sign),
             upperFieldValue: upperValue.asDriver(),
             lowerFieldValue: lowerValue.asDriver(),
-            isConvertButtonHidden: isButtonHidden.asDriver(),
+            isConvertButtonHidden: isButtonHidden,
             isLoading: isLoading.asDriver(),
             disposables: disposables
         )
