@@ -8,22 +8,21 @@
 import UIKit
 import RxCocoa
 import RxSwift
+import PinLayout
 
-final class CurrencyViewController: UIViewController, ViewType {
+final class CurrencyListScreenBuilder: ScreenBuilder {
     
-    typealias ViewModel = CurrencyViewModel
+    typealias VC = CurrencyViewController
     
-    var bindings: ViewModel.Bindings {
-        .init(
-            searchText: searchBar.rx
-                .text
-                .asDriver()
-                .compactMap { $0 },
-            didChosenCurrency: tableView.rx
-                .modelSelected(Currency.self)
-                .asSignal()
-        )
+    var dependencies: CurrencyViewModel.Dependecies {
+        .init(networkService: .init(),
+              cacheService: CacheService.shared)
     }
+}
+
+final class CurrencyViewController: UIViewController {
+    
+    private lazy var ui = createUI()
     
     /// RX
     private let disposeBag = DisposeBag()
@@ -34,26 +33,44 @@ final class CurrencyViewController: UIViewController, ViewType {
             showActivity(showProgress)
         }
     }
-    private let activityController = ActivityViewController()
-    private let searchController = UISearchController(searchResultsController: nil)
-    private var searchBar: UISearchBar { searchController.searchBar }
-    private lazy var tableView = UITableView(frame: .zero, style: .grouped).configure { $0.translatesAutoresizingMaskIntoConstraints = false }
     
     /// LC
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = .currencies
-        configure()
-        createLayout()
-        view.backgroundColor = .white
         definesPresentationContext = true
     }
     
-    /// ViewType
+    override func viewDidLayoutSubviews() {
+        layout()
+    }
+    
+    /// Activity Indicator's animating due to loading is in progress
+    private func showActivity(_ show: Bool) {
+        show ? add(ui.activity) : ui.activity.remove()
+        ui.table.isHidden = show
+    }
+}
+
+extension CurrencyViewController: ViewType {
+    
+    typealias ViewModel = CurrencyViewModel
+    
+    var bindings: ViewModel.Bindings {
+        .init(
+            searchText: ui.searchBar.rx
+                .text
+                .asDriver()
+                .compactMap { $0 },
+            didChosenCurrency: ui.table.rx
+                .modelSelected(Currency.self)
+                .asSignal()
+        )
+    }
+    
     func bind(to viewModel: CurrencyViewModel) {
         
         viewModel.currencies
-            .drive(tableView.rx.items(cellIdentifier: .cellID)) { _, currency, cell in
+            .drive(ui.table.rx.items(cellIdentifier: .cellID)) { _, currency, cell in
                 cell.textLabel?.text = currency.name
             }
             .disposed(by: disposeBag)
@@ -65,29 +82,43 @@ final class CurrencyViewController: UIViewController, ViewType {
         viewModel.disposables
             .disposed(by: disposeBag)
     }
+}
+
+private extension CurrencyViewController {
     
-    private func configure() {
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: .cellID)
-        searchController.obscuresBackgroundDuringPresentation = false
+    struct UI {
+        let table: UITableView
+        let activity: ActivityViewController
+        let searchController: UISearchController
+        let searchBar: UISearchBar
     }
     
-    private func createLayout() {
-        view.addViews(tableView)
+    func createUI() -> UI {
+        title = .currencies
+        view.backgroundColor = .white
         
-        NSLayoutConstraint.activate  {
-            tableView.topAnchor.constraint(equalTo: view.topAnchor)
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        let tableView = UITableView(frame: .zero, style: .grouped).configure { $0.register(UITableViewCell.self, forCellReuseIdentifier: .cellID)
+            view.addSubview($0)
         }
+        
+        let searchController = UISearchController(searchResultsController: nil)
+        
+        var searchBar: UISearchBar { searchController.searchBar }
+        
         searchBar.showsCancelButton = true
-        searchBar.placeholder = "Search for currency"
-        tableView.tableHeaderView = searchController.searchBar
+        searchBar.placeholder = .searchPlaceholder
+        tableView.tableHeaderView = searchBar
+        searchController.obscuresBackgroundDuringPresentation = false
+        
+        return .init(
+            table: tableView,
+            activity: ActivityViewController(),
+            searchController: searchController,
+            searchBar: searchBar
+        )
     }
     
-    /// Activity Indicator's animating due to loading is in progress
-    private func showActivity(_ show: Bool) {
-        show ? add(activityController) : activityController.remove()
-        tableView.isHidden = show
+    func layout() {
+        ui.table.pin.all()
     }
 }

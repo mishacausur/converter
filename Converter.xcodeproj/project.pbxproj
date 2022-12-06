@@ -63,7 +63,6 @@
 		C6884E7E292E386900626270 /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6884E7D292E386900626270 /* ViewModelType.swift */; };
 		C6884E80292E388700626270 /* RouterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6884E7F292E388700626270 /* RouterType.swift */; };
 		C6884E83292E38BC00626270 /* EmptyRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6884E82292E38BC00626270 /* EmptyRouter.swift */; };
-		C6884E86292E470200626270 /* CurrencyListScreenBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6884E85292E470200626270 /* CurrencyListScreenBuilder.swift */; };
 		C6884E89292E69D400626270 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = C6884E88292E69D400626270 /* RxCocoa */; };
 		C6884E8B292E69D400626270 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C6884E8A292E69D400626270 /* RxSwift */; };
 		C6884E8D292E69FE00626270 /* CurrencyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6884E8C292E69FE00626270 /* CurrencyViewController.swift */; };
@@ -129,7 +128,6 @@
 		C6884E7D292E386900626270 /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
 		C6884E7F292E388700626270 /* RouterType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterType.swift; sourceTree = "<group>"; };
 		C6884E82292E38BC00626270 /* EmptyRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyRouter.swift; sourceTree = "<group>"; };
-		C6884E85292E470200626270 /* CurrencyListScreenBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyListScreenBuilder.swift; sourceTree = "<group>"; };
 		C6884E8C292E69FE00626270 /* CurrencyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyViewController.swift; sourceTree = "<group>"; };
 		C6884E8E292E6A3400626270 /* CurrencyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyViewModel.swift; sourceTree = "<group>"; };
 		C6884E94292F779F00626270 /* CurrencyRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyRouter.swift; sourceTree = "<group>"; };
@@ -367,7 +365,6 @@
 		C6884E84292E46D200626270 /* CurrencyList_Arch */ = {
 			isa = PBXGroup;
 			children = (
-				C6884E85292E470200626270 /* CurrencyListScreenBuilder.swift */,
 				C6884E94292F779F00626270 /* CurrencyRouter.swift */,
 				C6884E8C292E69FE00626270 /* CurrencyViewController.swift */,
 				C6884E8E292E6A3400626270 /* CurrencyViewModel.swift */,
@@ -487,7 +484,6 @@
 				B6F67B43290C1D4100CB8263 /* Coordinator.swift in Sources */,
 				B6F67B89290D87E300CB8263 /* NetworkService.swift in Sources */,
 				B6F67B71290C5C5700CB8263 /* Button.swift in Sources */,
-				C6884E86292E470200626270 /* CurrencyListScreenBuilder.swift in Sources */,
 				C6884E7E292E386900626270 /* ViewModelType.swift in Sources */,
 				B6F67B40290C1BAF00CB8263 /* Configurable.swift in Sources */,
 				B6F67B99290ECE8600CB8263 /* Convert.swift in Sources */,
