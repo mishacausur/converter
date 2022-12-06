@@ -5,6 +5,8 @@
 //  Created by Misha Causur on 25.11.2022.
 //
 
+import RxCocoa
+import RxSwift
 import class UIKit.UIViewController
 
 struct MainViewRouter: RouterType {
@@ -15,8 +17,14 @@ struct MainViewRouter: RouterType {
        vc = transitionHandler
     }
     
-    func startCurrencyListFlow(_ currencyDidChosen: @escaping (Currency) -> Void) {
-        let module = ModuleFactory.createCurrencyListModule(currencyDidChosen)
-        vc.navigationController?.pushViewController(module.presentable, animated: true)
+    func startCurrencyListFlow() -> Signal<Currency> {
+        Single.create { observer in
+            let module = ModuleFactory.createCurrencyListModule {
+                observer(.success($0))
+            }
+            vc.navigationController?.pushViewController(module.presentable, animated: true)
+            return Disposables.create()
+        }
+        .asSignal(onErrorSignalWith: .empty())
     }
 }

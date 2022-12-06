@@ -23,12 +23,12 @@ final class MainViewTextField: Viеw {
             .asSignal(onErrorJustReturn: "")
     }
 
-    var value: Double {
+    var value: String {
         get {
-            .zero
+            textField.text ?? ""
         }
         set {
-            setupValueTextField(newValue)
+            textField.text = newValue
         }
     }
     private let textField = UIFactory.createTextField(with: .enterValue)
@@ -59,15 +59,5 @@ final class MainViewTextField: Viеw {
     
     func configureLabel(currency: String) {
         circle.configureLabel(currency)
-    }
-    
-    func setupValueTextField(_ value: Double) {
-        DispatchQueue.main.async { [weak self] in
-            guard !value.isZero else {
-                self?.textField.text = .empty
-                return
-            }
-            self?.textField.text = "\(value)"
-        }
     }
 }

@@ -39,7 +39,6 @@
 		B6F67B85290D868A00CB8263 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B84290D868A00CB8263 /* Currency.swift */; };
 		B6F67B89290D87E300CB8263 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B88290D87E300CB8263 /* NetworkService.swift */; };
 		B6F67B8B290E7FC800CB8263 /* Symbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B8A290E7FC800CB8263 /* Symbol.swift */; };
-		B6F67B8F290E96A600CB8263 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B8E290E96A600CB8263 /* DataManager.swift */; };
 		B6F67B91290EB63D00CB8263 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B90290EB63D00CB8263 /* ActivityViewController.swift */; };
 		B6F67B93290EBE0E00CB8263 /* ViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B92290EBE0E00CB8263 /* ViewControllers.swift */; };
 		B6F67B95290EC83D00CB8263 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F67B94290EC83D00CB8263 /* SceneDelegate.swift */; };
@@ -107,7 +106,6 @@
 		B6F67B84290D868A00CB8263 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		B6F67B88290D87E300CB8263 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		B6F67B8A290E7FC800CB8263 /* Symbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Symbol.swift; sourceTree = "<group>"; };
-		B6F67B8E290E96A600CB8263 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		B6F67B90290EB63D00CB8263 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		B6F67B92290EBE0E00CB8263 /* ViewControllers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllers.swift; sourceTree = "<group>"; };
 		B6F67B94290EC83D00CB8263 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -271,7 +269,6 @@
 			children = (
 				B6F67BA6290ED72100CB8263 /* Locator */,
 				B6F67BAC290EE45D00CB8263 /* CacheService */,
-				B6F67B9A290ECE9D00CB8263 /* DataManager */,
 				B6F67B82290D865700CB8263 /* NetworkService */,
 			);
 			path = Services;
@@ -295,14 +292,6 @@
 				B6F67B8A290E7FC800CB8263 /* Symbol.swift */,
 			);
 			path = DataModels;
-			sourceTree = "<group>";
-		};
-		B6F67B9A290ECE9D00CB8263 /* DataManager */ = {
-			isa = PBXGroup;
-			children = (
-				B6F67B8E290E96A600CB8263 /* DataManager.swift */,
-			);
-			path = DataManager;
 			sourceTree = "<group>";
 		};
 		B6F67BA5290ED6D400CB8263 /* ActivityViewController */ = {
@@ -503,7 +492,6 @@
 				B6F67B40290C1BAF00CB8263 /* Configurable.swift in Sources */,
 				B6F67B99290ECE8600CB8263 /* Convert.swift in Sources */,
 				C64067E82930BE9700CA9F8C /* MainViewRouter.swift in Sources */,
-				B6F67B8F290E96A600CB8263 /* DataManager.swift in Sources */,
 				C64067E62930BE8D00CA9F8C /* MainViewScreenBuilder.swift in Sources */,
 				B6F67BAE290EE46D00CB8263 /* CacheService.swift in Sources */,
 				B6F67B4C290C250200CB8263 /* View.swift in Sources */,

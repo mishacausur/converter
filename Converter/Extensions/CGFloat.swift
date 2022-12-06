@@ -30,4 +30,5 @@ extension CGFloat {
     static let defaultBorderWidth: Self = 0.5
     static let circleRadius: Self = 18
     static let bigCircleRadius: Self = 22
+    static let defaultAlpha = 0.7
 }

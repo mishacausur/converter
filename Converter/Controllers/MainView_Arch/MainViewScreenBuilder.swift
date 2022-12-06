@@ -7,9 +7,8 @@
 
 final class MainViewScreenBuilder: ScreenBuilder {
     
-    var dependencies: MainViewModel_Arch.Dependecies {
-        .init(networkService: .init(),
-              dataManager: .init())
+    var dependencies: MainViewModel_Arch.Dependencies {
+        .init(networkService: .init())
     }
     
     typealias VC = MainViewController_Arch
