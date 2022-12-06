@@ -38,7 +38,6 @@ final class Button: UIButton {
     
     func configure(_ title: String, font: Font) {
         self.font = font
-        translatesAutoresizingMaskIntoConstraints = false
         layer.masksToBounds = true
         layer.cornerRadius = cornerRadius
         backgroundColor = color

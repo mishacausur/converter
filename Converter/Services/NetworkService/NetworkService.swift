@@ -20,7 +20,7 @@ struct NetworkService {
         }
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        request.addValue(Security.apiKey, forHTTPHeaderField: HTTPHeaders.apikey.rawValue)
+        request.addValue(Security.anotherNewApiKey, forHTTPHeaderField: HTTPHeaders.apikey.rawValue)
         let response = URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else {
                 convertHandler?(.failure(.badData))
@@ -44,7 +44,7 @@ struct NetworkService {
         }
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        request.addValue(Security.apiKey, forHTTPHeaderField: HTTPHeaders.apikey.rawValue)
+        request.addValue(Security.anotherNewApiKey, forHTTPHeaderField: HTTPHeaders.apikey.rawValue)
         let response = URLSession.shared.dataTask(with: request) { data, _, _ in
             guard let data = data else {
                 currenciesHandler?(.failure(.badData))

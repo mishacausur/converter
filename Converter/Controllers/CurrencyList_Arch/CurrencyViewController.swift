@@ -42,11 +42,6 @@ final class CurrencyViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         layout()
     }
-    /// Activity Indicator's animating due to loading is in progress
-    private func showActivity(_ show: Bool) {
-        show ? add(ui.activity) : ui.activity.remove()
-        ui.table.isHidden = show
-    }
 }
 
 extension CurrencyViewController: ViewType {
@@ -127,5 +122,12 @@ private extension CurrencyViewController {
     
     func layout() {
         ui.table.pin.all()
+    }
+    
+    private func showActivity(_ show: Bool) {
+        show
+        ? add(ui.activity)
+        : ui.activity.remove()
+        ui.table.isHidden = show
     }
 }

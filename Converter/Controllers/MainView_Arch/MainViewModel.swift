@@ -8,7 +8,7 @@
 import RxCocoa
 import RxSwift
 
-struct MainViewModel_Arch {
+struct MainViewModel {
     let upperCurrency: Driver<String>
     let lowerCurrency: Driver<String>
     let upperFieldValue: Driver<String>
@@ -18,7 +18,7 @@ struct MainViewModel_Arch {
     let disposables: Disposable
 }
 
-extension MainViewModel_Arch: ViewModelType {
+extension MainViewModel: ViewModelType {
     
     typealias Inputs = Void
     
@@ -34,7 +34,7 @@ extension MainViewModel_Arch: ViewModelType {
     
     typealias Router = MainViewRouter
     
-    static func configure(input: Inputs, binding: Bindings, dependency: Dependencies, router: Router) -> MainViewModel_Arch {
+    static func configure(input: Inputs, binding: Bindings, dependency: Dependencies, router: Router) -> MainViewModel {
         let upperValue = BehaviorRelay<String>(value: "")
         let lowerValue = BehaviorRelay<String>(value: "")
         let isLoading = BehaviorRelay<Bool>(value: false)
@@ -81,6 +81,7 @@ extension MainViewModel_Arch: ViewModelType {
         /// (to figure out `to` and `from` variables)
         let lastResponder = binding
             .didEnterFieldValue
+            .filter { !$0.1.isEmpty }
             .map(\.0)
             .distinctUntilChanged()
             .asDriver(onErrorDriveWith: .empty())
@@ -149,18 +150,18 @@ extension MainViewModel_Arch: ViewModelType {
                         from: to,
                         amount: amount
                     )
-                    /// notificate the driver for activity loading has started
+                /// notificate the driver for activity loading has started
                     .do(onSubscribe: {
                         isLoading.accept(true)
-                    /// notificate the driver for activity loding is finished
+                        /// notificate the driver for activity loding is finished
                     }, onDispose: {
                         isLoading.accept(false)
                     })
-                    /// getting the very one value ( result as a `Double`)
-                    .map(\.result)
-                    /// just to make it work
-                    .asDriver(onErrorDriveWith: .empty())
-            }
+                        /// getting the very one value ( result as a `Double`)
+                        .map(\.result)
+                        /// just to make it work
+                        .asDriver(onErrorDriveWith: .empty())
+                        }
         
         let didGetConvertResponseDisposable = convertValues
             .compactMap { String(describing: $0) }

@@ -20,7 +20,6 @@ final class TextField: UITextField {
     }
     
     func configure(_ placeHolder: String) {
-        translatesAutoresizingMaskIntoConstraints = false
         layer.masksToBounds = true
         layer.cornerRadius = cornerRadius
         layer.borderColor = Color.gray.cgColor

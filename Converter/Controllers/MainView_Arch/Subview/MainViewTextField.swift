@@ -6,7 +6,6 @@
 //
 
 import RxCocoa
-import UIKit.NSLayoutConstraint
 
 final class MainViewTextField: Viеw {
     
@@ -20,9 +19,9 @@ final class MainViewTextField: Viеw {
         textField.rx
             .text
             .compactMap { $0 }
-            .asSignal(onErrorJustReturn: "")
+            .asSignal(onErrorJustReturn: .empty)
     }
-
+    
     var value: String {
         get {
             textField.text ?? ""
@@ -31,30 +30,48 @@ final class MainViewTextField: Viеw {
             textField.text = newValue
         }
     }
-    private let textField = UIFactory.createTextField(with: .enterValue)
-    private let circle = CircleLabel().configure { $0.translatesAutoresizingMaskIntoConstraints = false }
-    private let textFieldButton = UIFactory.createButton(with: .chooseCurrency, radius: .smallCornerRadius, font: .small)
+    private let textField = UIFactory
+        .createTextField(with: .enterValue)
+    
+    private let circle = CircleLabel()
+    
+    private let textFieldButton = UIFactory
+        .createButton(
+            with: .chooseCurrency,
+            radius: .smallCornerRadius,
+            font: .small
+        )
     
     override func addViews() {
-        addViews(textField, circle, textFieldButton)
+        addViews(
+            textField,
+            circle,
+            textFieldButton
+        )
     }
     
     override func layout() {
         
-        NSLayoutConstraint.activate  {
-            textField.topAnchor.constraint(equalTo: topAnchor)
-            textField.widthAnchor.constraint(equalToConstant: .defaultWidth - .defaultWidth/3 + .smallInset)
-            textField.heightAnchor.constraint(equalToConstant: .defaultHeight)
-            textField.bottomAnchor.constraint(equalTo: bottomAnchor)
-            textField.leadingAnchor.constraint(equalTo: leadingAnchor)
-            textField.trailingAnchor.constraint(equalTo: textFieldButton.leadingAnchor, constant: .smallInset)
-            circle.leadingAnchor.constraint(equalTo: textField.leadingAnchor)
-            circle.centerYAnchor.constraint(equalTo: textField.centerYAnchor)
-            textFieldButton.trailingAnchor.constraint(equalTo: trailingAnchor)
-            textFieldButton.widthAnchor.constraint(equalToConstant: .defaultWidth/3)
-            textFieldButton.heightAnchor.constraint(equalToConstant: .defaultHeight)
-            textFieldButton.centerYAnchor.constraint(equalTo: textField.centerYAnchor)
-        }
+        textField.pin
+            .top()
+            .bottom()
+            .left()
+            .width(.defaultWidth - .defaultWidth/3 + .smallInset)
+            .height(.defaultHeight)
+        
+        circle.pin
+            .left(of: textField, aligned: .center)
+        
+        textFieldButton.pin
+            .left(to: textField.edge.right)
+            .marginLeft(-.smallInset)
+            .right()
+            .width(.defaultWidth/3)
+            .height(.defaultHeight)
+        
+        pin
+            .height(.defaultHeight)
+            .width(textField.frame.width + textFieldButton.frame.width)
     }
     
     func configureLabel(currency: String) {
