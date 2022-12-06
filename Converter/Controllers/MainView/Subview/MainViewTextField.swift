@@ -9,14 +9,16 @@ import RxCocoa
 
 final class MainViewTextField: Viеw {
     
+    private lazy var ui = createUI()
+    
     var didTapButton: Signal<Void> {
-        textFieldButton.rx
+        ui.button.rx
             .tap
             .asSignal()
     }
     
     var didEnterTextFieldValue: Signal<String> {
-        textField.rx
+        ui.textField.rx
             .text
             .compactMap { $0 }
             .asSignal(onErrorJustReturn: .empty)
@@ -24,46 +26,70 @@ final class MainViewTextField: Viеw {
     
     var value: String {
         get {
-            textField.text ?? .empty
+            ui.textField.text ?? .empty
         }
         set {
-            textField.text = newValue
+            ui.textField.text = newValue
         }
     }
-    private let textField = UIFactory
-        .createTextField(with: .enterValue)
     
-    private let circle = CircleLabel()
+    override func configure() {
+        layoutView()
+    }
     
-    private let textFieldButton = UIFactory
-        .createButton(
-            with: .chooseCurrency,
-            radius: .smallCornerRadius,
-            font: .small
-        )
+    func configureLabel(currency: String) {
+        ui.circle.configureLabel(currency)
+    }
+}
+
+private extension MainViewTextField {
     
-    override func addViews() {
+    struct UI {
+        let textField: TextField
+        let circle: CircleLabel
+        let button: Button
+    }
+    
+    func createUI() -> UI {
+        let textField = UIFactory
+            .createTextField(with: .enterValue)
+        
+        let circle = CircleLabel()
+        
+        let textFieldButton = UIFactory
+            .createButton(
+                with: .chooseCurrency,
+                radius: .smallCornerRadius,
+                font: .small
+            )
+        
         addViews(
             textField,
             circle,
             textFieldButton
         )
+        
+        return .init(
+            textField: textField,
+            circle: circle,
+            button: textFieldButton
+        )
     }
     
-    override func layout() {
+    func layoutView() {
         
-        textField.pin
+        ui.textField.pin
             .top()
             .bottom()
             .left()
             .width(.defaultWidth - .defaultWidth/3 + .smallInset)
             .height(.defaultHeight)
         
-        circle.pin
-            .left(of: textField, aligned: .center)
+        ui.circle.pin
+            .left(of: ui.textField, aligned: .center)
         
-        textFieldButton.pin
-            .left(to: textField.edge.right)
+        ui.button.pin
+            .left(to: ui.textField.edge.right)
             .marginLeft(-.smallInset)
             .right()
             .width(.defaultWidth/3)
@@ -71,10 +97,6 @@ final class MainViewTextField: Viеw {
         
         pin
             .height(.defaultHeight)
-            .width(textField.frame.width + textFieldButton.frame.width)
-    }
-    
-    func configureLabel(currency: String) {
-        circle.configureLabel(currency)
+            .width(ui.textField.frame.width + ui.button.frame.width)
     }
 }

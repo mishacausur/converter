@@ -27,18 +27,7 @@ final class CurrencyViewController: UIViewController {
     private lazy var ui = createUI()
     /// RX
     private let disposeBag = DisposeBag()
-    /// UI
-    private var showProgress: Bool = false {
-        didSet {
-            showActivity(showProgress)
-        }
-    }
     /// LC
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        definesPresentationContext = true
-    }
-    
     override func viewDidLayoutSubviews() {
         layout()
     }
@@ -74,7 +63,7 @@ extension CurrencyViewController: ViewType {
             .disposed(by: disposeBag)
         
         viewModel.isLoading
-            .drive(rx.showProgress)
+            .drive(onNext: showActivity)
             .disposed(by: disposeBag)
         
         viewModel.disposables
@@ -94,7 +83,7 @@ private extension CurrencyViewController {
     func createUI() -> UI {
         title = .currencies
         view.backgroundColor = .white
-        
+        definesPresentationContext = true
         let tableView = UITableView(
             frame: .zero,
             style: .grouped
@@ -105,7 +94,7 @@ private extension CurrencyViewController {
         
         let searchController = UISearchController(searchResultsController: nil)
         
-        var searchBar: UISearchBar { searchController.searchBar }
+        let searchBar = searchController.searchBar
         
         searchBar.showsCancelButton = true
         searchBar.placeholder = .searchPlaceholder
@@ -124,10 +113,8 @@ private extension CurrencyViewController {
         ui.table.pin.all()
     }
     
-    private func showActivity(_ show: Bool) {
-        show
-        ? add(ui.activity)
-        : ui.activity.remove()
+    func showActivity(_ show: Bool) {
+        show ? add(ui.activity) : ui.activity.remove()
         ui.table.isHidden = show
     }
 }

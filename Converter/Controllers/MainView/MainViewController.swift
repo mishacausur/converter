@@ -26,12 +26,7 @@ final class MainViewController: UIViewController {
     private let disposeBag = DisposeBag()
     private let didButtonTapped = PublishRelay<CurrencyButton>()
     private let didEnteredValue = PublishRelay<(CurrencyButton, String)>()
-    private var showProgress: Bool = false {
-        didSet {
-            showActivity(showProgress)
-        }
-    }
-    
+   
     override func viewDidLayoutSubviews() {
         layout()
     }
@@ -102,7 +97,7 @@ extension MainViewController: ViewType {
             .disposed(by: disposeBag)
         
         viewModel.isLoading
-            .drive(rx.showProgress)
+            .drive(onNext: showActivity)
             .disposed(by: disposeBag)
         
         viewModel.disposables
@@ -156,25 +151,24 @@ private extension MainViewController {
             .sizeToFit()
         
         ui.upperTextField.pin
-            .top(to: ui.titleLabel.edge.bottom).marginTop(.titleInset)
+            .below(of: ui.titleLabel).marginTop(.titleInset)
             .hCenter()
             .sizeToFit()
         
         ui.lowerTextField.pin
-            .top(to: ui.upperTextField.edge.bottom).marginTop(.defaultInset)
+            .below(of: ui.upperTextField).marginTop(.defaultInset)
             .hCenter()
             .sizeToFit()
         
         ui.button.pin
-            .topCenter(to: ui.lowerTextField.anchor.bottomCenter)
+            .below(of: ui.lowerTextField)
             .marginTop(.titleInset)
+            .hCenter()
             .width(.defaultWidth)
             .height(.defaultHeight)
     }
     
-    private func showActivity(_ show: Bool) {
-        show
-        ? add(ui.activityController)
-        : ui.activityController.remove()
+    func showActivity(_ show: Bool) {
+        show ? add(ui.activityController) : ui.activityController.remove()
     }
 }
