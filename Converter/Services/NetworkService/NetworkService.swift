@@ -55,7 +55,7 @@ struct NetworkService {
                 currenciesHandler?(.success(mapCurrency(symbol.symbols)))
             } catch(let error) {
                 print(error)
-                print(String(data: data, encoding: .utf8))
+             //   print(String(data: data, encoding: .utf8)) uncomment due to weird behavior while erroring
                 currenciesHandler?(.failure(.badDecode))
             }
         }

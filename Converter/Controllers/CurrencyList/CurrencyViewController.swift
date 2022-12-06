@@ -63,7 +63,9 @@ extension CurrencyViewController: ViewType {
             .disposed(by: disposeBag)
         
         viewModel.isLoading
-            .drive(onNext: showActivity)
+            .drive(Binder(self) {
+                $0.showActivity($1)
+            })
             .disposed(by: disposeBag)
         
         viewModel.disposables

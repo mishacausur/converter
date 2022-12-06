@@ -97,7 +97,9 @@ extension MainViewController: ViewType {
             .disposed(by: disposeBag)
         
         viewModel.isLoading
-            .drive(onNext: showActivity)
+            .drive(Binder(self) {
+                $0.showActivity($1)
+            })
             .disposed(by: disposeBag)
         
         viewModel.disposables
@@ -116,7 +118,6 @@ private extension MainViewController {
     
     func createUI() -> UI {
         view.backgroundColor = .white
-        
         let titleLabel = UILabel()
             .configure {
                 $0.text = .mainViewTitle
