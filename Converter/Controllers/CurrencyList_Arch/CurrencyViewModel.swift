@@ -23,7 +23,7 @@ extension CurrencyViewModel: ViewModelType {
     
     struct Bindings {
         let searchText: Driver<String>
-        let didChosenCurrency: Signal<Currency>
+        let didSelectModel: Signal<Currency>
     }
     
     struct Dependecies {
@@ -70,7 +70,7 @@ extension CurrencyViewModel: ViewModelType {
             }
         
         let choseCurrencyAndDismissDisposable = binding
-            .didChosenCurrency
+            .didSelectModel
             .emit {
                 input.currencyDidChosen($0)
                 router.dismiss()

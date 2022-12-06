@@ -15,25 +15,24 @@ final class CurrencyListScreenBuilder: ScreenBuilder {
     typealias VC = CurrencyViewController
     
     var dependencies: CurrencyViewModel.Dependecies {
-        .init(networkService: .init(),
-              cacheService: CacheService.shared)
+        .init(
+            networkService: .init(),
+            cacheService: .shared
+        )
     }
 }
 
 final class CurrencyViewController: UIViewController {
     
     private lazy var ui = createUI()
-    
     /// RX
     private let disposeBag = DisposeBag()
-    
     /// UI
     private var showProgress: Bool = false {
         didSet {
             showActivity(showProgress)
         }
     }
-    
     /// LC
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +42,6 @@ final class CurrencyViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         layout()
     }
-    
     /// Activity Indicator's animating due to loading is in progress
     private func showActivity(_ show: Bool) {
         show ? add(ui.activity) : ui.activity.remove()
@@ -56,14 +54,19 @@ extension CurrencyViewController: ViewType {
     typealias ViewModel = CurrencyViewModel
     
     var bindings: ViewModel.Bindings {
-        .init(
-            searchText: ui.searchBar.rx
-                .text
-                .asDriver()
-                .compactMap { $0 },
-            didChosenCurrency: ui.table.rx
-                .modelSelected(Currency.self)
-                .asSignal()
+        
+        let searchText = ui.searchBar.rx
+            .text
+            .asDriver()
+            .compactMap { $0 }
+        
+        let didSelectModel = ui.table.rx
+            .modelSelected(Currency.self)
+            .asSignal()
+        
+        return .init(
+            searchText: searchText,
+            didSelectModel: didSelectModel
         )
     }
     
@@ -97,7 +100,11 @@ private extension CurrencyViewController {
         title = .currencies
         view.backgroundColor = .white
         
-        let tableView = UITableView(frame: .zero, style: .grouped).configure { $0.register(UITableViewCell.self, forCellReuseIdentifier: .cellID)
+        let tableView = UITableView(
+            frame: .zero,
+            style: .grouped
+        ).configure {
+            $0.register(UITableViewCell.self, forCellReuseIdentifier: .cellID)
             view.addSubview($0)
         }
         
