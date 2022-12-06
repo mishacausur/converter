@@ -88,10 +88,6 @@ final class CurrencyViewController: UIViewController, ViewType {
     /// Activity Indicator's animating due to loading is in progress
     private func showActivity(_ show: Bool) {
         show ? add(activityController) : activityController.remove()
-        Task {
-            await MainActor.run {
-                tableView.isHidden = show
-            }
-        }
+        tableView.isHidden = show
     }
 }

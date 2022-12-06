@@ -35,7 +35,6 @@ extension MainViewModel_Arch: ViewModelType {
     typealias Router = MainViewRouter
     
     static func configure(input: Inputs, binding: Bindings, dependency: Dependencies, router: Router) -> MainViewModel_Arch {
-        let currentResponder = BehaviorRelay(value: CurrencyButton.upper)
         let upperValue = BehaviorRelay<String>(value: "")
         let lowerValue = BehaviorRelay<String>(value: "")
         let isLoading = BehaviorRelay<Bool>(value: false)
@@ -84,9 +83,7 @@ extension MainViewModel_Arch: ViewModelType {
             .didEnterFieldValue
             .map(\.0)
             .distinctUntilChanged()
-            .do {
-                currentResponder.accept($0)
-            }
+            .asDriver(onErrorDriveWith: .empty())
         
         let didEnteredNonEmptyValue = Driver
             .combineLatest(
@@ -112,6 +109,7 @@ extension MainViewModel_Arch: ViewModelType {
         
         // MARK: - ALL OF THE VARIABLES
         let values = Driver.combineLatest(
+            lastResponder,
             /// 1). value from the first text field
             upperValue
                 .asDriver()
@@ -136,9 +134,8 @@ extension MainViewModel_Arch: ViewModelType {
             .didTapConvertButton
             .withLatestFrom(values)
         /// unite subscribtions needed
-            .flatMapLatest { upperValue, lowerValue, upperCurrency, lowerCurrency in
+            .flatMapLatest { button, upperValue, lowerValue, upperCurrency, lowerCurrency in
                 /// 1). the `to` currency
-                let button = currentResponder.value
                 let to = button == .lower ? lowerCurrency : upperCurrency
                 /// 2). the `from` currency
                 let from = button == .upper ? lowerCurrency : upperCurrency
@@ -167,10 +164,10 @@ extension MainViewModel_Arch: ViewModelType {
         
         let didGetConvertResponseDisposable = convertValues
             .compactMap { String(describing: $0) }
+            .withLatestFrom(lastResponder) { ($0, $1) }
             .asSignal(onErrorSignalWith: .empty())
             .emit {
-                let button = currentResponder.value
-                switch button {
+                switch $1 {
                 case .upper:
                     lowerValue.accept($0)
                 case .lower:
