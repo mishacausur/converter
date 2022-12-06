@@ -118,11 +118,11 @@ private extension MainViewController {
     
     func createUI() -> UI {
         view.backgroundColor = .white
+        
         let titleLabel = UILabel()
             .configure {
                 $0.text = .mainViewTitle
                 $0.font = .systemFont(ofSize: .largeFontSize, weight: .bold)
-                
             }
         let upperTextField = MainViewTextField()
         let lowerTextField = MainViewTextField()
