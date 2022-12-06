@@ -24,7 +24,7 @@ final class MainViewTextField: Viеw {
     
     var value: String {
         get {
-            textField.text ?? ""
+            textField.text ?? .empty
         }
         set {
             textField.text = newValue

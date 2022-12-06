@@ -35,8 +35,8 @@ extension MainViewModel: ViewModelType {
     typealias Router = MainViewRouter
     
     static func configure(input: Inputs, binding: Bindings, dependency: Dependencies, router: Router) -> MainViewModel {
-        let upperValue = BehaviorRelay<String>(value: "")
-        let lowerValue = BehaviorRelay<String>(value: "")
+        let upperValue = BehaviorRelay<String>(value: .empty)
+        let lowerValue = BehaviorRelay<String>(value: .empty)
         let isLoading = BehaviorRelay<Bool>(value: false)
         
         // MARK: - CURRENCIES

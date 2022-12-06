@@ -7,7 +7,7 @@
 
 extension ModuleFactory {
 
-    static func createMainModule_Arch() -> Module<MainViewController> {
+    static func createMainModule() -> Module<MainViewController> {
         
         let builder = MainViewScreenBuilder()
         let vc = builder.build(())

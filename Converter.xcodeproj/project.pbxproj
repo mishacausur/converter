@@ -219,8 +219,8 @@
 			isa = PBXGroup;
 			children = (
 				B6F67BA5290ED6D400CB8263 /* ActivityViewController */,
-				C64067E42930BE7300CA9F8C /* MainView_Arch */,
-				C6884E84292E46D200626270 /* CurrencyList_Arch */,
+				C64067E42930BE7300CA9F8C /* MainView */,
+				C6884E84292E46D200626270 /* CurrencyList */,
 				C6884E81292E38A100626270 /* Types */,
 				C6884E77292E37D000626270 /* Architectures.swift */,
 				C6884E82292E38BC00626270 /* EmptyRouter.swift */,
@@ -336,7 +336,7 @@
 			path = Ancillaries;
 			sourceTree = "<group>";
 		};
-		C64067E42930BE7300CA9F8C /* MainView_Arch */ = {
+		C64067E42930BE7300CA9F8C /* MainView */ = {
 			isa = PBXGroup;
 			children = (
 				B6F67B69290C553300CB8263 /* Subview */,
@@ -345,7 +345,7 @@
 				C64067E92930BEA900CA9F8C /* MainViewController.swift */,
 				C64067EB2930BEB600CA9F8C /* MainViewModel.swift */,
 			);
-			path = MainView_Arch;
+			path = MainView;
 			sourceTree = "<group>";
 		};
 		C6884E81292E38A100626270 /* Types */ = {
@@ -359,7 +359,7 @@
 			path = Types;
 			sourceTree = "<group>";
 		};
-		C6884E84292E46D200626270 /* CurrencyList_Arch */ = {
+		C6884E84292E46D200626270 /* CurrencyList */ = {
 			isa = PBXGroup;
 			children = (
 				C6884E94292F779F00626270 /* CurrencyRouter.swift */,
@@ -367,7 +367,7 @@
 				C6884E8E292E6A3400626270 /* CurrencyViewModel.swift */,
 				B6F67B7F290C710F00CB8263 /* CurrencyListAssembly.swift */,
 			);
-			path = CurrencyList_Arch;
+			path = CurrencyList;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
