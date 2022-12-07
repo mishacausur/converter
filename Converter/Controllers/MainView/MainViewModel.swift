@@ -45,7 +45,7 @@ extension MainViewModel: ViewModelType {
         let upperCurrency = binding
             .didTapButton
             .filter { $0 == .upper }
-            .flatMapFirst { _ in
+            .flatMapLatest { _ in
                 router.startCurrencyListFlow()
             }
             .map(Optional.init)
@@ -56,7 +56,7 @@ extension MainViewModel: ViewModelType {
         let lowerCurrency = binding
             .didTapButton
             .filter { $0 == .lower }
-            .flatMapFirst { _ in
+            .flatMapLatest { _ in
                 router.startCurrencyListFlow()
             }
             .map(Optional.init)
@@ -168,6 +168,7 @@ extension MainViewModel: ViewModelType {
                 .map(\.result)
                 /// just to make it work
                 .asDriver(onErrorDriveWith: .empty())
+                    .debug()
             }
         
         let didGetConvertResponseDisposable = convertValues
