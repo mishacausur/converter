@@ -8,7 +8,7 @@
 import RxCocoa
 import RxSwift
 
-struct MainViewModel_Arch {
+struct MainViewModel {
     let upperCurrency: Driver<String>
     let lowerCurrency: Driver<String>
     let upperFieldValue: Driver<String>
@@ -18,7 +18,7 @@ struct MainViewModel_Arch {
     let disposables: Disposable
 }
 
-extension MainViewModel_Arch: ViewModelType {
+extension MainViewModel: ViewModelType {
     
     typealias Inputs = Void
     
@@ -34,9 +34,9 @@ extension MainViewModel_Arch: ViewModelType {
     
     typealias Router = MainViewRouter
     
-    static func configure(input: Inputs, binding: Bindings, dependency: Dependencies, router: Router) -> MainViewModel_Arch {
-        let upperValue = BehaviorRelay<String>(value: "")
-        let lowerValue = BehaviorRelay<String>(value: "")
+    static func configure(input: Inputs, binding: Bindings, dependency: Dependencies, router: Router) -> MainViewModel {
+        let upperValue = BehaviorRelay<String>(value: .empty)
+        let lowerValue = BehaviorRelay<String>(value: .empty)
         let isLoading = BehaviorRelay<Bool>(value: false)
         
         // MARK: - CURRENCIES
@@ -52,7 +52,7 @@ extension MainViewModel_Arch: ViewModelType {
             .startWith(nil)
             .asDriver(onErrorDriveWith: .empty())
         
-        /// first currency
+        /// second currency
         let lowerCurrency = binding
             .didTapButton
             .filter { $0 == .lower }
@@ -64,10 +64,16 @@ extension MainViewModel_Arch: ViewModelType {
             .asDriver(onErrorDriveWith: .empty())
         
         // MARK: - TEXTFIELD
+        
+        /// checking value
+        let filter: (String) -> (Bool) = {
+            Int($0) ?? 0 > 0
+        }
+        
         /// setup value to the text field due to user has entered it
         let didEnteredValueDisposable = binding
             .didEnterFieldValue
-            .filter { Int($0.1) ?? 0 > 0 }
+            .filter { filter($0.1) }
             .emit { button, value in
                 switch button {
                 case .upper:
@@ -81,6 +87,7 @@ extension MainViewModel_Arch: ViewModelType {
         /// (to figure out `to` and `from` variables)
         let lastResponder = binding
             .didEnterFieldValue
+            .filter { !$0.1.isEmpty }
             .map(\.0)
             .distinctUntilChanged()
             .asDriver(onErrorDriveWith: .empty())
@@ -109,20 +116,21 @@ extension MainViewModel_Arch: ViewModelType {
         
         // MARK: - ALL OF THE VARIABLES
         let values = Driver.combineLatest(
+            /// 1). last text field changed
             lastResponder,
-            /// 1). value from the first text field
+            /// 2). value from the first text field
             upperValue
                 .asDriver()
                 .distinctUntilChanged(),
-            /// 2). value from the second text field
+            /// 3). value from the second text field
             lowerValue
                 .asDriver()
                 .distinctUntilChanged(),
-            /// 3). the first currency sign as a `String`
+            /// 4). the first currency sign as a `String`
             upperCurrency
                 .compactMap { $0 }
                 .map(\.sign),
-            /// 4). the second currency sign as a `String`
+            /// 5). the second currency sign as a `String`
             lowerCurrency
                 .compactMap { $0 }
                 .map(\.sign)
@@ -149,17 +157,17 @@ extension MainViewModel_Arch: ViewModelType {
                         from: to,
                         amount: amount
                     )
-                    /// notificate the driver for activity loading has started
-                    .do(onSubscribe: {
+                /// notificate the driver for activity loading has started
+                .do(onSubscribe: {
                         isLoading.accept(true)
-                    /// notificate the driver for activity loding is finished
+                /// notificate the driver for activity loding is finished
                     }, onDispose: {
                         isLoading.accept(false)
                     })
-                    /// getting the very one value ( result as a `Double`)
-                    .map(\.result)
-                    /// just to make it work
-                    .asDriver(onErrorDriveWith: .empty())
+                /// getting the very one value ( result as a `Double`)
+                .map(\.result)
+                /// just to make it work
+                .asDriver(onErrorDriveWith: .empty())
             }
         
         let didGetConvertResponseDisposable = convertValues

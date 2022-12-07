@@ -14,6 +14,7 @@ extension String {
     static let mainViewTitle = "Converter"
     static let ok = "OK"
     static let loading = "Loading..."
+    static let searchPlaceholder = "Search for currency"
     
     // MARK: - Services
     static let empty = ""

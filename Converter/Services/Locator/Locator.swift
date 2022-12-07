@@ -14,6 +14,6 @@ final class Locator {
     
     init() {
         self.networkService = .init()
-        self.cacheService = CacheService.shared
+        self.cacheService = .shared
     }
 }

@@ -22,8 +22,7 @@ final class Coordinator: Coordinatable {
     }
     
     func start() {
-//        startMainFlow()
-        startMainFlow_Arch()
+        startMainFlow()
     }
     
     func route(_ destination: Route) {
@@ -35,8 +34,8 @@ final class Coordinator: Coordinatable {
         }
     }
     
-    private func startMainFlow_Arch() {
-        let mainModule = ModuleFactory.createMainModule_Arch()
+    private func startMainFlow() {
+        let mainModule = ModuleFactory.createMainModule()
         navigationController.pushViewController(mainModule.presentable, animated: false)
     }
     
