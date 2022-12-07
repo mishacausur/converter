@@ -154,11 +154,13 @@ private extension MainViewController {
         ui.upperTextField.pin
             .below(of: ui.titleLabel).marginTop(.titleInset)
             .hCenter()
+        
             .wrapContent()
         
         ui.lowerTextField.pin
             .below(of: ui.upperTextField).marginTop(.defaultInset)
             .hCenter()
+        
             .wrapContent()
         
         ui.button.pin
