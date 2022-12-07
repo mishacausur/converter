@@ -94,9 +94,5 @@ private extension MainViewTextField {
             .right()
             .width(.defaultWidth/3)
             .height(.defaultHeight)
-        
-        pin
-            .height(.defaultHeight)
-            .width(ui.textField.frame.width + ui.button.frame.width)
     }
 }
